@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>دُرَرُ الضَّادِ</title>
+  <title>دُرَرُ الضَّـادِ | Durar Al-Dhad</title>
   <style>
 
     @font-face {
@@ -26,12 +26,6 @@
       overflow-x: hidden;
     }
 
-    /* ════════════════════════════
-       HEADER
-       Visually: RIGHT = purple #4E3A61 (poem verse side)
-                 LEFT  = green  #4C7142 (plain logo side)
-       In CSS left-to-right: green on left, purple on right
-    ════════════════════════════ */
     header {
       background: linear-gradient(to right, #4E3A61 50%, #4C7142 50%);
       display: flex;
@@ -44,7 +38,6 @@
       height: 140px;
     }
 
-    /* Visually RIGHT in RTL — plain SVG logo — on PURPLE side */
     .header-right {
       flex: 1;
       display: flex;
@@ -58,12 +51,6 @@
       filter: invert(1);
     }
 
-    /* CENTER box — zero margin top/bottom so it fills header height fully
-       Colors SWAPPED vs header:
-         header right=purple → box right side = green
-         header left=green   → box left side  = purple
-       In CSS left-to-right: purple on left, green on right
-    */
     .header-center {
       flex: 0 0 auto;
       display: flex;
@@ -72,12 +59,8 @@
       background: linear-gradient(to right, #4C7142 50%, #4E3A61 50%);
       border-radius: 16px;
       padding: 12px 20px;
-      /* stretch to full header height with no gap */
       margin: 0;
       align-self: stretch;
-      /* override stretch with center alignment for the image */
-      display: flex;
-      align-items: center;
     }
 
     .header-center img {
@@ -86,7 +69,6 @@
       filter: invert(1);
     }
 
-    /* Visually LEFT in RTL — poem verse — on GREEN side */
     .header-left {
       flex: 1;
       display: flex;
@@ -94,7 +76,6 @@
       align-items: center;
     }
 
-    /* Ali Meshref font — LARGE, this is the main font to be big */
     .poem-verse {
       font-family: 'AliMeshref', serif;
       color: #ffffff;
@@ -102,25 +83,20 @@
       line-height: 1.1;
       text-align: right;
       direction: rtl;
+      /* nudge text upward by a few pixels without affecting layout */
+      position: relative;
+      top: -4px;
     }
 
     .poem-verse .green {
       color: #A1B99B;
     }
 
-    /* ════════════════════════════
-       SEPARATOR LINE 1 — between header and nav
-       Gradient: right=purple #3F2D53, left=green #36592D
-       In CSS: left=green, right=purple
-    ════════════════════════════ */
     .separator-top {
       height: 7px;
       background: linear-gradient(to right, #3F3150 40%, #345A2A 60%);
     }
 
-    /* ════════════════════════════
-       NAV BAR — plain flat green, compact
-    ════════════════════════════ */
     nav {
       background-color: #2B4B22;
       display: flex;
@@ -145,13 +121,15 @@
       align-items: center;
     }
 
-    /* Ali Meshref nav text — large */
     .nav-links li a {
       font-family: 'AliMeshref', serif;
       color: #ffffff;
       text-decoration: none;
       font-size: 2.2rem;
       transition: text-decoration 0.15s;
+      /* nudge nav text upward slightly */
+      position: relative;
+      top: -3px;
     }
 
     .nav-links li a:hover {
@@ -160,10 +138,13 @@
 
     .nav-separator {
       color: #c0392b;
-      font-size: 1.3rem;
+      /* match the nav link font size so the dot scales with it */
+      font-size: 2rem;
       line-height: 1;
       padding: 0 8px;
       user-select: none;
+      position: relative;
+      top: -3px;
     }
 
     .social-icons {
@@ -184,25 +165,17 @@
       opacity: 0.75;
     }
 
-    /* Icons sized to match nav text height */
     .social-icons img {
       width: 38px;
       height: 38px;
       filter: invert(1);
     }
 
-    /* ════════════════════════════
-       SEPARATOR LINE 2 — below nav bar
-       Solid dark green #1D341A
-    ════════════════════════════ */
     .separator-bottom {
       height: 7px;
       background-color: #1D341A;
     }
 
-    /* ════════════════════════════
-       MAIN BODY
-    ════════════════════════════ */
     main {
       position: relative;
       min-height: calc(100vh - 220px);
@@ -233,20 +206,17 @@
   <!-- ─── HEADER ─── -->
   <header>
 
-    <!-- Visually RIGHT (RTL) — plain logo — on PURPLE background -->
     <div class="header-right">
       <img src="logo-right.svg" alt="دُرَرُ الضَّادِ" />
     </div>
 
-    <!-- CENTER — rounded box flush to top/bottom, swapped colors, fancy logo -->
     <div class="header-center">
       <img src="logo-center.svg" alt="دُرَرُ الضَّادِ" />
     </div>
 
-    <!-- Visually LEFT (RTL) — poem verse — on GREEN background -->
     <div class="header-left">
       <p class="poem-verse">
-        وَـ أنْبِئْ بِدُرِّـ <span class="green">الضّـــٰادِ </span> فٖي كُلِّ <span class="green">ضَيْهَبِ</span><br>
+        وَـ أنْبِئْ بِدُرِّـ <span class="green">الضّـــٰادِ </span> فٖي كُلِّ <span class="green">ضَ</span>يْهَبِ<br>
         ألا إنَّمَا ذِي هِيَـ  خَــيْـــــرُ المَكَـــاتِبِ
       </p>
     </div>
