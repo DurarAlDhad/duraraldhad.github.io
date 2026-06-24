@@ -28,69 +28,80 @@
 
     /* ════════════════════════════
        HEADER
-       Left half  → #4E3A61 (purple)
-       Right half → #4C7142 (green)
-       Split via gradient at 50%
+       RTL layout:
+         visually RIGHT = start in RTL = poem verse side = PURPLE #4E3A61
+         visually LEFT  = end in RTL   = logo side       = GREEN  #4C7142
+       gradient: to left means left side gets second color
+       In RTL, flex start = right side visually
+       We want: right=purple, left=green
+       So: gradient left-to-right: green on left, purple on right
+       CSS: linear-gradient(to right, #4C7142 50%, #4E3A61 50%)
     ════════════════════════════ */
     header {
-      background: linear-gradient(to left, #4E3A61 50%, #4C7142 50%);
+      background: linear-gradient(to right, #4C7142 50%, #4E3A61 50%);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 40px;
+      /* No top/bottom padding — let content define height */
+      padding: 0 40px;
       direction: rtl;
       position: relative;
       z-index: 2;
-      min-height: 160px;
     }
 
-    /* Right side (RTL = visually right = start): plain logo, on the GREEN half */
+    /* Visually RIGHT in RTL — plain logo — sits on PURPLE half */
     .header-right {
       flex: 1;
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      padding: 24px 0;
     }
 
     .header-right img {
-      height: 130px;
+      height: 160px;
       width: auto;
       filter: invert(1);
     }
 
-    /* Center: rounded box with SWAPPED colors — green bg on purple side, purple bg on green side
-       Since the box straddles the middle, we use a split gradient mirrored from the header */
+    /* CENTER box — colors SWAPPED vs header background:
+       right side of box = green (because header right = purple, swap it)
+       left side of box  = purple (because header left = green, swap it)
+       gradient: to right: purple on left, green on right
+    */
     .header-center {
       flex: 0 0 auto;
       display: flex;
       justify-content: center;
       align-items: center;
-      /* swapped: right half purple, left half green */
-      background: linear-gradient(to left, #4C7142 50%, #4E3A61 50%);
-      border-radius: 18px;
-      padding: 14px 22px;
+      background: linear-gradient(to right, #4E3A61 50%, #4C7142 50%);
+      border-radius: 20px;
+      padding: 18px 26px;
       position: relative;
       z-index: 3;
+      /* Slight vertical overflow to look like it slightly protrudes */
+      margin: 10px 0;
     }
 
     .header-center img {
-      height: 150px;
+      height: 170px;
       width: auto;
       filter: invert(1);
     }
 
-    /* Left side (RTL = visually left = end): poem verse, on the PURPLE half */
+    /* Visually LEFT in RTL — poem verse — sits on GREEN half */
     .header-left {
       flex: 1;
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      padding: 24px 0;
     }
 
     .poem-verse {
       font-family: 'AliMeshref', serif;
       color: #ffffff;
-      font-size: 2rem;
+      font-size: 2.6rem;
       line-height: 1.5;
       text-align: right;
       direction: rtl;
@@ -101,29 +112,25 @@
     }
 
     /* ════════════════════════════
-       TWO SEPARATOR LINES
-       Line 1: gradient #3F2D53 → #36592D  (right to left in RTL = purple to green)
-       Line 2: solid #1D341A
+       SEPARATOR LINE 1
+       Between header and nav
+       Gradient: purple side (#3F2D53) on right, green side (#36592D) on left
+       to right: left=green, right=purple
     ════════════════════════════ */
-    .separator {
-      height: 4px;
-      background: linear-gradient(to left, #3F2D53, #36592D);
-    }
-
-    .separator-dark {
-      height: 3px;
-      background-color: #1D341A;
+    .separator-top {
+      height: 5px;
+      background: linear-gradient(to right, #36592D, #3F2D53);
     }
 
     /* ════════════════════════════
-       NAV BAR — plain, no effects
+       NAV BAR — plain flat green
     ════════════════════════════ */
     nav {
       background-color: #2d5c27;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 40px;
+      padding: 14px 40px;
       direction: rtl;
       position: relative;
       z-index: 2;
@@ -146,7 +153,7 @@
       font-family: 'AliMeshref', serif;
       color: #ffffff;
       text-decoration: none;
-      font-size: 1.5rem;
+      font-size: 2rem;
       transition: text-decoration 0.15s;
     }
 
@@ -156,16 +163,16 @@
 
     .nav-separator {
       color: #c0392b;
-      font-size: 1.3rem;
+      font-size: 1.6rem;
       line-height: 1;
-      padding: 0 8px;
+      padding: 0 10px;
       user-select: none;
     }
 
     .social-icons {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 24px;
       direction: ltr;
     }
 
@@ -177,13 +184,23 @@
     }
 
     .social-icons a:hover {
-      opacity: 0.8;
+      opacity: 0.75;
     }
 
     .social-icons img {
-      width: 26px;
-      height: 26px;
+      width: 36px;
+      height: 36px;
       filter: invert(1);
+    }
+
+    /* ════════════════════════════
+       SEPARATOR LINE 2
+       Below the nav bar
+       Solid dark green #1D341A
+    ════════════════════════════ */
+    .separator-bottom {
+      height: 5px;
+      background-color: #1D341A;
     }
 
     /* ════════════════════════════
@@ -195,17 +212,15 @@
       overflow: hidden;
     }
 
-    /* Full opacity — image already has its own colors baked in */
     .bg-calligraphy {
       position: absolute;
       top: 0;
-      left: 50%;
-      transform: translateX(-65%);
-      width: 62%;
-      max-width: 800px;
+      left: 0;
+      width: 55%;
+      max-width: 700px;
       pointer-events: none;
       user-select: none;
-      opacity: 1;
+      opacity: 0.18;
     }
 
     .main-content {
@@ -221,17 +236,17 @@
   <!-- ─── HEADER ─── -->
   <header>
 
-    <!-- RTL: this is visually on the RIGHT — plain logo — sits on GREEN half -->
+    <!-- Visually RIGHT (RTL flex-start) — plain logo — on PURPLE background -->
     <div class="header-right">
       <img src="logo-right.svg" alt="دُرَرُ الضَّادِ" />
     </div>
 
-    <!-- CENTER: rounded box with swapped colors, fancy logo inside -->
+    <!-- CENTER — rounded box with SWAPPED colors, fancy logo inside -->
     <div class="header-center">
       <img src="logo-center.svg" alt="دُرَرُ الضَّادِ" />
     </div>
 
-    <!-- RTL: this is visually on the LEFT — poem verse — sits on PURPLE half -->
+    <!-- Visually LEFT (RTL flex-end) — poem verse — on GREEN background -->
     <div class="header-left">
       <p class="poem-verse">
         وَـ أنْبِئْ بِدُرِّـ <span class="green">الضّـــٰادِ</span> فٖي كُلِّ <span class="green">ضَيْهَبِ</span><br>
@@ -241,14 +256,11 @@
 
   </header>
 
-  <!-- ─── TWO SEPARATOR LINES ─── -->
-  <div class="separator"></div>
-  <div class="separator-dark"></div>
+  <!-- ─── SEPARATOR LINE 1 (between header and nav) ─── -->
+  <div class="separator-top"></div>
 
   <!-- ─── NAV BAR ─── -->
   <nav>
-
-    <!-- Right: nav links -->
     <ul class="nav-links">
       <li><a href="#">خـــبَـــــرُ دُرَر الضّـــٰادِ</a></li>
       <li><span class="nav-separator">•</span></li>
@@ -257,7 +269,6 @@
       <li><a href="#">كُـــتُبُنا</a></li>
     </ul>
 
-    <!-- Left: social icons -->
     <div class="social-icons">
       <a href="https://www.threads.com/@duraraldhad" target="_blank" rel="noopener" aria-label="Threads">
         <img src="icon-threads.svg" alt="Threads" />
@@ -272,8 +283,10 @@
         <img src="icon-telegram.svg" alt="Telegram" />
       </a>
     </div>
-
   </nav>
+
+  <!-- ─── SEPARATOR LINE 2 (below nav) ─── -->
+  <div class="separator-bottom"></div>
 
   <!-- ─── MAIN BODY ─── -->
   <main>
