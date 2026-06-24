@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دُرَرُ الضَّادِ</title>
+  <style>
+
+    @font-face {
+      font-family: 'AliMeshref';
+      src: url('ali-meshref.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #3b2a4e;
+      font-family: 'AliMeshref', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background-color: #241530;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      direction: rtl;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header-right {
+      flex: 1;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .header-right img {
+      height: 120px;
+      width: auto;
+      filter: invert(1);
+    }
+
+    .header-center {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 32px;
+    }
+
+    .header-center img {
+      height: 140px;
+      width: auto;
+      filter: invert(1);
+    }
+
+    .header-left {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .poem-verse {
+      font-family: 'AliMeshref', serif;
+      color: #ffffff;
+      font-size: 1.45rem;
+      line-height: 1.5;
+      text-align: right;
+      direction: rtl;
+    }
+
+    .poem-verse .green {
+      color: #A1B99B;
+    }
+
+    /* ─── NAV BAR ─── */
+    nav {
+      background-color: #285728;
+      /* thin bright green line on top */
+      border-top: 2px solid #4a8c3f;
+      /* gradient + shadow underneath */
+      box-shadow:
+        0 4px 12px 0 rgba(20, 10, 30, 0.55),
+        inset -60px 0 60px -40px rgba(45, 20, 60, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 40px;
+      direction: rtl;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      direction: rtl;
+    }
+
+    .nav-links li {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      font-family: 'AliMeshref', serif;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.25rem;
+      transition: text-decoration 0.15s;
+    }
+
+    .nav-links li a:hover {
+      text-decoration: underline;
+    }
+
+    .nav-separator {
+      color: #c0392b;
+      font-size: 1.2rem;
+      line-height: 1;
+      padding: 0 6px;
+      user-select: none;
+    }
+
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      direction: ltr;
+    }
+
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      opacity: 0.92;
+      transition: opacity 0.2s;
+    }
+
+    .social-icons a:hover {
+      opacity: 1;
+    }
+
+    .social-icons img {
+      width: 24px;
+      height: 24px;
+      filter: invert(1);
+    }
+
+    /* ─── MAIN BODY ─── */
+    main {
+      position: relative;
+      min-height: calc(100vh - 160px);
+      overflow: hidden;
+    }
+
+    .bg-calligraphy {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-70%);
+      width: 65%;
+      max-width: 780px;
+      opacity: 0.18;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 1;
+      padding: 60px 40px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ─── HEADER ─── -->
+  <header>
+
+    <!-- Right: plain logo -->
+    <div class="header-right">
+      <img src="logo-right.svg" alt="دُرَرُ الضَّادِ" />
+    </div>
+
+    <!-- Center: fancy logo -->
+    <div class="header-center">
+      <img src="logo-center.svg" alt="دُرَرُ الضَّادِ" />
+    </div>
+
+    <!-- Left: poem verse -->
+    <div class="header-left">
+      <p class="poem-verse">
+        وَـ أنْبِئْ بِدُرِّـ  <span class="green">الضّـــٰادِ</span> فٖي كُلِّ <span class="green">ضَيْهَبِ</span><br>
+        ألا إنَّمَا ذِي هِيَـ   خَــيْـــــرُ المَكَـــاتِبِ
+      </p>
+    </div>
+
+  </header>
+
+  <!-- ─── NAV BAR ─── -->
+  <nav>
+
+    <!-- Right: nav links -->
+    <ul class="nav-links">
+      <li><a href="#">خـــبَـــــرُ دُرَر الضّـــٰادِ</a></li>
+      <li><span class="nav-separator">•</span></li>
+      <li><a href="#">رَاسِــلنَا</a></li>
+      <li><span class="nav-separator">•</span></li>
+      <li><a href="#">كُـــتُبُنا</a></li>
+    </ul>
+
+    <!-- Left: social icons -->
+    <div class="social-icons">
+      <a href="https://www.threads.com/@duraraldhad" target="_blank" rel="noopener" aria-label="Threads">
+        <img src="icon-threads.svg" alt="Threads" />
+      </a>
+      <a href="https://x.com/DurarAlDhad" target="_blank" rel="noopener" aria-label="X">
+        <img src="icon-x.svg" alt="X" />
+      </a>
+      <a href="https://instagram.com/DurarAlDhad" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="icon-instagram.svg" alt="Instagram" />
+      </a>
+      <a href="https://t.me/DurarAlDhad" target="_blank" rel="noopener" aria-label="Telegram">
+        <img src="icon-telegram.svg" alt="Telegram" />
+      </a>
+    </div>
+
+  </nav>
+
+  <!-- ─── MAIN BODY ─── -->
+  <main>
+    <img class="bg-calligraphy" src="background.png" alt="" />
+    <div class="main-content">
+      <!-- Future content goes here -->
+    </div>
+  </main>
+
+</body>
+</html>
