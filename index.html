@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jananverse — Power Scaling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --void:#08060f;
+  --deep:#0e0a1a;
+  --card:#160f2a;
+  --card2:#1e1538;
+  --border:rgba(138,97,255,0.18);
+  --border2:rgba(138,97,255,0.35);
+  --purple:#8a61ff;
+  --purple2:#b08aff;
+  --purple3:#6b3fd4;
+  --glow:rgba(138,97,255,0.4);
+  --gold:#f5c842;
+  --red:#ff4f6a;
+  --green:#3dffa0;
+  --text:#ede8ff;
+  --text2:rgba(237,232,255,0.6);
+  --text3:rgba(237,232,255,0.3);
+}
+
+body{
+  background:var(--void);
+  color:var(--text);
+  font-family:'Crimson Pro',serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Starfield background */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(107,63,212,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(138,97,255,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(14,10,26,1) 0%, transparent 100%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.shell{
+  max-width:960px;
+  margin:0 auto;
+  padding:2rem 1.5rem 5rem;
+  position:relative;
+  z-index:1;
+}
+
+/* ── Header ── */
+.site-header{
+  text-align:center;
+  padding:2.5rem 0 2rem;
+  border-bottom:1px solid var(--border);
+  margin-bottom:2.5rem;
+  position:relative;
+}
+.site-header::after{
+  content:'';
+  position:absolute;
+  bottom:-1px;left:50%;transform:translateX(-50%);
+  width:200px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--purple),transparent);
+}
+.site-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(22px,4vw,38px);
+  font-weight:900;
+  letter-spacing:3px;
+  background:linear-gradient(135deg,var(--purple2),var(--gold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+.site-sub{
+  font-size:14px;
+  color:var(--text3);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-family:'Cinzel',serif;
+  font-weight:700;
+}
+
+/* ── Stats bar ── */
+.stats-bar{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:2rem;
+  margin-bottom:2rem;
+  flex-wrap:wrap;
+}
+.stat-item{text-align:center;}
+.stat-num{
+  font-family:'Cinzel',serif;
+  font-size:28px;
+  font-weight:900;
+  line-height:1;
+  margin-bottom:2px;
+}
+.stat-num.correct{color:var(--green);}
+.stat-num.wrong{color:var(--red);}
+.stat-num.streak{color:var(--gold);}
+.stat-label{font-size:11px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;}
+.stat-divider{width:1px;height:40px;background:var(--border2);}
+
+.streak-fire{
+  display:inline-block;
+  animation:flicker 1.2s infinite alternate;
+}
+@keyframes flicker{0%{opacity:1;transform:scale(1);}100%{opacity:0.7;transform:scale(1.1);}}
+
+/* ── Arena ── */
+.arena{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:20px;
+  align-items:stretch;
+  margin-bottom:1.5rem;
+}
+
+.fighter-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+.fighter-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(138,97,255,0.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+.fighter-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--border2);
+  box-shadow:0 12px 40px rgba(138,97,255,0.2);
+}
+.fighter-card.locked{cursor:default;}
+.fighter-card.locked:hover{transform:none;box-shadow:none;}
+.fighter-card.winner{
+  border-color:var(--green) !important;
+  box-shadow:0 0 48px rgba(61,255,160,0.45) !important;
+  animation:winPulse 0.6s ease;
+}
+.fighter-card.loser{
+  border-color:var(--red) !important;
+  box-shadow:0 0 40px rgba(255,79,106,0.35) !important;
+  opacity:0.65;
+}
+.fighter-card.loading-suspense{
+  animation:goldPulse 0.7s ease-in-out infinite alternate;
+}
+.fighter-card.draw-result{
+  border-color:var(--gold) !important;
+  box-shadow:0 0 44px rgba(245,200,66,0.4) !important;
+}
+@keyframes goldPulse{
+  0%{border-color:rgba(245,200,66,0.3);box-shadow:0 0 20px rgba(245,200,66,0.15);}
+  100%{border-color:rgba(245,200,66,0.9);box-shadow:0 0 48px rgba(245,200,66,0.5);}
+}
+
+/* Card name bar */
+.card-name-bar{
+  padding:14px 16px 12px;
+  text-align:center;
+  border-bottom:1px solid var(--border);
+  background:rgba(138,97,255,0.05);
+}
+.card-name-en{
+  font-family:'Cinzel',serif;
+  font-size:clamp(14px,2vw,19px);
+  font-weight:700;
+  color:var(--text);
+  letter-spacing:0.5px;
+  margin-bottom:3px;
+}
+.card-name-ar{
+  font-size:15px;
+  color:var(--text2);
+  direction:rtl;
+  font-style:italic;
+}
+
+/* Card image */
+.card-img-wrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:3/4;
+  background:var(--card2);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  flex:1;
+}
+.card-img-wrap img{width:100%;height:100%;object-fit:cover;}
+.card-img-placeholder{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  color:var(--text3);
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  text-align:center;
+  padding:1rem;
+}
+.card-img-placeholder .placeholder-icon{
+  width:64px;height:64px;
+  border-radius:50%;
+  border:2px dashed var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  opacity:0.4;
+}
+.origin-badge{
+  position:absolute;bottom:10px;left:10px;
+  background:rgba(14,10,26,0.85);
+  border:1px solid var(--border2);
+  color:var(--purple2);
+  font-size:9px;
+  font-family:'Cinzel',serif;
+  letter-spacing:0.5px;
+  padding:3px 9px;
+  border-radius:4px;
+  text-transform:uppercase;
+}
+
+/* Card footer */
+.card-footer{
+  padding:10px 14px;
+  text-align:center;
+  border-top:1px solid var(--border);
+}
+.card-record{font-size:14px;color:var(--text3);}
+
+/* Reveal overlay on card */
+.card-reveal{
+  position:absolute;inset:0;
+  background:rgba(8,6,15,0.85);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:8px;
+  opacity:0;
+  transition:opacity .3s;
+  pointer-events:none;
+}
+.fighter-card:hover .card-reveal{opacity:1;}
+.fighter-card.locked .card-reveal{display:none;}
+.card-reveal-text{
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  color:var(--purple2);
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.card-reveal-icon{font-size:32px;}
+
+/* ── VS column ── */
+.vs-col{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  min-width:60px;
+}
+.vs-circle{
+  width:56px;height:56px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#c0392b,#e74c3c);
+  border:3px solid rgba(255,100,100,0.4);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;
+  font-size:15px;font-weight:700;
+  color:#fff;
+  box-shadow:0 0 20px rgba(255,79,106,0.3);
+}
+
+/* ── Result banner ── */
+.result-banner{
+  border-radius:12px;
+  padding:18px 20px;
+  text-align:center;
+  margin-bottom:1.5rem;
+  font-family:'Cinzel',serif;
+  font-size:clamp(15px,2.2vw,20px);
+  font-weight:700;
+  letter-spacing:0.5px;
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .4s,transform .4s;
+  min-height:64px;
+  display:flex;align-items:center;justify-content:center;
+}
+.result-banner.show{opacity:1;transform:translateY(0);}
+.result-banner.correct{
+  background:rgba(61,255,160,0.08);
+  border:1px solid rgba(61,255,160,0.3);
+  color:var(--green);
+}
+.result-banner.wrong{
+  background:rgba(255,79,106,0.08);
+  border:1px solid rgba(255,79,106,0.3);
+  color:var(--red);
+}
+.result-banner.invalid{
+  background:rgba(138,97,255,0.08);
+  border:1px solid var(--border2);
+  color:var(--purple2);
+}
+
+/* ── Next button ── */
+.next-wrap{
+  text-align:center;
+  margin-bottom:2rem;
+}
+.next-btn{
+  padding:13px 40px;
+  font-family:'Cinzel',serif;
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  border:1px solid var(--purple);
+  border-radius:8px;
+  background:transparent;
+  color:var(--purple2);
+  cursor:pointer;
+  transition:all .2s;
+  opacity:0;
+  transform:translateY(8px);
+  pointer-events:none;
+}
+.next-btn.show{opacity:1;transform:translateY(0);pointer-events:all;}
+.next-btn:hover{
+  background:rgba(138,97,255,0.12);
+  box-shadow:0 0 20px rgba(138,97,255,0.25);
+  color:var(--text);
+  border-color:var(--purple2);
+}
+
+/* ── History ── */
+.history-section{margin-top:1rem;}
+.history-title{
+  font-family:'Cinzel',serif;
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--text3);
+  margin-bottom:12px;
+  text-align:center;
+}
+.history-list{
+  display:flex;flex-direction:column;gap:6px;
+  max-height:240px;overflow-y:auto;
+  padding-right:4px;
+}
+.history-list::-webkit-scrollbar{width:3px;}
+.history-list::-webkit-scrollbar-track{background:transparent;}
+.history-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+.history-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;
+  border-radius:8px;
+  background:var(--card);
+  border:1px solid var(--border);
+  font-size:15px;
+  animation:slideIn .3s ease;
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:none;}}
+.hi-badge{
+  font-size:10px;
+  font-family:'Cinzel',serif;
+  padding:2px 7px;
+  border-radius:4px;
+  font-weight:700;
+  flex-shrink:0;
+  letter-spacing:0.5px;
+}
+.hi-badge.correct{background:rgba(61,255,160,0.15);color:var(--green);border:1px solid rgba(61,255,160,0.3);}
+.hi-badge.wrong{background:rgba(255,79,106,0.15);color:var(--red);border:1px solid rgba(255,79,106,0.3);}
+.hi-badge.invalid{background:rgba(138,97,255,0.15);color:var(--purple2);border:1px solid var(--border2);}
+.hi-text{color:var(--text2);flex:1;}
+.hi-text strong{color:var(--text);font-weight:600;}
+
+/* ── Loading / thinking ── */
+.thinking{
+  text-align:center;
+  padding:2rem;
+  font-family:'Cinzel',serif;
+  font-size:13px;
+  color:var(--text3);
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.dots span{
+  display:inline-block;
+  animation:blink 1.2s infinite;
+  margin:0 2px;
+  font-size:18px;
+  color:var(--purple);
+}
+.dots span:nth-child(2){animation-delay:.2s;}
+.dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.2;}40%{opacity:1;}}
+
+/* ── No more matchups ── */
+.finished{
+  text-align:center;
+  padding:3rem 1rem;
+  border:1px solid var(--border2);
+  border-radius:16px;
+  background:var(--card);
+}
+.finished h2{
+  font-family:'Cinzel',serif;
+  font-size:24px;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+.finished p{color:var(--text2);font-size:15px;line-height:1.7;margin-bottom:1.5rem;}
+
+/* ── Invalid notice ── */
+.invalid-notice{
+  text-align:center;
+  padding:1.2rem;
+  border:1px solid var(--border2);
+  border-radius:10px;
+  background:rgba(138,97,255,0.05);
+  margin-bottom:1.5rem;
+  font-size:13px;
+  color:var(--text2);
+  font-style:italic;
+  display:none;
+}
+.invalid-notice.show{display:block;}
+.invalid-reason{
+  color:var(--purple2);
+  font-style:normal;
+  font-weight:600;
+  margin-top:4px;
+  font-size:12px;
+}
+
+/* Reset btn */
+.reset-btn{
+  padding:10px 28px;
+  font-family:'Cinzel',serif;
+  font-size:12px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  border:1px solid var(--border2);
+  border-radius:6px;
+  background:transparent;
+  color:var(--text2);
+  cursor:pointer;
+  transition:all .2s;
+}
+.reset-btn:hover{background:var(--card2);color:var(--text);}
+
+@media(max-width:600px){
+  .arena{grid-template-columns:1fr auto 1fr;gap:10px;}
+  .vs-circle{width:40px;height:40px;font-size:11px;}
+  .card-name-en{font-size:11px;}
+  .stats-bar{gap:1rem;}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="site-header">
+    <div class="site-title">Jananverse</div>
+    <div class="site-sub">Power Scaling Arena</div>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num correct" id="stat-correct">0</div>
+      <div class="stat-label">Correct</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num wrong" id="stat-wrong">0</div>
+      <div class="stat-label">Wrong</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num streak" id="stat-streak">0 <span class="streak-fire">🔥</span></div>
+      <div class="stat-label">Streak</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-remaining" style="color:var(--purple2)">0</div>
+      <div class="stat-label">Remaining</div>
+    </div>
+  </div>
+
+  <div id="game-area">
+    <div class="arena" id="arena">
+      <div class="fighter-card" id="card-left" onclick="pick('left')">
+        <div class="card-name-bar">
+          <div class="card-name-en" id="left-en">—</div>
+          <div class="card-name-ar" id="left-ar"></div>
+        </div>
+        <div class="card-img-wrap" id="left-img">
+          <div class="card-img-placeholder">
+            <div class="placeholder-icon">👤</div>
+            <span>Image coming soon</span>
+          </div>
+          <div class="origin-badge" id="left-origin">Jananverse</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-record" id="left-record"></div>
+        </div>
+        <div class="card-reveal">
+          <div class="card-reveal-icon">⚔️</div>
+          <div class="card-reveal-text">Pick as winner</div>
+        </div>
+      </div>
+
+      <div class="vs-col">
+        <div class="vs-circle">VS</div>
+      </div>
+
+      <div class="fighter-card" id="card-right" onclick="pick('right')">
+        <div class="card-name-bar">
+          <div class="card-name-en" id="right-en">—</div>
+          <div class="card-name-ar" id="right-ar"></div>
+        </div>
+        <div class="card-img-wrap" id="right-img">
+          <div class="card-img-placeholder">
+            <div class="placeholder-icon">👤</div>
+            <span>Image coming soon</span>
+          </div>
+          <div class="origin-badge" id="right-origin">Jananverse</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-record" id="right-record"></div>
+        </div>
+        <div class="card-reveal">
+          <div class="card-reveal-icon">⚔️</div>
+          <div class="card-reveal-text">Pick as winner</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="invalid-notice" id="invalid-notice">
+      ⚠ This matchup is marked as invalid.
+      <div class="invalid-reason" id="invalid-reason"></div>
+    </div>
+
+    <div class="result-banner" id="result-banner"></div>
+
+    <div class="next-wrap">
+      <button class="next-btn" id="next-btn" onclick="nextMatchup()">Next Matchup →</button>
+    </div>
+  </div>
+
+  <div id="finished-area" style="display:none" class="finished">
+    <h2>🏆 All Done!</h2>
+    <p>You've gone through every matchup in the Jananverse.<br>What a journey.</p>
+    <button class="reset-btn" onclick="resetGame()">Play Again</button>
+  </div>
+
+  <div class="history-section" id="history-section" style="display:none">
+    <div class="history-title">Recent Matchups</div>
+    <div class="history-list" id="history-list"></div>
+  </div>
+
+</div>
+
+<script>
+// ── Full matchup data from your txt file ──
+const CHARS = {
+  "Imam Kantari":            {ar:"الإمام الكنتري",            img:"https://i.imgur.com/njJF1I5.jpeg"},
+  "Angry Imam Kantari":      {ar:"الإمام الكنتري الجازع",    img:"https://i.imgur.com/GdV2grw.png"},
+  "Regular Kantari":         {ar:"كنترٌ",                    img:"https://i.imgur.com/D1TMFRk.jpeg"},
+  "The Heart":               {ar:"الجَنان",                  img:"https://i.imgur.com/MNtjihd.png"},
+  "Ibn Abi Hussein":         {ar:"ابن أبي حسين",             img:"https://i.imgur.com/DsndNXU.png"},
+  "Sunheartist":             {ar:"عبد الجنان",               img:""},
+  "Skeleton":                {ar:"مستكلن",                   img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy3bH0ppCxivF-e78ueSzRCBQZ6DvdCFoOfg&s"},
+  "Mujawlin":                {ar:"المجَولِن",                img:"https://i.imgur.com/qYgU2FL.png"},
+  "Abu Bakr Al-Mutyyarchi":  {ar:"أبو بكر المطيّرجي",       img:"https://i.imgur.com/ldxqSV2.jpeg"},
+  "Sayyid Muhammad":         {ar:"السيد محمد",               img:"https://i.imgur.com/FoGeBqm.jpeg"},
+  "Imam Mustaklin":          {ar:"الإمام المستكلن",          img:"https://i.imgur.com/9eLaQYj.jpeg"},
+  "Abu Qassam Ad-Duhqani":   {ar:"أبو قسام الدهقاني",       img:"", emoji:"🟡"},
+  "Emperor Siri":            {ar:"الملك السيري",             img:"", emoji:"🔱"},
+  "Abu Qutadah Al-Ghaltadi": {ar:"أبو قتادة الغلتدي",       img:"https://i.imgur.com/QwvsPQJ.jpeg"},
+  "Abu Dawood Al-Mandawy":   {ar:"أبو داود المندوي",        img:"", emoji:"👳🏻‍♂️"},
+  "Imam Kababi":             {ar:"الإمام الكبابي",           img:"https://i.imgur.com/o07c6ln.png"},
+  "Regular Kababi":          {ar:"كبابيّ",                   img:"https://i.imgur.com/mVhdfYH.png"},
+  "Ni'mahh Al-Mal'un":       {ar:"نعمه الملعون",             img:"", emoji:"👨🏽"},
+  "Kabbudi":                 {ar:"كبّودي",                   img:"", emoji:"👦🏽"},
+  "Rasul Imam":              {ar:"رسول الإمام",              img:"https://i.imgur.com/LxmGbtR.png"},
+  "Ibn Abi Haytham As-Sufi": {ar:"ابن أبي هيثم السوفيّ",    img:"", emoji:"⚔️"},
+  "Imam Qundari":            {ar:"الإمام القندري",           img:"", emoji:"🤪"},
+  "Abu Talibain At-Tawrabi": {ar:"أبو طالبين التوربي",      img:"https://i.imgur.com/4vkoR76.png"},
+  "Regular Tawrabi":         {ar:"متورِب",                   img:"https://i.imgur.com/6Pi0Npt.png"},
+  "Imam Dhadi":              {ar:"الإمام الضادي",            img:"https://i.imgur.com/C8dXAyH.jpeg"},
+  "Ajrab King Tecno":        {ar:"الملك تقنان العجربي",      img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH58H3a2WILD8vuWBJYa85sfxLJlM7hA6alA&s"},
+  "Mubarwel King Vikram":    {ar:"الملك بِقْرام البرولي",    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp9y-JpFWsWOTlDBvMSgqFRKth8ez5r-BDNA&s"},
+  "Regular Mubarwel":        {ar:"مُبروِل",                  img:"https://i.imgur.com/IXkAkwc.png"},
+  "Alkabus":                 {ar:"العَلكَبُوس",              img:"https://i.imgur.com/zAe6sFW.png"},
+  "Dindas":                  {ar:"الدِّنداس",                img:"https://i.imgur.com/V9eINmJ.png"},
+  "Angry Old Kantari Man":   {ar:"شيخ كنتر مغتاظ",          img:"https://i.imgur.com/V2MOHCf.jpeg"},
+  "Barefoot Bald Old Man":   {ar:"شيخ أصلع حافٍ",           img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjbzZvgYOtwcKXKCgh6l1BovRaewkZ-RJawA&s"},
+  "Regular Human":           {ar:"إنسان",                    img:"https://dfjx2uxqg3cgi.cloudfront.net/img/photo/185677/185677_00_2x.jpg?20190905023223"},
+  "Regular Jananite":        {ar:"جنانيّ",                   img:"https://i.pinimg.com/736x/d8/0b/eb/d80beba42c5b2afd1b99ff0deacac6b1.jpg"},
+  "Questioners":             {ar:"السّائلون",                img:"https://i.imgur.com/HEAhnax.jpeg"},
+  "Water of Salt and Vinegar":{ar:"ماء مَقر",               img:"https://thumbs.dreamstime.com/b/transparent-glass-measuring-cup-filled-water-featuring-red-measurement-transparent-glass-measuring-cup-filled-water-409055581.jpg"},
+  "Dr. Qawlayeh":            {ar:"العلّامة قولويه",          img:"https://i.imgur.com/BzkXda2.png"},
+};
+
+// Full matchup results parsed from txt
+const MATCHUPS = [
+  // [A, B, result] where result: "A"=A wins, "B"=B wins, "draw"=draw, "invalid:reason"
+  ["Imam Kantari","Regular Kantari","A"],
+  ["Imam Kantari","The Heart","B"],
+  ["Imam Kantari","Ibn Abi Hussein","A"],
+  ["Imam Kantari","Sunheartist","A"],
+  ["Imam Kantari","Skeleton","A"],
+  ["Imam Kantari","Mujawlin","A"],
+  ["Imam Kantari","Abu Bakr Al-Mutyyarchi","A"],
+  ["Imam Kantari","Sayyid Muhammad","A"],
+  ["Imam Kantari","Imam Mustaklin","A"],
+  ["Imam Kantari","Abu Qassam Ad-Duhqani","A"],
+  ["Imam Kantari","Emperor Siri","draw"],
+  ["Imam Kantari","Abu Qutadah Al-Ghaltadi","A"],
+  ["Imam Kantari","Abu Dawood Al-Mandawy","A"],
+  ["Imam Kantari","Imam Kababi","A"],
+  ["Imam Kantari","Regular Kababi","A"],
+  ["Imam Kantari","Ni'mahh Al-Mal'un","A"],
+  ["Imam Kantari","Kabbudi","A"],
+  ["Imam Kantari","Rasul Imam","invalid:لأن الإمام الكنتري لا يضير رسوله."],
+  ["Imam Kantari","Ibn Abi Haytham As-Sufi","A"],
+  ["Imam Kantari","Imam Qundari","A"],
+  ["Imam Kantari","Abu Talibain At-Tawrabi","A"],
+  ["Imam Kantari","Regular Tawrabi","A"],
+  ["Imam Kantari","Imam Dhadi","A"],
+  ["Imam Kantari","Ajrab King Tecno","A"],
+  ["Imam Kantari","Mubarwel King Vikram","A"],
+  ["Imam Kantari","Regular Mubarwel","A"],
+  ["Imam Kantari","Alkabus","A"],
+  ["Imam Kantari","Dindas","A"],
+  ["Imam Kantari","Angry Old Kantari Man","invalid:لأنه لا يجرؤ على سب الإمام الكنتري."],
+  ["Imam Kantari","Barefoot Bald Old Man","A"],
+  ["Imam Kantari","Regular Human","A"],
+  ["Imam Kantari","Regular Jananite","A"],
+  ["Imam Kantari","Questioners","B"],
+  ["Imam Kantari","Water of Salt and Vinegar","A"],
+  ["Imam Kantari","Dr. Qawlayeh","A"],
+  ["Angry Imam Kantari","Regular Kantari","A"],
+  ["Angry Imam Kantari","The Heart","B"],
+  ["Angry Imam Kantari","Ibn Abi Hussein","A"],
+  ["Angry Imam Kantari","Sunheartist","A"],
+  ["Angry Imam Kantari","Skeleton","A"],
+  ["Angry Imam Kantari","Mujawlin","A"],
+  ["Angry Imam Kantari","Abu Bakr Al-Mutyyarchi","A"],
+  ["Angry Imam Kantari","Sayyid Muhammad","A"],
+  ["Angry Imam Kantari","Imam Mustaklin","A"],
+  ["Angry Imam Kantari","Abu Qassam Ad-Duhqani","A"],
+  ["Angry Imam Kantari","Emperor Siri","A"],
+  ["Angry Imam Kantari","Abu Qutadah Al-Ghaltadi","A"],
+  ["Angry Imam Kantari","Abu Dawood Al-Mandawy","A"],
+  ["Angry Imam Kantari","Imam Kababi","A"],
+  ["Angry Imam Kantari","Regular Kababi","A"],
+  ["Angry Imam Kantari","Ni'mahh Al-Mal'un","A"],
+  ["Angry Imam Kantari","Kabbudi","A"],
+  ["Angry Imam Kantari","Rasul Imam","A"],
+  ["Angry Imam Kantari","Ibn Abi Haytham As-Sufi","A"],
+  ["Angry Imam Kantari","Imam Qundari","A"],
+  ["Angry Imam Kantari","Abu Talibain At-Tawrabi","A"],
+  ["Angry Imam Kantari","Regular Tawrabi","A"],
+  ["Angry Imam Kantari","Imam Dhadi","A"],
+  ["Angry Imam Kantari","Ajrab King Tecno","A"],
+  ["Angry Imam Kantari","Mubarwel King Vikram","A"],
+  ["Angry Imam Kantari","Regular Mubarwel","A"],
+  ["Angry Imam Kantari","Alkabus","A"],
+  ["Angry Imam Kantari","Dindas","A"],
+  ["Angry Imam Kantari","Angry Old Kantari Man","A"],
+  ["Angry Imam Kantari","Barefoot Bald Old Man","A"],
+  ["Angry Imam Kantari","Regular Human","A"],
+  ["Angry Imam Kantari","Regular Jananite","A"],
+  ["Angry Imam Kantari","Questioners","A"],
+  ["Angry Imam Kantari","Water of Salt and Vinegar","A"],
+  ["Angry Imam Kantari","Dr. Qawlayeh","A"],
+  ["Regular Kantari","The Heart","B"],
+  ["Regular Kantari","Ibn Abi Hussein","B"],
+  ["Regular Kantari","Sunheartist","A"],
+  ["Regular Kantari","Skeleton","A"],
+  ["Regular Kantari","Mujawlin","B"],
+  ["Regular Kantari","Abu Bakr Al-Mutyyarchi","B"],
+  ["Regular Kantari","Sayyid Muhammad","B"],
+  ["Regular Kantari","Imam Mustaklin","B"],
+  ["Regular Kantari","Abu Qassam Ad-Duhqani","B"],
+  ["Regular Kantari","Emperor Siri","B"],
+  ["Regular Kantari","Abu Qutadah Al-Ghaltadi","A"],
+  ["Regular Kantari","Abu Dawood Al-Mandawy","B"],
+  ["Regular Kantari","Imam Kababi","B"],
+  ["Regular Kantari","Regular Kababi","draw"],
+  ["Regular Kantari","Ni'mahh Al-Mal'un","draw"],
+  ["Regular Kantari","Kabbudi","A"],
+  ["Regular Kantari","Rasul Imam","draw"],
+  ["Regular Kantari","Ibn Abi Haytham As-Sufi","B"],
+  ["Regular Kantari","Imam Qundari","A"],
+  ["Regular Kantari","Abu Talibain At-Tawrabi","B"],
+  ["Regular Kantari","Regular Tawrabi","B"],
+  ["Regular Kantari","Imam Dhadi","B"],
+  ["Regular Kantari","Ajrab King Tecno","B"],
+  ["Regular Kantari","Mubarwel King Vikram","B"],
+  ["Regular Kantari","Regular Mubarwel","A"],
+  ["Regular Kantari","Alkabus","A"],
+  ["Regular Kantari","Dindas","B"],
+  ["Regular Kantari","Angry Old Kantari Man","B"],
+  ["Regular Kantari","Barefoot Bald Old Man","A"],
+  ["Regular Kantari","Regular Human","A"],
+  ["Regular Kantari","Regular Jananite","draw"],
+  ["Regular Kantari","Questioners","B"],
+  ["Regular Kantari","Water of Salt and Vinegar","A"],
+  ["Regular Kantari","Dr. Qawlayeh","B"],
+  ["The Heart","Ibn Abi Hussein","A"],
+  ["The Heart","Sunheartist","A"],
+  ["The Heart","Skeleton","A"],
+  ["The Heart","Mujawlin","A"],
+  ["The Heart","Abu Bakr Al-Mutyyarchi","A"],
+  ["The Heart","Sayyid Muhammad","A"],
+  ["The Heart","Imam Mustaklin","A"],
+  ["The Heart","Abu Qassam Ad-Duhqani","A"],
+  ["The Heart","Emperor Siri","A"],
+  ["The Heart","Abu Qutadah Al-Ghaltadi","A"],
+  ["The Heart","Abu Dawood Al-Mandawy","A"],
+  ["The Heart","Imam Kababi","A"],
+  ["The Heart","Regular Kababi","A"],
+  ["The Heart","Ni'mahh Al-Mal'un","A"],
+  ["The Heart","Kabbudi","A"],
+  ["The Heart","Rasul Imam","A"],
+  ["The Heart","Ibn Abi Haytham As-Sufi","A"],
+  ["The Heart","Imam Qundari","A"],
+  ["The Heart","Abu Talibain At-Tawrabi","A"],
+  ["The Heart","Regular Tawrabi","A"],
+  ["The Heart","Imam Dhadi","A"],
+  ["The Heart","Ajrab King Tecno","A"],
+  ["The Heart","Mubarwel King Vikram","A"],
+  ["The Heart","Regular Mubarwel","A"],
+  ["The Heart","Alkabus","A"],
+  ["The Heart","Dindas","A"],
+  ["The Heart","Angry Old Kantari Man","A"],
+  ["The Heart","Barefoot Bald Old Man","A"],
+  ["The Heart","Regular Human","A"],
+  ["The Heart","Regular Jananite","A"],
+  ["The Heart","Questioners","draw"],
+  ["The Heart","Water of Salt and Vinegar","A"],
+  ["The Heart","Dr. Qawlayeh","A"],
+  ["Ibn Abi Hussein","Sunheartist","A"],
+  ["Ibn Abi Hussein","Skeleton","A"],
+  ["Ibn Abi Hussein","Mujawlin","B"],
+  ["Ibn Abi Hussein","Abu Bakr Al-Mutyyarchi","B"],
+  ["Ibn Abi Hussein","Sayyid Muhammad","A"],
+  ["Ibn Abi Hussein","Imam Mustaklin","B"],
+  ["Ibn Abi Hussein","Abu Qassam Ad-Duhqani","B"],
+  ["Ibn Abi Hussein","Emperor Siri","B"],
+  ["Ibn Abi Hussein","Abu Qutadah Al-Ghaltadi","A"],
+  ["Ibn Abi Hussein","Abu Dawood Al-Mandawy","B"],
+  ["Ibn Abi Hussein","Imam Kababi","draw"],
+  ["Ibn Abi Hussein","Regular Kababi","A"],
+  ["Ibn Abi Hussein","Ni'mahh Al-Mal'un","A"],
+  ["Ibn Abi Hussein","Kabbudi","A"],
+  ["Ibn Abi Hussein","Rasul Imam","draw"],
+  ["Ibn Abi Hussein","Ibn Abi Haytham As-Sufi","B"],
+  ["Ibn Abi Hussein","Imam Qundari","A"],
+  ["Ibn Abi Hussein","Abu Talibain At-Tawrabi","B"],
+  ["Ibn Abi Hussein","Regular Tawrabi","A"],
+  ["Ibn Abi Hussein","Imam Dhadi","B"],
+  ["Ibn Abi Hussein","Ajrab King Tecno","B"],
+  ["Ibn Abi Hussein","Mubarwel King Vikram","B"],
+  ["Ibn Abi Hussein","Regular Mubarwel","A"],
+  ["Ibn Abi Hussein","Alkabus","A"],
+  ["Ibn Abi Hussein","Dindas","A"],
+  ["Ibn Abi Hussein","Angry Old Kantari Man","B"],
+  ["Ibn Abi Hussein","Barefoot Bald Old Man","A"],
+  ["Ibn Abi Hussein","Regular Human","A"],
+  ["Ibn Abi Hussein","Regular Jananite","A"],
+  ["Ibn Abi Hussein","Questioners","B"],
+  ["Ibn Abi Hussein","Water of Salt and Vinegar","A"],
+  ["Ibn Abi Hussein","Dr. Qawlayeh","draw"],
+  ["Sunheartist","Skeleton","draw"],
+  ["Sunheartist","Mujawlin","B"],
+  ["Sunheartist","Abu Bakr Al-Mutyyarchi","B"],
+  ["Sunheartist","Sayyid Muhammad","B"],
+  ["Sunheartist","Imam Mustaklin","B"],
+  ["Sunheartist","Abu Qassam Ad-Duhqani","B"],
+  ["Sunheartist","Emperor Siri","B"],
+  ["Sunheartist","Abu Qutadah Al-Ghaltadi","A"],
+  ["Sunheartist","Abu Dawood Al-Mandawy","B"],
+  ["Sunheartist","Imam Kababi","B"],
+  ["Sunheartist","Regular Kababi","B"],
+  ["Sunheartist","Ni'mahh Al-Mal'un","B"],
+  ["Sunheartist","Kabbudi","A"],
+  ["Sunheartist","Rasul Imam","draw"],
+  ["Sunheartist","Ibn Abi Haytham As-Sufi","B"],
+  ["Sunheartist","Imam Qundari","A"],
+  ["Sunheartist","Abu Talibain At-Tawrabi","B"],
+  ["Sunheartist","Regular Tawrabi","B"],
+  ["Sunheartist","Imam Dhadi","B"],
+  ["Sunheartist","Ajrab King Tecno","B"],
+  ["Sunheartist","Mubarwel King Vikram","B"],
+  ["Sunheartist","Regular Mubarwel","draw"],
+  ["Sunheartist","Alkabus","A"],
+  ["Sunheartist","Dindas","B"],
+  ["Sunheartist","Angry Old Kantari Man","B"],
+  ["Sunheartist","Barefoot Bald Old Man","A"],
+  ["Sunheartist","Regular Human","A"],
+  ["Sunheartist","Regular Jananite","draw"],
+  ["Sunheartist","Questioners","B"],
+  ["Sunheartist","Water of Salt and Vinegar","A"],
+  ["Sunheartist","Dr. Qawlayeh","B"],
+  ["Skeleton","Mujawlin","B"],
+  ["Skeleton","Abu Bakr Al-Mutyyarchi","B"],
+  ["Skeleton","Sayyid Muhammad","B"],
+  ["Skeleton","Imam Mustaklin","invalid:أخوه؟"],
+  ["Skeleton","Abu Qassam Ad-Duhqani","B"],
+  ["Skeleton","Emperor Siri","B"],
+  ["Skeleton","Abu Qutadah Al-Ghaltadi","A"],
+  ["Skeleton","Abu Dawood Al-Mandawy","B"],
+  ["Skeleton","Imam Kababi","B"],
+  ["Skeleton","Regular Kababi","B"],
+  ["Skeleton","Ni'mahh Al-Mal'un","A"],
+  ["Skeleton","Kabbudi","A"],
+  ["Skeleton","Rasul Imam","draw"],
+  ["Skeleton","Ibn Abi Haytham As-Sufi","B"],
+  ["Skeleton","Imam Qundari","A"],
+  ["Skeleton","Abu Talibain At-Tawrabi","B"],
+  ["Skeleton","Regular Tawrabi","B"],
+  ["Skeleton","Imam Dhadi","B"],
+  ["Skeleton","Ajrab King Tecno","B"],
+  ["Skeleton","Mubarwel King Vikram","B"],
+  ["Skeleton","Regular Mubarwel","B"],
+  ["Skeleton","Alkabus","A"],
+  ["Skeleton","Dindas","A"],
+  ["Skeleton","Angry Old Kantari Man","A"],
+  ["Skeleton","Barefoot Bald Old Man","A"],
+  ["Skeleton","Regular Human","B"],
+  ["Skeleton","Regular Jananite","B"],
+  ["Skeleton","Questioners","B"],
+  ["Skeleton","Water of Salt and Vinegar","A"],
+  ["Skeleton","Dr. Qawlayeh","B"],
+  ["Mujawlin","Abu Bakr Al-Mutyyarchi","A"],
+  ["Mujawlin","Sayyid Muhammad","A"],
+  ["Mujawlin","Imam Mustaklin","B"],
+  ["Mujawlin","Abu Qassam Ad-Duhqani","B"],
+  ["Mujawlin","Emperor Siri","B"],
+  ["Mujawlin","Abu Qutadah Al-Ghaltadi","A"],
+  ["Mujawlin","Abu Dawood Al-Mandawy","A"],
+  ["Mujawlin","Imam Kababi","A"],
+  ["Mujawlin","Regular Kababi","A"],
+  ["Mujawlin","Ni'mahh Al-Mal'un","A"],
+  ["Mujawlin","Kabbudi","A"],
+  ["Mujawlin","Rasul Imam","draw"],
+  ["Mujawlin","Ibn Abi Haytham As-Sufi","B"],
+  ["Mujawlin","Imam Qundari","A"],
+  ["Mujawlin","Abu Talibain At-Tawrabi","B"],
+  ["Mujawlin","Regular Tawrabi","A"],
+  ["Mujawlin","Imam Dhadi","draw"],
+  ["Mujawlin","Ajrab King Tecno","B"],
+  ["Mujawlin","Mubarwel King Vikram","B"],
+  ["Mujawlin","Regular Mubarwel","A"],
+  ["Mujawlin","Alkabus","A"],
+  ["Mujawlin","Dindas","A"],
+  ["Mujawlin","Angry Old Kantari Man","B"],
+  ["Mujawlin","Barefoot Bald Old Man","A"],
+  ["Mujawlin","Regular Human","A"],
+  ["Mujawlin","Regular Jananite","A"],
+  ["Mujawlin","Questioners","B"],
+  ["Mujawlin","Water of Salt and Vinegar","A"],
+  ["Mujawlin","Dr. Qawlayeh","A"],
+  ["Abu Bakr Al-Mutyyarchi","Sayyid Muhammad","A"],
+  ["Abu Bakr Al-Mutyyarchi","Imam Mustaklin","B"],
+  ["Abu Bakr Al-Mutyyarchi","Abu Qassam Ad-Duhqani","B"],
+  ["Abu Bakr Al-Mutyyarchi","Emperor Siri","B"],
+  ["Abu Bakr Al-Mutyyarchi","Abu Qutadah Al-Ghaltadi","A"],
+  ["Abu Bakr Al-Mutyyarchi","Abu Dawood Al-Mandawy","A"],
+  ["Abu Bakr Al-Mutyyarchi","Imam Kababi","draw"],
+  ["Abu Bakr Al-Mutyyarchi","Regular Kababi","A"],
+  ["Abu Bakr Al-Mutyyarchi","Ni'mahh Al-Mal'un","A"],
+  ["Abu Bakr Al-Mutyyarchi","Kabbudi","A"],
+  ["Abu Bakr Al-Mutyyarchi","Rasul Imam","B"],
+  ["Abu Bakr Al-Mutyyarchi","Ibn Abi Haytham As-Sufi","B"],
+  ["Abu Bakr Al-Mutyyarchi","Imam Qundari","A"],
+  ["Abu Bakr Al-Mutyyarchi","Abu Talibain At-Tawrabi","B"],
+  ["Abu Bakr Al-Mutyyarchi","Regular Tawrabi","draw"],
+  ["Abu Bakr Al-Mutyyarchi","Imam Dhadi","B"],
+  ["Abu Bakr Al-Mutyyarchi","Ajrab King Tecno","B"],
+  ["Abu Bakr Al-Mutyyarchi","Mubarwel King Vikram","B"],
+  ["Abu Bakr Al-Mutyyarchi","Regular Mubarwel","A"],
+  ["Abu Bakr Al-Mutyyarchi","Alkabus","A"],
+  ["Abu Bakr Al-Mutyyarchi","Dindas","A"],
+  ["Abu Bakr Al-Mutyyarchi","Angry Old Kantari Man","A"],
+  ["Abu Bakr Al-Mutyyarchi","Barefoot Bald Old Man","A"],
+  ["Abu Bakr Al-Mutyyarchi","Regular Human","A"],
+  ["Abu Bakr Al-Mutyyarchi","Regular Jananite","A"],
+  ["Abu Bakr Al-Mutyyarchi","Questioners","B"],
+  ["Abu Bakr Al-Mutyyarchi","Water of Salt and Vinegar","A"],
+  ["Abu Bakr Al-Mutyyarchi","Dr. Qawlayeh","A"],
+  ["Sayyid Muhammad","Imam Mustaklin","B"],
+  ["Sayyid Muhammad","Abu Qassam Ad-Duhqani","B"],
+  ["Sayyid Muhammad","Emperor Siri","B"],
+  ["Sayyid Muhammad","Abu Qutadah Al-Ghaltadi","A"],
+  ["Sayyid Muhammad","Abu Dawood Al-Mandawy","B"],
+  ["Sayyid Muhammad","Imam Kababi","B"],
+  ["Sayyid Muhammad","Regular Kababi","A"],
+  ["Sayyid Muhammad","Ni'mahh Al-Mal'un","A"],
+  ["Sayyid Muhammad","Kabbudi","A"],
+  ["Sayyid Muhammad","Rasul Imam","draw"],
+  ["Sayyid Muhammad","Ibn Abi Haytham As-Sufi","B"],
+  ["Sayyid Muhammad","Imam Qundari","A"],
+  ["Sayyid Muhammad","Abu Talibain At-Tawrabi","B"],
+  ["Sayyid Muhammad","Regular Tawrabi","B"],
+  ["Sayyid Muhammad","Imam Dhadi","B"],
+  ["Sayyid Muhammad","Ajrab King Tecno","B"],
+  ["Sayyid Muhammad","Mubarwel King Vikram","B"],
+  ["Sayyid Muhammad","Regular Mubarwel","A"],
+  ["Sayyid Muhammad","Alkabus","A"],
+  ["Sayyid Muhammad","Dindas","B"],
+  ["Sayyid Muhammad","Angry Old Kantari Man","B"],
+  ["Sayyid Muhammad","Barefoot Bald Old Man","A"],
+  ["Sayyid Muhammad","Regular Human","A"],
+  ["Sayyid Muhammad","Regular Jananite","draw"],
+  ["Sayyid Muhammad","Questioners","B"],
+  ["Sayyid Muhammad","Water of Salt and Vinegar","A"],
+  ["Sayyid Muhammad","Dr. Qawlayeh","B"],
+  ["Imam Mustaklin","Abu Qassam Ad-Duhqani","B"],
+  ["Imam Mustaklin","Emperor Siri","B"],
+  ["Imam Mustaklin","Abu Qutadah Al-Ghaltadi","A"],
+  ["Imam Mustaklin","Abu Dawood Al-Mandawy","B"],
+  ["Imam Mustaklin","Imam Kababi","A"],
+  ["Imam Mustaklin","Regular Kababi","A"],
+  ["Imam Mustaklin","Ni'mahh Al-Mal'un","A"],
+  ["Imam Mustaklin","Kabbudi","A"],
+  ["Imam Mustaklin","Rasul Imam","draw"],
+  ["Imam Mustaklin","Ibn Abi Haytham As-Sufi","draw"],
+  ["Imam Mustaklin","Imam Qundari","A"],
+  ["Imam Mustaklin","Abu Talibain At-Tawrabi","B"],
+  ["Imam Mustaklin","Regular Tawrabi","A"],
+  ["Imam Mustaklin","Imam Dhadi","A"],
+  ["Imam Mustaklin","Ajrab King Tecno","B"],
+  ["Imam Mustaklin","Mubarwel King Vikram","B"],
+  ["Imam Mustaklin","Regular Mubarwel","A"],
+  ["Imam Mustaklin","Alkabus","A"],
+  ["Imam Mustaklin","Dindas","A"],
+  ["Imam Mustaklin","Angry Old Kantari Man","B"],
+  ["Imam Mustaklin","Barefoot Bald Old Man","B"],
+  ["Imam Mustaklin","Regular Human","A"],
+  ["Imam Mustaklin","Regular Jananite","A"],
+  ["Imam Mustaklin","Questioners","B"],
+  ["Imam Mustaklin","Water of Salt and Vinegar","A"],
+  ["Imam Mustaklin","Dr. Qawlayeh","A"],
+  ["Abu Qassam Ad-Duhqani","Emperor Siri","B"],
+  ["Abu Qassam Ad-Duhqani","Abu Qutadah Al-Ghaltadi","A"],
+  ["Abu Qassam Ad-Duhqani","Abu Dawood Al-Mandawy","A"],
+  ["Abu Qassam Ad-Duhqani","Imam Kababi","A"],
+  ["Abu Qassam Ad-Duhqani","Regular Kababi","A"],
+  ["Abu Qassam Ad-Duhqani","Ni'mahh Al-Mal'un","A"],
+  ["Abu Qassam Ad-Duhqani","Kabbudi","A"],
+  ["Abu Qassam Ad-Duhqani","Rasul Imam","draw"],
+  ["Abu Qassam Ad-Duhqani","Ibn Abi Haytham As-Sufi","A"],
+  ["Abu Qassam Ad-Duhqani","Imam Qundari","A"],
+  ["Abu Qassam Ad-Duhqani","Abu Talibain At-Tawrabi","B"],
+  ["Abu Qassam Ad-Duhqani","Regular Tawrabi","A"],
+  ["Abu Qassam Ad-Duhqani","Imam Dhadi","A"],
+  ["Abu Qassam Ad-Duhqani","Ajrab King Tecno","draw"],
+  ["Abu Qassam Ad-Duhqani","Mubarwel King Vikram","A"],
+  ["Abu Qassam Ad-Duhqani","Regular Mubarwel","A"],
+  ["Abu Qassam Ad-Duhqani","Alkabus","A"],
+  ["Abu Qassam Ad-Duhqani","Dindas","A"],
+  ["Abu Qassam Ad-Duhqani","Angry Old Kantari Man","B"],
+  ["Abu Qassam Ad-Duhqani","Barefoot Bald Old Man","A"],
+  ["Abu Qassam Ad-Duhqani","Regular Human","A"],
+  ["Abu Qassam Ad-Duhqani","Regular Jananite","A"],
+  ["Abu Qassam Ad-Duhqani","Questioners","B"],
+  ["Abu Qassam Ad-Duhqani","Water of Salt and Vinegar","A"],
+  ["Abu Qassam Ad-Duhqani","Dr. Qawlayeh","A"],
+  ["Emperor Siri","Abu Qutadah Al-Ghaltadi","A"],
+  ["Emperor Siri","Abu Dawood Al-Mandawy","A"],
+  ["Emperor Siri","Imam Kababi","A"],
+  ["Emperor Siri","Regular Kababi","A"],
+  ["Emperor Siri","Ni'mahh Al-Mal'un","A"],
+  ["Emperor Siri","Kabbudi","A"],
+  ["Emperor Siri","Rasul Imam","draw"],
+  ["Emperor Siri","Ibn Abi Haytham As-Sufi","A"],
+  ["Emperor Siri","Imam Qundari","A"],
+  ["Emperor Siri","Abu Talibain At-Tawrabi","draw"],
+  ["Emperor Siri","Regular Tawrabi","A"],
+  ["Emperor Siri","Imam Dhadi","A"],
+  ["Emperor Siri","Ajrab King Tecno","A"],
+  ["Emperor Siri","Mubarwel King Vikram","A"],
+  ["Emperor Siri","Regular Mubarwel","A"],
+  ["Emperor Siri","Alkabus","A"],
+  ["Emperor Siri","Dindas","A"],
+  ["Emperor Siri","Angry Old Kantari Man","B"],
+  ["Emperor Siri","Barefoot Bald Old Man","A"],
+  ["Emperor Siri","Regular Human","A"],
+  ["Emperor Siri","Regular Jananite","A"],
+  ["Emperor Siri","Questioners","B"],
+  ["Emperor Siri","Water of Salt and Vinegar","A"],
+  ["Emperor Siri","Dr. Qawlayeh","A"],
+  ["Abu Qutadah Al-Ghaltadi","Abu Dawood Al-Mandawy","B"],
+  ["Abu Qutadah Al-Ghaltadi","Imam Kababi","B"],
+  ["Abu Qutadah Al-Ghaltadi","Regular Kababi","B"],
+  ["Abu Qutadah Al-Ghaltadi","Ni'mahh Al-Mal'un","B"],
+  ["Abu Qutadah Al-Ghaltadi","Kabbudi","A"],
+  ["Abu Qutadah Al-Ghaltadi","Rasul Imam","draw"],
+  ["Abu Qutadah Al-Ghaltadi","Ibn Abi Haytham As-Sufi","B"],
+  ["Abu Qutadah Al-Ghaltadi","Imam Qundari","B"],
+  ["Abu Qutadah Al-Ghaltadi","Abu Talibain At-Tawrabi","B"],
+  ["Abu Qutadah Al-Ghaltadi","Regular Tawrabi","B"],
+  ["Abu Qutadah Al-Ghaltadi","Imam Dhadi","B"],
+  ["Abu Qutadah Al-Ghaltadi","Ajrab King Tecno","B"],
+  ["Abu Qutadah Al-Ghaltadi","Mubarwel King Vikram","B"],
+  ["Abu Qutadah Al-Ghaltadi","Regular Mubarwel","B"],
+  ["Abu Qutadah Al-Ghaltadi","Alkabus","A"],
+  ["Abu Qutadah Al-Ghaltadi","Dindas","B"],
+  ["Abu Qutadah Al-Ghaltadi","Angry Old Kantari Man","draw"],
+  ["Abu Qutadah Al-Ghaltadi","Barefoot Bald Old Man","draw"],
+  ["Abu Qutadah Al-Ghaltadi","Regular Human","draw"],
+  ["Abu Qutadah Al-Ghaltadi","Regular Jananite","B"],
+  ["Abu Qutadah Al-Ghaltadi","Questioners","B"],
+  ["Abu Qutadah Al-Ghaltadi","Water of Salt and Vinegar","B"],
+  ["Abu Qutadah Al-Ghaltadi","Dr. Qawlayeh","B"],
+  ["Abu Dawood Al-Mandawy","Imam Kababi","draw"],
+  ["Abu Dawood Al-Mandawy","Regular Kababi","A"],
+  ["Abu Dawood Al-Mandawy","Ni'mahh Al-Mal'un","A"],
+  ["Abu Dawood Al-Mandawy","Kabbudi","A"],
+  ["Abu Dawood Al-Mandawy","Rasul Imam","draw"],
+  ["Abu Dawood Al-Mandawy","Ibn Abi Haytham As-Sufi","B"],
+  ["Abu Dawood Al-Mandawy","Imam Qundari","A"],
+  ["Abu Dawood Al-Mandawy","Abu Talibain At-Tawrabi","B"],
+  ["Abu Dawood Al-Mandawy","Regular Tawrabi","draw"],
+  ["Abu Dawood Al-Mandawy","Imam Dhadi","B"],
+  ["Abu Dawood Al-Mandawy","Ajrab King Tecno","B"],
+  ["Abu Dawood Al-Mandawy","Mubarwel King Vikram","B"],
+  ["Abu Dawood Al-Mandawy","Regular Mubarwel","A"],
+  ["Abu Dawood Al-Mandawy","Alkabus","A"],
+  ["Abu Dawood Al-Mandawy","Dindas","draw"],
+  ["Abu Dawood Al-Mandawy","Angry Old Kantari Man","B"],
+  ["Abu Dawood Al-Mandawy","Barefoot Bald Old Man","A"],
+  ["Abu Dawood Al-Mandawy","Regular Human","A"],
+  ["Abu Dawood Al-Mandawy","Regular Jananite","A"],
+  ["Abu Dawood Al-Mandawy","Questioners","B"],
+  ["Abu Dawood Al-Mandawy","Water of Salt and Vinegar","A"],
+  ["Abu Dawood Al-Mandawy","Dr. Qawlayeh","draw"],
+  ["Imam Kababi","Regular Kababi","A"],
+  ["Imam Kababi","Ni'mahh Al-Mal'un","invalid:الكبابي لا يضير بأحب أصحابه."],
+  ["Imam Kababi","Kabbudi","A"],
+  ["Imam Kababi","Rasul Imam","draw"],
+  ["Imam Kababi","Ibn Abi Haytham As-Sufi","B"],
+  ["Imam Kababi","Imam Qundari","A"],
+  ["Imam Kababi","Abu Talibain At-Tawrabi","B"],
+  ["Imam Kababi","Regular Tawrabi","A"],
+  ["Imam Kababi","Imam Dhadi","B"],
+  ["Imam Kababi","Ajrab King Tecno","B"],
+  ["Imam Kababi","Mubarwel King Vikram","B"],
+  ["Imam Kababi","Regular Mubarwel","B"],
+  ["Imam Kababi","Alkabus","A"],
+  ["Imam Kababi","Dindas","draw"],
+  ["Imam Kababi","Angry Old Kantari Man","B"],
+  ["Imam Kababi","Barefoot Bald Old Man","A"],
+  ["Imam Kababi","Regular Human","A"],
+  ["Imam Kababi","Regular Jananite","A"],
+  ["Imam Kababi","Questioners","B"],
+  ["Imam Kababi","Water of Salt and Vinegar","A"],
+  ["Imam Kababi","Dr. Qawlayeh","B"],
+  ["Regular Kababi","Ni'mahh Al-Mal'un","draw"],
+  ["Regular Kababi","Kabbudi","A"],
+  ["Regular Kababi","Rasul Imam","draw"],
+  ["Regular Kababi","Ibn Abi Haytham As-Sufi","B"],
+  ["Regular Kababi","Imam Qundari","A"],
+  ["Regular Kababi","Abu Talibain At-Tawrabi","B"],
+  ["Regular Kababi","Regular Tawrabi","B"],
+  ["Regular Kababi","Imam Dhadi","B"],
+  ["Regular Kababi","Ajrab King Tecno","B"],
+  ["Regular Kababi","Mubarwel King Vikram","B"],
+  ["Regular Kababi","Regular Mubarwel","B"],
+  ["Regular Kababi","Alkabus","A"],
+  ["Regular Kababi","Dindas","B"],
+  ["Regular Kababi","Angry Old Kantari Man","B"],
+  ["Regular Kababi","Barefoot Bald Old Man","A"],
+  ["Regular Kababi","Regular Human","A"],
+  ["Regular Kababi","Regular Jananite","draw"],
+  ["Regular Kababi","Questioners","B"],
+  ["Regular Kababi","Water of Salt and Vinegar","A"],
+  ["Regular Kababi","Dr. Qawlayeh","B"],
+  ["Ni'mahh Al-Mal'un","Kabbudi","A"],
+  ["Ni'mahh Al-Mal'un","Rasul Imam","draw"],
+  ["Ni'mahh Al-Mal'un","Ibn Abi Haytham As-Sufi","B"],
+  ["Ni'mahh Al-Mal'un","Imam Qundari","draw"],
+  ["Ni'mahh Al-Mal'un","Abu Talibain At-Tawrabi","B"],
+  ["Ni'mahh Al-Mal'un","Regular Tawrabi","B"],
+  ["Ni'mahh Al-Mal'un","Imam Dhadi","B"],
+  ["Ni'mahh Al-Mal'un","Ajrab King Tecno","B"],
+  ["Ni'mahh Al-Mal'un","Mubarwel King Vikram","B"],
+  ["Ni'mahh Al-Mal'un","Regular Mubarwel","B"],
+  ["Ni'mahh Al-Mal'un","Alkabus","B"],
+  ["Ni'mahh Al-Mal'un","Dindas","B"],
+  ["Ni'mahh Al-Mal'un","Angry Old Kantari Man","B"],
+  ["Ni'mahh Al-Mal'un","Barefoot Bald Old Man","A"],
+  ["Ni'mahh Al-Mal'un","Regular Human","draw"],
+  ["Ni'mahh Al-Mal'un","Regular Jananite","B"],
+  ["Ni'mahh Al-Mal'un","Questioners","B"],
+  ["Ni'mahh Al-Mal'un","Water of Salt and Vinegar","A"],
+  ["Ni'mahh Al-Mal'un","Dr. Qawlayeh","B"],
+  ["Kabbudi","Rasul Imam","draw"],
+  ["Kabbudi","Ibn Abi Haytham As-Sufi","B"],
+  ["Kabbudi","Imam Qundari","B"],
+  ["Kabbudi","Abu Talibain At-Tawrabi","B"],
+  ["Kabbudi","Regular Tawrabi","B"],
+  ["Kabbudi","Imam Dhadi","B"],
+  ["Kabbudi","Ajrab King Tecno","B"],
+  ["Kabbudi","Mubarwel King Vikram","B"],
+  ["Kabbudi","Regular Mubarwel","B"],
+  ["Kabbudi","Alkabus","B"],
+  ["Kabbudi","Dindas","B"],
+  ["Kabbudi","Angry Old Kantari Man","B"],
+  ["Kabbudi","Barefoot Bald Old Man","A"],
+  ["Kabbudi","Regular Human","B"],
+  ["Kabbudi","Regular Jananite","B"],
+  ["Kabbudi","Questioners","B"],
+  ["Kabbudi","Water of Salt and Vinegar","A"],
+  ["Kabbudi","Dr. Qawlayeh","B"],
+  ["Rasul Imam","Ibn Abi Haytham As-Sufi","draw"],
+  ["Rasul Imam","Imam Qundari","draw"],
+  ["Rasul Imam","Abu Talibain At-Tawrabi","draw"],
+  ["Rasul Imam","Regular Tawrabi","draw"],
+  ["Rasul Imam","Imam Dhadi","draw"],
+  ["Rasul Imam","Ajrab King Tecno","draw"],
+  ["Rasul Imam","Mubarwel King Vikram","draw"],
+  ["Rasul Imam","Regular Mubarwel","draw"],
+  ["Rasul Imam","Alkabus","draw"],
+  ["Rasul Imam","Dindas","draw"],
+  ["Rasul Imam","Angry Old Kantari Man","draw"],
+  ["Rasul Imam","Barefoot Bald Old Man","draw"],
+  ["Rasul Imam","Regular Human","draw"],
+  ["Rasul Imam","Regular Jananite","draw"],
+  ["Rasul Imam","Questioners","B"],
+  ["Rasul Imam","Water of Salt and Vinegar","A"],
+  ["Rasul Imam","Dr. Qawlayeh","draw"],
+  ["Ibn Abi Haytham As-Sufi","Imam Qundari","A"],
+  ["Ibn Abi Haytham As-Sufi","Abu Talibain At-Tawrabi","B"],
+  ["Ibn Abi Haytham As-Sufi","Regular Tawrabi","A"],
+  ["Ibn Abi Haytham As-Sufi","Imam Dhadi","draw"],
+  ["Ibn Abi Haytham As-Sufi","Ajrab King Tecno","B"],
+  ["Ibn Abi Haytham As-Sufi","Mubarwel King Vikram","B"],
+  ["Ibn Abi Haytham As-Sufi","Regular Mubarwel","A"],
+  ["Ibn Abi Haytham As-Sufi","Alkabus","A"],
+  ["Ibn Abi Haytham As-Sufi","Dindas","A"],
+  ["Ibn Abi Haytham As-Sufi","Angry Old Kantari Man","B"],
+  ["Ibn Abi Haytham As-Sufi","Barefoot Bald Old Man","A"],
+  ["Ibn Abi Haytham As-Sufi","Regular Human","A"],
+  ["Ibn Abi Haytham As-Sufi","Regular Jananite","A"],
+  ["Ibn Abi Haytham As-Sufi","Questioners","B"],
+  ["Ibn Abi Haytham As-Sufi","Water of Salt and Vinegar","A"],
+  ["Ibn Abi Haytham As-Sufi","Dr. Qawlayeh","A"],
+  ["Imam Qundari","Abu Talibain At-Tawrabi","B"],
+  ["Imam Qundari","Regular Tawrabi","B"],
+  ["Imam Qundari","Imam Dhadi","B"],
+  ["Imam Qundari","Ajrab King Tecno","B"],
+  ["Imam Qundari","Mubarwel King Vikram","B"],
+  ["Imam Qundari","Regular Mubarwel","B"],
+  ["Imam Qundari","Alkabus","B"],
+  ["Imam Qundari","Dindas","B"],
+  ["Imam Qundari","Angry Old Kantari Man","B"],
+  ["Imam Qundari","Barefoot Bald Old Man","A"],
+  ["Imam Qundari","Regular Human","draw"],
+  ["Imam Qundari","Regular Jananite","B"],
+  ["Imam Qundari","Questioners","B"],
+  ["Imam Qundari","Water of Salt and Vinegar","A"],
+  ["Imam Qundari","Dr. Qawlayeh","B"],
+  ["Abu Talibain At-Tawrabi","Regular Tawrabi","A"],
+  ["Abu Talibain At-Tawrabi","Imam Dhadi","A"],
+  ["Abu Talibain At-Tawrabi","Ajrab King Tecno","A"],
+  ["Abu Talibain At-Tawrabi","Mubarwel King Vikram","A"],
+  ["Abu Talibain At-Tawrabi","Regular Mubarwel","A"],
+  ["Abu Talibain At-Tawrabi","Alkabus","A"],
+  ["Abu Talibain At-Tawrabi","Dindas","A"],
+  ["Abu Talibain At-Tawrabi","Angry Old Kantari Man","A"],
+  ["Abu Talibain At-Tawrabi","Barefoot Bald Old Man","A"],
+  ["Abu Talibain At-Tawrabi","Regular Human","A"],
+  ["Abu Talibain At-Tawrabi","Regular Jananite","A"],
+  ["Abu Talibain At-Tawrabi","Questioners","B"],
+  ["Abu Talibain At-Tawrabi","Water of Salt and Vinegar","A"],
+  ["Abu Talibain At-Tawrabi","Dr. Qawlayeh","A"],
+  ["Regular Tawrabi","Imam Dhadi","B"],
+  ["Regular Tawrabi","Ajrab King Tecno","B"],
+  ["Regular Tawrabi","Mubarwel King Vikram","B"],
+  ["Regular Tawrabi","Regular Mubarwel","A"],
+  ["Regular Tawrabi","Alkabus","A"],
+  ["Regular Tawrabi","Dindas","A"],
+  ["Regular Tawrabi","Angry Old Kantari Man","A"],
+  ["Regular Tawrabi","Barefoot Bald Old Man","A"],
+  ["Regular Tawrabi","Regular Human","A"],
+  ["Regular Tawrabi","Regular Jananite","A"],
+  ["Regular Tawrabi","Questioners","B"],
+  ["Regular Tawrabi","Water of Salt and Vinegar","A"],
+  ["Regular Tawrabi","Dr. Qawlayeh","draw"],
+  ["Imam Dhadi","Ajrab King Tecno","B"],
+  ["Imam Dhadi","Mubarwel King Vikram","B"],
+  ["Imam Dhadi","Regular Mubarwel","A"],
+  ["Imam Dhadi","Alkabus","A"],
+  ["Imam Dhadi","Dindas","A"],
+  ["Imam Dhadi","Angry Old Kantari Man","B"],
+  ["Imam Dhadi","Barefoot Bald Old Man","A"],
+  ["Imam Dhadi","Regular Human","A"],
+  ["Imam Dhadi","Regular Jananite","A"],
+  ["Imam Dhadi","Questioners","B"],
+  ["Imam Dhadi","Water of Salt and Vinegar","A"],
+  ["Imam Dhadi","Dr. Qawlayeh","draw"],
+  ["Ajrab King Tecno","Mubarwel King Vikram","draw"],
+  ["Ajrab King Tecno","Regular Mubarwel","A"],
+  ["Ajrab King Tecno","Alkabus","A"],
+  ["Ajrab King Tecno","Dindas","A"],
+  ["Ajrab King Tecno","Angry Old Kantari Man","B"],
+  ["Ajrab King Tecno","Barefoot Bald Old Man","A"],
+  ["Ajrab King Tecno","Regular Human","A"],
+  ["Ajrab King Tecno","Regular Jananite","A"],
+  ["Ajrab King Tecno","Questioners","B"],
+  ["Ajrab King Tecno","Water of Salt and Vinegar","A"],
+  ["Ajrab King Tecno","Dr. Qawlayeh","A"],
+  ["Mubarwel King Vikram","Regular Mubarwel","A"],
+  ["Mubarwel King Vikram","Alkabus","A"],
+  ["Mubarwel King Vikram","Dindas","A"],
+  ["Mubarwel King Vikram","Angry Old Kantari Man","draw"],
+  ["Mubarwel King Vikram","Barefoot Bald Old Man","A"],
+  ["Mubarwel King Vikram","Regular Human","A"],
+  ["Mubarwel King Vikram","Regular Jananite","A"],
+  ["Mubarwel King Vikram","Questioners","B"],
+  ["Mubarwel King Vikram","Water of Salt and Vinegar","A"],
+  ["Mubarwel King Vikram","Dr. Qawlayeh","A"],
+  ["Regular Mubarwel","Alkabus","B"],
+  ["Regular Mubarwel","Dindas","B"],
+  ["Regular Mubarwel","Angry Old Kantari Man","draw"],
+  ["Regular Mubarwel","Barefoot Bald Old Man","A"],
+  ["Regular Mubarwel","Regular Human","draw"],
+  ["Regular Mubarwel","Regular Jananite","draw"],
+  ["Regular Mubarwel","Questioners","B"],
+  ["Regular Mubarwel","Water of Salt and Vinegar","A"],
+  ["Regular Mubarwel","Dr. Qawlayeh","B"],
+  ["Alkabus","Dindas","B"],
+  ["Alkabus","Angry Old Kantari Man","A"],
+  ["Alkabus","Barefoot Bald Old Man","A"],
+  ["Alkabus","Regular Human","A"],
+  ["Alkabus","Regular Jananite","A"],
+  ["Alkabus","Questioners","B"],
+  ["Alkabus","Water of Salt and Vinegar","B"],
+  ["Alkabus","Dr. Qawlayeh","B"],
+  ["Dindas","Angry Old Kantari Man","A"],
+  ["Dindas","Barefoot Bald Old Man","A"],
+  ["Dindas","Regular Human","A"],
+  ["Dindas","Regular Jananite","A"],
+  ["Dindas","Questioners","B"],
+  ["Dindas","Water of Salt and Vinegar","A"],
+  ["Dindas","Dr. Qawlayeh","draw"],
+  ["Angry Old Kantari Man","Barefoot Bald Old Man","draw"],
+  ["Angry Old Kantari Man","Regular Human","A"],
+  ["Angry Old Kantari Man","Regular Jananite","A"],
+  ["Angry Old Kantari Man","Questioners","draw"],
+  ["Angry Old Kantari Man","Water of Salt and Vinegar","A"],
+  ["Angry Old Kantari Man","Dr. Qawlayeh","A"],
+  ["Barefoot Bald Old Man","Regular Human","B"],
+  ["Barefoot Bald Old Man","Regular Jananite","B"],
+  ["Barefoot Bald Old Man","Questioners","B"],
+  ["Barefoot Bald Old Man","Water of Salt and Vinegar","A"],
+  ["Barefoot Bald Old Man","Dr. Qawlayeh","B"],
+  ["Regular Human","Regular Jananite","B"],
+  ["Regular Human","Questioners","B"],
+  ["Regular Human","Water of Salt and Vinegar","A"],
+  ["Regular Human","Dr. Qawlayeh","B"],
+  ["Regular Jananite","Questioners","B"],
+  ["Regular Jananite","Water of Salt and Vinegar","A"],
+  ["Regular Jananite","Dr. Qawlayeh","B"],
+  ["Questioners","Water of Salt and Vinegar","B"],
+  ["Questioners","Dr. Qawlayeh","A"],
+  ["Water of Salt and Vinegar","Dr. Qawlayeh","B"],
+];
+
+// Stats
+let stats = {correct:0, wrong:0, streak:0, bestStreak:0};
+let queue = [];
+let current = null;
+let locked = false;
+let history = [];
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function buildQueue(){
+  // Only non-invalid matchups go into the guessing game
+  return shuffle(MATCHUPS.filter(m => !m[2].startsWith('invalid')));
+}
+
+function getRecord(name){
+  let w=0,l=0,d=0;
+  MATCHUPS.forEach(m=>{
+    if(m[2].startsWith('invalid')) return;
+    if(m[0]===name){
+      if(m[2]==='A') w++;
+      else if(m[2]==='B') l++;
+      else d++;
+    } else if(m[1]===name){
+      if(m[2]==='B') w++;
+      else if(m[2]==='A') l++;
+      else d++;
+    }
+  });
+  return `${w}W · ${d}D · ${l}L`;
+}
+
+function updateStats(){
+  document.getElementById('stat-correct').textContent = stats.correct;
+  document.getElementById('stat-wrong').textContent = stats.wrong;
+  document.getElementById('stat-streak').innerHTML = stats.streak + ' <span class="streak-fire">🔥</span>';
+  document.getElementById('stat-remaining').textContent = queue.length;
+}
+
+function setCard(side, name){
+  const c = CHARS[name] || {ar:'',img:'',emoji:''};
+  document.getElementById(side+'-en').textContent = name;
+  document.getElementById(side+'-ar').textContent = c.ar;
+  document.getElementById(side+'-record').textContent = getRecord(name);
+  const imgWrap = document.getElementById(side+'-img');
+  if(c.img){
+    imgWrap.innerHTML = `<img src="${c.img}" alt="${name}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='<div class=card-img-placeholder><div class=placeholder-icon style=font-size:52px>${c.emoji||'👤'}</div></div>'" />`;
+  } else {
+    const icon = c.emoji || '👤';
+    imgWrap.innerHTML = `<div class="card-img-placeholder"><div class="placeholder-icon" style="font-size:52px;width:90px;height:90px;border:none;opacity:0.8;">${icon}</div></div>`;
+  }
+  const newBadge = document.createElement('div');
+  newBadge.className='origin-badge';
+  newBadge.textContent='Jananverse';
+  imgWrap.appendChild(newBadge);
+}
+
+function loadMatchup(){
+  if(queue.length === 0){ showFinished(); return; }
+  current = queue.shift();
+  locked = false;
+
+  // Randomly swap A/B so the question is always fresh
+  if(Math.random() > 0.5){
+    current = [current[1], current[0], current[2]==='A'?'B':current[2]==='B'?'A':current[2]];
+  }
+
+  const [a, b, result] = current;
+  setCard('left', a);
+  setCard('right', b);
+
+  document.getElementById('card-left').classList.remove('winner','loser','locked','draw-result');
+  document.getElementById('card-right').classList.remove('winner','loser','locked','draw-result');
+  document.getElementById('result-banner').className='result-banner';
+  document.getElementById('result-banner').textContent='';
+  document.getElementById('next-btn').classList.remove('show');
+  document.getElementById('invalid-notice').classList.remove('show');
+
+  updateStats();
+}
+
+function pick(side){
+  if(locked) return;
+  const [a, b, result] = current;
+
+  // Draw = no correct/wrong, just show result
+  if(result === 'draw'){
+    locked = true;
+    document.getElementById('card-left').classList.add('locked');
+    document.getElementById('card-right').classList.add('locked');
+
+    // Both cards glow gold on draw
+    setTimeout(()=>{
+      document.getElementById('card-left').classList.add('draw-result');
+      document.getElementById('card-right').classList.add('draw-result');
+
+      // Special Rasul Imam draw message
+      let drawMsg = `It's a Draw between ${a} and ${b}!`;
+      if(a === 'Rasul Imam' || b === 'Rasul Imam'){
+        drawMsg = `Draw! Rasul Imam flew away and avoided the opponent.`;
+      }
+
+      const banner = document.getElementById('result-banner');
+      banner.textContent = drawMsg;
+      banner.className = 'result-banner invalid show';
+      addHistory('draw', a, b);
+      document.getElementById('next-btn').classList.add('show');
+    }, 2000);
+
+    // Still show gold suspense during the wait
+    document.getElementById('card-left').classList.add('loading-suspense');
+    document.getElementById('card-right').classList.add('loading-suspense');
+    setTimeout(()=>{
+      document.getElementById('card-left').classList.remove('loading-suspense');
+      document.getElementById('card-right').classList.remove('loading-suspense');
+    }, 2000);
+    return;
+  }
+
+  const pickedName = side === 'left' ? a : b;
+  const winnerName = result === 'A' ? a : b;
+  const loserName  = result === 'A' ? b : a;
+  const correct = pickedName === winnerName;
+
+  locked = true;
+  document.getElementById('card-left').classList.add('locked','loading-suspense');
+  document.getElementById('card-right').classList.add('locked','loading-suspense');
+
+  // 2s golden suspense before reveal
+  setTimeout(()=>{
+    document.getElementById('card-left').classList.remove('loading-suspense');
+    document.getElementById('card-right').classList.remove('loading-suspense');
+
+    if(correct){
+      document.getElementById('card-'+side).classList.add('winner');
+      stats.correct++;
+      stats.streak++;
+      if(stats.streak > stats.bestStreak) stats.bestStreak = stats.streak;
+    } else {
+      document.getElementById('card-'+side).classList.add('loser');
+      stats.wrong++;
+      stats.streak=0;
+    }
+
+    // Build result message — special Rasul Imam losing messages
+    let winnerMsg = winnerName;
+    let loserMsg = loserName;
+    let extraNote = '';
+    if(loserName === 'Rasul Imam'){
+      extraNote = ' He couldn\'t escape.';
+    }
+
+    showResult(correct?'correct':'wrong', winnerName, loserName, pickedName, extraNote);
+    updateStats();
+  }, 2000);
+}
+
+function showResult(type, winner, loser, picked, extraNote=''){
+  const banner = document.getElementById('result-banner');
+  let msg = '';
+  if(type === 'correct'){
+    msg = `✓ Correct! ${winner} wins against ${loser}!${extraNote}`;
+    banner.className = 'result-banner correct show';
+    addHistory('correct', winner, loser);
+  } else if(type === 'wrong'){
+    msg = `✗ Wrong! ${winner} wins, not ${picked}!${extraNote}`;
+    banner.className = 'result-banner wrong show';
+    addHistory('wrong', winner, loser);
+  } else {
+    msg = `It's a Draw between ${winner} and ${loser}!`;
+    banner.className = 'result-banner invalid show';
+    addHistory('draw', winner, loser);
+  }
+  banner.textContent = msg;
+  document.getElementById('next-btn').classList.add('show');
+}
+
+function addHistory(type, a, b){
+  history.unshift({type, a, b});
+  if(history.length > 20) history.pop();
+  renderHistory();
+  document.getElementById('history-section').style.display='block';
+}
+
+function renderHistory(){
+  const list = document.getElementById('history-list');
+  list.innerHTML = history.map(h => {
+    const label = h.type==='correct'?'✓ Correct':h.type==='wrong'?'✗ Wrong':'= Draw';
+    const text = h.type==='draw'
+      ? `<strong>${h.a}</strong> vs <strong>${h.b}</strong> — Draw`
+      : `<strong>${h.a}</strong> beats <strong>${h.b}</strong>`;
+    return `<div class="history-item">
+      <span class="hi-badge ${h.type}">${label}</span>
+      <span class="hi-text">${text}</span>
+    </div>`;
+  }).join('');
+}
+
+function nextMatchup(){
+  loadMatchup();
+}
+
+function showFinished(){
+  document.getElementById('game-area').style.display='none';
+  document.getElementById('finished-area').style.display='block';
+  updateStats();
+}
+
+function resetGame(){
+  stats={correct:0,wrong:0,streak:0,bestStreak:0};
+  history=[];
+  queue = buildQueue();
+  document.getElementById('game-area').style.display='block';
+  document.getElementById('finished-area').style.display='none';
+  document.getElementById('history-section').style.display='none';
+  document.getElementById('history-list').innerHTML='';
+  updateStats();
+  loadMatchup();
+}
+
+// Init
+queue = buildQueue();
+updateStats();
+loadMatchup();
+</script>
+</body>
+</html>
