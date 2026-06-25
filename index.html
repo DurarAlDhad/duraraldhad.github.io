@@ -184,12 +184,13 @@
       overflow: hidden;
     }
 
-    /* Fixed background — stays locked to the left regardless of scroll or zoom */
+    /* Fixed background — starts below the bar, stays locked regardless of scroll or zoom */
     .bg-calligraphy {
       position: fixed;
-      top: 0;
+      top: 209px;
       left: 0;
-      width: 55%;
+      /* vw units so zoom doesn't shrink it */
+      width: 55vw;
       max-width: 700px;
       pointer-events: none;
       user-select: none;
