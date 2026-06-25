@@ -84,7 +84,6 @@
       line-height: 1.1;
       text-align: right;
       direction: rtl;
-      /* nudge text upward by a few pixels without affecting layout */
       position: relative;
       top: -8px;
     }
@@ -128,7 +127,6 @@
       text-decoration: none;
       font-size: 2.2rem;
       transition: text-decoration 0.15s;
-      /* nudge nav text upward slightly */
       position: relative;
       top: -6px;
     }
@@ -139,7 +137,6 @@
 
     .nav-separator {
       color: #c0392b;
-      /* match the nav link font size so the dot scales with it */
       font-size: 2rem;
       line-height: 1;
       padding: 0 8px;
@@ -172,9 +169,13 @@
       filter: invert(1);
     }
 
+    /* Shadow lives on the bottom separator — subtle drop into the body */
     .separator-bottom {
       height: 7px;
       background-color: #1D341A;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 1;
     }
 
     main {
@@ -183,8 +184,9 @@
       overflow: hidden;
     }
 
+    /* Fixed background — stays locked to the left regardless of scroll or zoom */
     .bg-calligraphy {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 55%;
@@ -192,6 +194,7 @@
       pointer-events: none;
       user-select: none;
       opacity: 1;
+      z-index: 0;
     }
 
     .main-content {
@@ -217,8 +220,8 @@
 
     <div class="header-left">
       <p class="poem-verse">
-     وَـ أنْبِئْ بِدُرِّـ  <span class="green">الضّـــٰادِ </span> فٖي كُلِّ <span class="green">ضَ</span>يْهَبِ<br>
-        ألا إنَّمَا ذِي هِيَـ  خَــيْـــــرُ المَكَـــاتِبِ
+     وَـ أنْبِئْ بِدُرِّـ  <span class="green">الضّـــٰادِ </span> فٖي كُلِّ <span class="green">ضَ</span>يْهَبِ<br>
+        ألا إنَّمَا ذِي هِيَـ  خَــيْـــــرُ المَكَـــاتِبِ
       </p>
     </div>
 
