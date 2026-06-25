@@ -215,17 +215,21 @@
        MODAL OVERLAY
     ══════════════════════════════════════ */
     .modal-overlay {
-      display: none;
+      display: flex;
       position: fixed;
       inset: 0;
       z-index: 9999;
       background: rgba(0, 0, 0, 0.55);
       align-items: center;
       justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
     }
 
     .modal-overlay.open {
-      display: flex;
+      opacity: 1;
+      pointer-events: auto;
     }
 
     /* The rounded box */
@@ -241,17 +245,23 @@
       display: flex;
       flex-direction: column;
       direction: rtl;
+      transform: scale(0.88);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: scale(1);
     }
 
     /* Scrollable text area */
     .modal-body {
       overflow-y: auto;
       flex: 1;
-      padding-left: 6px; /* small gap before custom scrollbar */
+      padding-left: 6px;
 
       /* Custom scrollbar */
       scrollbar-width: thin;
-      scrollbar-color: #3A823C #4AA64C;
+      scrollbar-color: #355536 #4AA64C;
     }
 
     .modal-body::-webkit-scrollbar {
@@ -275,24 +285,24 @@
       color: #ffffff;
       font-size: 1.55rem;
       line-height: 1.65;
-      text-align: justify;
+      text-align: center;
       text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
       direction: rtl;
       white-space: pre-wrap;
     }
 
-    /* Thin divider replacing the empty line */
+    /* Divider */
     .modal-divider {
       border: none;
-      border-top: 1.5px solid #224A22;
+      border-top: 3px solid #224A22;
       margin: 14px 0;
     }
 
-    /* X close button */
+    /* X close button — top-right corner */
     .modal-close {
       position: absolute;
       top: -18px;
-      left: -18px;
+      right: -18px;
       width: 36px;
       height: 36px;
       border-radius: 50%;
