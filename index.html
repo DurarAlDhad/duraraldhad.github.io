@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>دُرَرُ الضَّـادِ | Durar Al-Dhad</title>
   <link rel="icon" type="image/png" href="duraraldhad-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
   <style>
 
     @font-face {
@@ -34,6 +37,7 @@
       overflow-x: hidden;
     }
 
+    /* ════════════════ HEADER ════════════════ */
     header {
       background: linear-gradient(to right, #4E3A61 50%, #4C7142 50%);
       display: flex;
@@ -84,7 +88,6 @@
       align-items: center;
     }
 
-    /* ── Poem verse: clickable, no hover effect ── */
     .poem-verse {
       font-family: 'AliMeshref', serif;
       color: #ffffff;
@@ -102,11 +105,21 @@
       color: #A1B99B;
     }
 
+    /* ════════════════ SEPARATORS ════════════════ */
     .separator-top {
       height: 7px;
       background: linear-gradient(to right, #3F3150 40%, #345A2A 60%);
     }
 
+    .separator-bottom {
+      height: 7px;
+      background-color: #1D341A;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ════════════════ NAV ════════════════ */
     nav {
       background-color: #2B4B22;
       display: flex;
@@ -169,9 +182,7 @@
       transition: opacity 0.2s;
     }
 
-    .social-icons a:hover {
-      opacity: 0.75;
-    }
+    .social-icons a:hover { opacity: 0.75; }
 
     .social-icons img {
       width: 38px;
@@ -179,14 +190,7 @@
       filter: invert(1);
     }
 
-    .separator-bottom {
-      height: 7px;
-      background-color: #1D341A;
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
-      position: relative;
-      z-index: 1;
-    }
-
+    /* ════════════════ MAIN ════════════════ */
     main {
       position: relative;
       min-height: calc(100vh - 220px);
@@ -208,12 +212,144 @@
     .main-content {
       position: relative;
       z-index: 1;
-      padding: 60px 40px;
+      padding: 40px 48px;
     }
 
-    /* ══════════════════════════════════════
-       MODAL OVERLAY
-    ══════════════════════════════════════ */
+    /* ════════════════ LIBRARY LOGO SECTION ════════════════ */
+    .library-logo-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 36px;
+    }
+
+    .library-logo-wrap img {
+      width: 65%;
+      max-width: 820px;
+      height: auto;
+      display: block;
+    }
+
+    /* ════════════════ BODY SECTION: شأنها ════════════════ */
+    /* Two columns: left=text, right=books, separated by a thin vertical line */
+    .section-shanaha {
+      display: flex;
+      align-items: flex-start;
+      direction: rtl;
+      gap: 0;
+    }
+
+    /* ── RIGHT COLUMN: books ── */
+    .books-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      flex: 0 0 auto;
+      padding-right: 0;
+    }
+
+    .books-row {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 28px;
+      direction: ltr;
+    }
+
+    .book-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .book-item img {
+      height: 220px;
+      width: auto;
+      display: block;
+      border-radius: 4px;
+      outline: 2px solid #745A94;
+      outline-offset: 2px;
+    }
+
+    .book-title {
+      font-family: 'AliMeshref', serif;
+      color: #ffffff;
+      font-size: 1.1rem;
+      text-align: center;
+      direction: rtl;
+      position: relative;
+      top: -2px;
+    }
+
+    /* ── VERTICAL DIVIDER ── */
+    .vertical-divider {
+      width: 1.5px;
+      background-color: #645A71;
+      align-self: stretch;
+      margin: 0 32px;
+      flex-shrink: 0;
+    }
+
+    /* ── LEFT COLUMN: title + text ── */
+    .text-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      direction: rtl;
+    }
+
+    /* شأنها heading line */
+    .shanaha-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      direction: rtl;
+      margin-bottom: 16px;
+      align-self: flex-end;
+    }
+
+    .shanaha-star {
+      font-family: 'AliMeshref', serif;
+      color: #FFACA5;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .shanaha-title {
+      font-family: 'AliMeshref', serif;
+      color: #FFACA5;
+      font-size: 2.2rem;
+      line-height: 1;
+      position: relative;
+      top: -3px;
+    }
+
+    /* Description paragraph */
+    .shanaha-text {
+      font-family: "Cairo", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 496;
+      font-style: normal;
+      font-variation-settings: "slnt" 0;
+      color: #ffffff;
+      font-size: 1.25rem;
+      line-height: 1.85;
+      text-align: justify;
+      direction: rtl;
+    }
+
+    /* Colored spans inside the text */
+    .shanaha-text .dhad {
+      color: #9FBA9B;
+    }
+
+    .shanaha-text .founder {
+      color: #DDA6A6;
+    }
+
+    /* ════════════════ MODAL ════════════════ */
     .modal-overlay {
       display: flex;
       position: fixed;
@@ -232,7 +368,6 @@
       pointer-events: auto;
     }
 
-    /* The rounded box */
     .modal-box {
       position: relative;
       background: #355536;
@@ -253,33 +388,25 @@
       transform: scale(1);
     }
 
-    /* Scrollable text area */
     .modal-body {
       overflow-y: auto;
       flex: 1;
       padding-left: 6px;
-
-      /* Custom scrollbar */
       scrollbar-width: thin;
       scrollbar-color: #355536 #4AA64C;
     }
 
-    .modal-body::-webkit-scrollbar {
-      width: 10px;
-    }
-
+    .modal-body::-webkit-scrollbar { width: 10px; }
     .modal-body::-webkit-scrollbar-track {
       background: #4AA64C;
       border-radius: 99px;
     }
-
     .modal-body::-webkit-scrollbar-thumb {
       background: #355536;
       border-radius: 99px;
       border: 2px solid #203C21;
     }
 
-    /* Modal text */
     .modal-text {
       font-family: 'SakkalKitab', serif;
       color: #ffffff;
@@ -291,14 +418,12 @@
       white-space: pre-wrap;
     }
 
-    /* Divider */
     .modal-divider {
       border: none;
       border-top: 3px solid #224A22;
       margin: 14px 0;
     }
 
-    /* X close button — top-right corner */
     .modal-close {
       position: absolute;
       top: -18px;
@@ -322,9 +447,7 @@
       transition: background 0.15s;
     }
 
-    .modal-close:hover {
-      background: #6F2D8C;
-    }
+    .modal-close:hover { background: #6F2D8C; }
 
   </style>
 </head>
@@ -332,29 +455,23 @@
 
   <!-- ─── HEADER ─── -->
   <header>
-
     <div class="header-right">
       <img src="logo-right.svg" alt="دُرَرُ الضَّادِ" />
     </div>
-
     <div class="header-center">
       <img src="logo-center.svg" alt="دُرَرُ الضَّادِ" />
     </div>
-
     <div class="header-left">
-      <!-- Clicking the poem opens the modal -->
       <p class="poem-verse" id="poemVerse" role="button" aria-haspopup="dialog" tabindex="0">
-          وَـ أنْبِئْ بِدُرِّـ  <span class="green">الضّـــٰادِ </span> فٖي كُلِّ <span class="green">ضَ</span>يْهَبِ<br>
-        ألا إنَّمَا ذِي هِيَـ  خَــيْـــــرُ المَكَـــاتِبِ
+          وَـ أنْبِئْ بِدُرِّـ  <span class="green">الضّـــٰادِ </span> فٖي كُلِّ <span class="green">ضَ</span>يْهَبِ<br>
+        ألا إنَّمَا ذِي هِيَـ  خَــيْـــــرُ المَكَـــاتِبِ
       </p>
     </div>
-
   </header>
 
-  <!-- ─── SEPARATOR LINE 1 ─── -->
   <div class="separator-top"></div>
 
-  <!-- ─── NAV BAR ─── -->
+  <!-- ─── NAV ─── -->
   <nav>
     <ul class="nav-links">
       <li><a href="#">خـــبَـــــرُ دُرَر الضّـــٰادِ</a></li>
@@ -363,7 +480,6 @@
       <li><span class="nav-separator">•</span></li>
       <li><a href="#">كُـــتُبُنا</a></li>
     </ul>
-
     <div class="social-icons">
       <a href="https://www.threads.com/@duraraldhad" target="_blank" rel="noopener" aria-label="Threads">
         <img src="icon-threads.svg" alt="Threads" />
@@ -380,66 +496,94 @@
     </div>
   </nav>
 
-  <!-- ─── SEPARATOR LINE 2 ─── -->
   <div class="separator-bottom"></div>
 
-  <!-- ─── MAIN BODY ─── -->
+  <!-- ─── MAIN ─── -->
   <main>
     <img class="bg-calligraphy" src="background.png" alt="" />
+
     <div class="main-content">
-      <!-- Future content goes here -->
+
+      <!-- Big library logo, right-aligned -->
+      <div class="library-logo-wrap">
+        <img src="DurarAlDhadLogo.png" alt="مكتبة دُرَرُ الضَّادِ" />
+      </div>
+
+      <!-- شأنها section -->
+      <div class="section-shanaha">
+
+        <!-- RIGHT: three book covers -->
+        <div class="books-col">
+          <div class="books-row">
+            <div class="book-item">
+              <img src="EnglishLisanCover.png" alt="اللسان المكنتر مؤجلزًا" />
+              <span class="book-title">اللسَانُ المُكَـــنترُ مُؤجْلَزًا</span>
+            </div>
+            <div class="book-item">
+              <img src="LisanExplainCover.png" alt="بيان المكنتر" />
+              <span class="book-title">بيَـــان المُكَـــنْتِر</span>
+            </div>
+            <div class="book-item">
+              <img src="LisanMukantirCover.png" alt="اللسان المكنتر" />
+              <span class="book-title">اللسَـــٰانُ المُكَـــنْتِرُ</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VERTICAL DIVIDER -->
+        <div class="vertical-divider"></div>
+
+        <!-- LEFT: شأنها heading + text -->
+        <div class="text-col">
+
+          <div class="shanaha-heading">
+            <span class="shanaha-title">شـــأنــــــــها</span>
+            <span class="shanaha-star">*</span>
+          </div>
+
+          <p class="shanaha-text">
+            تُعنى مكتبة درر <span class="dhad">الضاد</span> بجمع الكتب الكنتـرية وترجمتها لتبلغ رسالة الكنتــــــــــــرة أطْورَي العالمــين أجمعـــين.
+            أسّسها العلّامة الفاضل <span class="founder">ابن أبي حسين الأسدي الكنتري</span>
+            الذي بالغ بعظــــــــيم الجهد وأبى إلا أن يتكنتـــــــــر كل امـــــرئٍ من كــــــل أمّـــــةٍ و<span class="dhad">أر</span>ضٍ وبـــــــــلادٍ وعــــــــالمٍ.
+          </p>
+
+        </div>
+
+      </div>
+
     </div>
   </main>
 
-  <!-- ══════════════════════════════════════
-       MODAL
-  ══════════════════════════════════════ -->
+  <!-- ─── MODAL ─── -->
   <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="شرح البيت الشعري">
     <div class="modal-box" id="modalBox">
-
       <button class="modal-close" id="modalClose" aria-label="إغلاق">✕</button>
-
       <div class="modal-body">
         <p class="modal-text">وانۡشُرۡ خبرَ مَكتَبةِ دُرر الضّادِ الجَلِيلةِ في كُلّ مَڪانٍ حَتّى الضّيَاهِب. وَالضَّيۡهَبُ: الجبَل</p>
         <p class="modal-text">الشّدِيد الحرارةِ حَتّى يَكاد يشۡوي اللحۡمَ.</p>
         <hr class="modal-divider" />
         <p class="modal-text">واعۡلمُوا أنّما دُررُ الضّادِ هَذِهِ هِي أحۡسَن المَكۡتَبَاتِ.</p>
       </div>
-
     </div>
   </div>
 
   <script>
-    const overlay = document.getElementById('modalOverlay');
-    const poem    = document.getElementById('poemVerse');
+    const overlay  = document.getElementById('modalOverlay');
+    const poem     = document.getElementById('poemVerse');
     const closeBtn = document.getElementById('modalClose');
-    const box     = document.getElementById('modalBox');
+    const box      = document.getElementById('modalBox');
 
-    function openModal() {
-      overlay.classList.add('open');
-    }
-
-    function closeModal() {
-      overlay.classList.remove('open');
-    }
+    function openModal()  { overlay.classList.add('open'); }
+    function closeModal() { overlay.classList.remove('open'); }
 
     poem.addEventListener('click', openModal);
-
     poem.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openModal();
-      }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
     });
-
     closeBtn.addEventListener('click', closeModal);
-
     overlay.addEventListener('click', function(e) {
-      if (!box.contains(e.target)) {
-        closeModal();
-      }
+      if (!box.contains(e.target)) closeModal();
     });
-
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
     });
