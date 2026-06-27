@@ -348,7 +348,11 @@
       color: #DDA6A6;
     }
 
-    /* ════════════════ MODAL ════════════════ */
+    /* ════════════════ STAIRCASE — JS controlled ════════════════ */
+    /* margins are set dynamically by script to match bio text height */
+    .books-row {
+      align-items: flex-start;
+    }
     .modal-overlay {
       display: flex;
       position: fixed;
@@ -581,6 +585,44 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
     });
+
+    /* ── Staircase: match book steps to bio text height ── */
+    function applyStaircase() {
+      const textCol = document.querySelector('.text-col');
+      const books   = document.querySelectorAll('.books-row .book-item');
+      if (!textCol || books.length < 3) return;
+
+      /* Reset first so heights are natural */
+      books.forEach(b => b.style.marginTop = '0px');
+
+      const totalHeight = textCol.offsetHeight;
+      const h0 = books[0].offsetHeight;
+      const h1 = books[1].offsetHeight;
+      const h2 = books[2].offsetHeight;
+
+      /* Book 1: top = 0, its center = h0/2 */
+      /* Book 3: bottom = totalHeight, so top = totalHeight - h2 */
+      /* Book 2: centered between midpoint of book1 and midpoint of book3 */
+      /*   midpoint of book1 = h0/2                                       */
+      /*   midpoint of book3 = (totalHeight - h2) + h2/2                  */
+      /*   center of gap = average of those two midpoints                  */
+      /*   book2 top = center of gap - h1/2                               */
+
+      const mid1  = h0 / 2;
+      const mid3  = (totalHeight - h2) + h2 / 2;
+      const mid2  = (mid1 + mid3) / 2;
+
+      const top1 = 0;
+      const top2 = Math.max(0, mid2 - h1 / 2);
+      const top3 = Math.max(0, totalHeight - h2);
+
+      books[0].style.marginTop = top1 + 'px';
+      books[1].style.marginTop = top2 + 'px';
+      books[2].style.marginTop = top3 + 'px';
+    }
+
+    window.addEventListener('load',   applyStaircase);
+    window.addEventListener('resize', applyStaircase);
   </script>
 
 </body>
