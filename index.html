@@ -30,21 +30,10 @@
       padding: 0;
     }
 
-    html, body {
-      width: 100%;
-      overflow-x: hidden;
-    }
-
     body {
       background-color: #3C3149;
       font-family: 'AliMeshref', serif;
       min-height: 100vh;
-    }
-
-    /* ── Wrapper holds the fixed 1100px layout and scrolls internally;
-       body/html stay at real device width so the modal (fixed to body)
-       is never affected by this inner horizontal scroll. ── */
-    .page-wrap {
       min-width: 1100px;
       overflow-x: auto;
     }
@@ -471,8 +460,6 @@
 </head>
 <body>
 
-  <div class="page-wrap">
-
   <!-- ─── HEADER ─── -->
   <header>
     <div class="header-right">
@@ -554,7 +541,7 @@
             <img class="shanaha-img" src="Shanaha.svg" alt="شأنها" />
           </div>
 
-          <p class="shanaha-text">
+        <p class="shanaha-text">
             تُعنى مكتبة دُرَر <span class="dhad">الضّـــاد</span> بجمع الكتب الكنتــــــرية وترجمتها لتبلغ رسالة الكنتــــــــــــرة أطْورَي العالمــين أجمعـــــــــين.
             أسّسها العلّامة الفا<span class="dhad">ض</span>ل <span class="founder">ابن أبي حسين الأسدي الكنتري</span>
             الذي بالغ بعظــــــــيم الجهد وأبى إلا أن يتكنتـــــــــر كل امـــــرئٍ من كــــــل أمّـــــةٍ وأر<span class="dhad">ضٍ</span> وبـــــــــلادٍ وعـــــــــــالمٍ.
@@ -566,9 +553,6 @@
 
     </div>
   </main>
-
-  </div>
-  <!-- ─── /page-wrap ─── -->
 
   <!-- ─── MODAL ─── -->
   <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="شرح البيت الشعري">
@@ -589,8 +573,20 @@
     const closeBtn = document.getElementById('modalClose');
     const box      = document.getElementById('modalBox');
 
-    function openModal()  { overlay.classList.add('open'); }
-    function closeModal() { overlay.classList.remove('open'); }
+    let savedScrollLeft = 0;
+
+    function openModal() {
+      savedScrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft || 0;
+      document.body.scrollLeft = 0;
+      document.documentElement.scrollLeft = 0;
+      overlay.classList.add('open');
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.scrollLeft = savedScrollLeft;
+      document.documentElement.scrollLeft = savedScrollLeft;
+    }
 
     poem.addEventListener('click', openModal);
     poem.addEventListener('keydown', function(e) {
