@@ -30,10 +30,21 @@
       padding: 0;
     }
 
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       background-color: #3C3149;
       font-family: 'AliMeshref', serif;
       min-height: 100vh;
+    }
+
+    /* ── Wrapper holds the fixed 1100px layout and scrolls internally;
+       body/html stay at real device width so the modal (fixed to body)
+       is never affected by this inner horizontal scroll. ── */
+    .page-wrap {
       min-width: 1100px;
       overflow-x: auto;
     }
@@ -317,15 +328,15 @@
     .shanaha-heading {
       display: flex;
       align-items: center;
-      gap: -50px;
+      gap: 10px;
       direction: rtl;
-      margin-bottom: -5px;
+      margin-bottom: 16px;
       align-self: flex-start;
     }
 
     /* ── Shanaha SVG — adjust this height as needed ── */
     .shanaha-img {
-      height: 80px;
+      height: 70px;
       width: auto;
       display: block;
     }
@@ -460,6 +471,8 @@
 </head>
 <body>
 
+  <div class="page-wrap">
+
   <!-- ─── HEADER ─── -->
   <header>
     <div class="header-right">
@@ -544,7 +557,7 @@
           <p class="shanaha-text">
             تُعنى مكتبة دُرَر <span class="dhad">الضّـــاد</span> بجمع الكتب الكنتــــــرية وترجمتها لتبلغ رسالة الكنتــــــــــــرة أطْورَي العالمــين أجمعـــــــــين.
             أسّسها العلّامة الفا<span class="dhad">ض</span>ل <span class="founder">ابن أبي حسين الأسدي الكنتري</span>
-            الذي بالغ بعظــــــــيم الجهد وأبى إلا أن يتكنتـــــــــر كل امـــــرئٍ من كـــل أمّــــةٍ وأر<span class="dhad">ضٍ</span> وبــلادٍ وعـــالمٍ.
+            الذي بالغ بعظــــــــيم الجهد وأبى إلا أن يتكنتـــــــــر كل امـــــرئٍ من كــــــل أمّـــــةٍ وأر<span class="dhad">ضٍ</span> وبـــــــــلادٍ وعـــــــــــالمٍ.
           </p>
 
         </div>
@@ -553,6 +566,9 @@
 
     </div>
   </main>
+
+  </div>
+  <!-- ─── /page-wrap ─── -->
 
   <!-- ─── MODAL ─── -->
   <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="شرح البيت الشعري">
