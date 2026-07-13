@@ -12,8 +12,7 @@
 
     @font-face {
       font-family: 'AliMeshref';
-      src: url('ali-meshref.woff2') format('woff2'),
-           url('ali-meshref.ttf') format('truetype');
+      src: url('ali-meshref.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
     }
@@ -91,20 +90,14 @@
     }
 
     .poem-verse {
-      font-family: 'AliMeshref', serif;
-      color: #ffffff;
-      font-size: 2.5rem;
-      line-height: 1.1;
-      text-align: right;
-      direction: rtl;
+      height: 120px;
+      width: auto;
+      max-width: 100%;
       position: relative;
-      top: -8px;
+      top: 0px;
       cursor: pointer;
       user-select: none;
-    }
-
-    .poem-verse .green {
-      color: #A1B99B;
+      display: block;
     }
 
     /* ════════════════ SEPARATORS ════════════════ */
@@ -252,7 +245,7 @@
     .books-row {
       display: flex;
       flex-direction: row;
-      align-items: flex-start;
+      align-items: flex-end;
       gap: 28px;
       direction: ltr;
     }
@@ -277,14 +270,10 @@
       font-family: 'AliMeshref', serif;
       color: #ffffff;
       font-size: 1.5rem;
-      line-height: 1;
       text-align: center;
       direction: rtl;
       position: relative;
       top: -2px;
-      /* collapse phantom space above and below Arabic glyphs */
-      margin-top: -0.3em;
-      padding-top: 0;
     }
 
     /* ── VERTICAL DIVIDER ── */
@@ -353,7 +342,11 @@
       color: #DDA6A6;
     }
 
-    /* ════════════════ MODAL ════════════════ */
+    /* ════════════════ STAIRCASE — JS controlled ════════════════ */
+    /* margins are set dynamically by script to match bio text height */
+    .books-row {
+      align-items: flex-start;
+    }
     .modal-overlay {
       display: flex;
       position: fixed;
@@ -466,10 +459,7 @@
       <img src="logo-center.svg" alt="دُرَرُ الضَّادِ" />
     </div>
     <div class="header-left">
-      <p class="poem-verse" id="poemVerse" role="button" aria-haspopup="dialog" tabindex="0">
-          وَـ أنْبِئْ بِدُرِّـ  <span class="green">الضّـــٰادِ </span> فٖي كُلِّ <span class="green">ضَ</span>يْهَبِ<br>
-        ألا إنَّمَا ذِي هِيَـ  خَــيْـــــرُ المَكَـــاتِبِ
-      </p>
+      <img class="poem-verse" id="poemVerse" src="WaAnbiBidurrDhad.svg" alt="وَـ أنْبِئْ بِدُرِّـ الضّـٰادِ فٖي كُلِّ ضَيْهَبِ - ألا إنَّمَا ذِي هِيَـ خَيْرُ المَكَاتِبِ" role="button" aria-haspopup="dialog" tabindex="0" />
     </div>
   </header>
 
@@ -593,6 +583,7 @@
       const books   = document.querySelectorAll('.books-row .book-item');
       if (!textCol || books.length < 3) return;
 
+      /* Reset first so heights are natural */
       books.forEach(b => b.style.marginTop = '0px');
 
       const totalHeight = textCol.offsetHeight;
@@ -600,9 +591,17 @@
       const h1 = books[1].offsetHeight;
       const h2 = books[2].offsetHeight;
 
-      const mid1 = h0 / 2;
-      const mid3 = (totalHeight - h2) + h2 / 2;
-      const mid2 = (mid1 + mid3) / 2;
+      /* Book 1: top = 0, its center = h0/2 */
+      /* Book 3: bottom = totalHeight, so top = totalHeight - h2 */
+      /* Book 2: centered between midpoint of book1 and midpoint of book3 */
+      /*   midpoint of book1 = h0/2                                       */
+      /*   midpoint of book3 = (totalHeight - h2) + h2/2                  */
+      /*   center of gap = average of those two midpoints                  */
+      /*   book2 top = center of gap - h1/2                               */
+
+      const mid1  = h0 / 2;
+      const mid3  = (totalHeight - h2) + h2 / 2;
+      const mid2  = (mid1 + mid3) / 2;
 
       const top1 = 0;
       const top2 = Math.max(0, mid2 - h1 / 2);
