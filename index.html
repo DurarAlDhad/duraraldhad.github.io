@@ -2,7 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=1100" />
+  <meta name="viewport" id="viewportMeta" content="width=1100" />
+  <script>
+    (function () {
+      var meta = document.getElementById('viewportMeta');
+      var scale = screen.width / 1100;
+      meta.setAttribute('content', 'width=1100, initial-scale=' + scale);
+    })();
+  </script>
   <title>دُرَرُ الضَّـادِ | Durar Al-Dhad</title>
   <link rel="icon" type="image/png" href="duraraldhad-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -319,13 +326,13 @@
       align-items: center;
       gap: 10px;
       direction: rtl;
-      margin-bottom: -3px;
+      margin-bottom: 16px;
       align-self: flex-start;
     }
 
     /* ── Shanaha SVG — adjust this height as needed ── */
     .shanaha-img {
-      height: 85px;
+      height: 70px;
       width: auto;
       display: block;
     }
@@ -541,10 +548,10 @@
             <img class="shanaha-img" src="Shanaha.svg" alt="شأنها" />
           </div>
 
-         <p class="shanaha-text">
+          <p class="shanaha-text">
             تُعنى مكتبة دُرَر <span class="dhad">الضّـــاد</span> بجمع الكتب الكنتــــــرية وترجمتها لتبلغ رسالة الكنتــــــــــــرة أطْورَي العالمــين أجمعـــــــــين.
             أسّسها العلّامة الفا<span class="dhad">ض</span>ل <span class="founder">ابن أبي حسين الأسدي الكنتري</span>
-            الذي بالغ بعظــــــــيم الجهد وأبى إلا أن يتكنتـــر كل امــرئٍ من كــــل أمّــــةٍ وأر<span class="dhad">ضٍ</span> وبــــلادٍ وعـــــالمٍ.
+            الذي بالغ بعظــــــــيم الجهد وأبى إلا أن يتكنتـــــــــر كل امـــــرئٍ من كــــــل أمّـــــةٍ وأر<span class="dhad">ضٍ</span> وبـــــــــلادٍ وعـــــــــــالمٍ.
           </p>
 
         </div>
