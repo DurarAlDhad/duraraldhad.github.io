@@ -140,18 +140,30 @@
     }
 
     .nav-links li a {
-      font-family: 'AliMeshref', serif;
-      color: #ffffff;
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      font-size: 2.2rem;
-      transition: text-decoration 0.15s;
-      position: relative;
-      top: -6px;
     }
 
-    .nav-links li a:hover {
-      text-decoration: underline;
+    /* ── Shared base for all nav images ── */
+    .nav-links li a img {
+      height: 40px;
+      width: auto;
+      display: block;
+      border-bottom: 2px solid transparent;
+      transition: border-bottom-color 0.15s;
+      filter: invert(1);
     }
+
+    .nav-links li a:hover img {
+      border-bottom-color: #000000;
+    }
+
+    /* ── Per-image size overrides — change each independently ── */
+.nav-links li a .nav-img-about   { height: 46px; }
+.nav-links li a .nav-img-contact { height: 45px; }
+.nav-links li a .nav-img-books   { height: 38px; }
+.nav-links li a .nav-img-jawahir { height: 48px; }
 
     .nav-separator {
       color: #c0392b;
@@ -468,11 +480,13 @@
   <!-- ─── NAV ─── -->
   <nav>
     <ul class="nav-links">
-      <li><a href="#">خـــبَـــــرُ دُرَر الضّـــٰادِ</a></li>
+      <li><a href="#"><img class="nav-img-about"   src="AboutDurarAlDhad.svg" alt="خبر درر الضاد" /></a></li>
       <li><span class="nav-separator">•</span></li>
-      <li><a href="#">رَاسِــلنَا</a></li>
+      <li><a href="#"><img class="nav-img-contact" src="ContactUs.svg"        alt="راسلنا" /></a></li>
       <li><span class="nav-separator">•</span></li>
-      <li><a href="#">كُـــتُبُنا</a></li>
+      <li><a href="#"><img class="nav-img-books"   src="OurBooks.svg"         alt="كتبنا" /></a></li>
+      <li><span class="nav-separator">•</span></li>
+      <li><a href="#"><img class="nav-img-jawahir" src="JawahirulQulQul.svg"  alt="جواهر القلقل" /></a></li>
     </ul>
     <div class="social-icons">
       <a href="https://www.threads.com/@duraraldhad" target="_blank" rel="noopener" aria-label="Threads">
@@ -590,14 +604,6 @@
       const h0 = books[0].offsetHeight;
       const h1 = books[1].offsetHeight;
       const h2 = books[2].offsetHeight;
-
-      /* Book 1: top = 0, its center = h0/2 */
-      /* Book 3: bottom = totalHeight, so top = totalHeight - h2 */
-      /* Book 2: centered between midpoint of book1 and midpoint of book3 */
-      /*   midpoint of book1 = h0/2                                       */
-      /*   midpoint of book3 = (totalHeight - h2) + h2/2                  */
-      /*   center of gap = average of those two midpoints                  */
-      /*   book2 top = center of gap - h1/2                               */
 
       const mid1  = h0 / 2;
       const mid3  = (totalHeight - h2) + h2 / 2;
