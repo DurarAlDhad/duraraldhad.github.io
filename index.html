@@ -269,7 +269,8 @@
       gap: 10px;
     }
 
-    .book-item img {
+    /* ── Cover images: keep the outline styling ── */
+    .book-cover-img {
       height: 220px;
       width: auto;
       display: block;
@@ -278,15 +279,21 @@
       outline-offset: 2px;
     }
 
-    .book-title {
-      font-family: 'AliMeshref', serif;
-      color: #ffffff;
-      font-size: 1.5rem;
-      text-align: center;
-      direction: rtl;
+    /* ── Title SVGs: no outline, inverted to white ── */
+    .book-title-img {
+      width: auto;
+      display: block;
+      outline: none;
+      border-radius: 0;
+      filter: invert(1);
       position: relative;
       top: -2px;
     }
+
+    /* ── Per-title height overrides — change each independently ── */
+    .book-title-img-1 { height: 30px; }
+    .book-title-img-2 { height: 30px; }
+    .book-title-img-3 { height: 30px; }
 
     /* ── VERTICAL DIVIDER ── */
     .vertical-divider {
@@ -521,16 +528,16 @@
         <div class="books-col">
           <div class="books-row">
             <div class="book-item">
-              <img src="LisanMukantirCover.png" alt="اللسان المكنتر" />
-              <span class="book-title">اللسَـــٰانُ المُكَـــنْتِرُ</span>
+              <img class="book-cover-img" src="LisanMukantirCover.png" alt="اللسان المكنتر" />
+              <img class="book-title-img book-title-img-1" src="LisanMukantir.svg" alt="اللسان المكنتر" />
             </div>
             <div class="book-item">
-              <img src="LisanExplainCover.png" alt="بيان المكنتر" />
-              <span class="book-title">بيَـــان المُكَـــنْتِر</span>
+              <img class="book-cover-img" src="LisanExplainCover.png" alt="بيان المكنتر" />
+              <img class="book-title-img book-title-img-2" src="BayanMukantir.svg" alt="بيان المكنتر" />
             </div>
             <div class="book-item">
-              <img src="EnglishLisanCover.png" alt="اللسان المكنتر مؤجلزًا" />
-              <span class="book-title">اللسَانُ المُكَـــنترُ مُؤجْلَزًا</span>
+              <img class="book-cover-img" src="EnglishLisanCover.png" alt="اللسان المكنتر مؤجلزًا" />
+              <img class="book-title-img book-title-img-3" src="EnglishMukantir.svg" alt="اللسان المكنتر مؤجلزًا" />
             </div>
           </div>
         </div>
