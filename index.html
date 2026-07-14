@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" href="duraraldhad-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <style>
 
     @font-face {
@@ -170,6 +170,7 @@
 .nav-links li a .nav-img-about   { height: 46px; }
 .nav-links li a .nav-img-contact { height: 45px; }
 .nav-links li a .nav-img-books   { height: 38px; }
+.nav-links li a .nav-img-janan   { height: 40px; }
 .nav-links li a .nav-img-jawahir { height: 48px; }
 
     .nav-separator {
@@ -208,7 +209,6 @@
     main {
       position: relative;
       min-height: calc(100vh - 220px);
-      overflow: hidden;
     }
 
     .bg-calligraphy {
@@ -463,6 +463,189 @@
 
     .modal-close:hover { background: #6F2D8C; }
 
+    /* ════════════════════════════════════════════════════════════
+       JANANWIKI SEARCH SECTION — continues below شأنها
+    ════════════════════════════════════════════════════════════ */
+
+    .section-jananwiki {
+      margin-top: 70px;
+      direction: rtl;
+    }
+
+    /* Logo */
+    .jw-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .jw-logo-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── JananWiki logo size — change this one value to scale it ── */
+    .jw-logo-img {
+      max-width: 330px;
+    }
+
+    /* Search bar */
+    .jw-searchbar-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 34px;
+    }
+
+    .jw-searchbar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      direction: rtl;
+      background-color: #60536C;
+      border-radius: 999px;
+      width: 100%;
+      max-width: 720px;
+      height: 56px;
+      padding: 0 18px;
+      gap: 14px;
+    }
+
+    .jw-search-btn,
+    .jw-lucky-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+
+    .jw-search-btn img {
+      width: auto;
+      filter: invert(1);
+      opacity: 0.9;
+    }
+
+    .jw-lucky-btn img {
+      width: auto;
+      filter: invert(1);
+      opacity: 0.9;
+    }
+
+    /* ── Per-icon height overrides — change each independently ── */
+    .jw-search-icon { height: 30px; }
+    .jw-lucky-icon  { height: 35px; }
+
+    .jw-btn-separator {
+      width: 1.5px;
+      align-self: stretch;
+      margin: 12px 0;
+      background-color: #50435C;
+      flex-shrink: 0;
+    }
+
+    .jw-search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Cairo', sans-serif;
+      font-size: 1.2rem;
+      color: #ffffff;
+      text-align: right;
+      direction: rtl;
+      min-width: 0;
+    }
+
+    .jw-search-input::placeholder {
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    /* Description */
+    .jw-description {
+      font-family: 'Cairo', sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 496;
+      font-style: normal;
+      color: #ffffff;
+      font-size: 1.35rem;
+      line-height: 1.9;
+      text-align: center;
+      direction: rtl;
+      white-space: pre-line;
+      margin-bottom: 30px;
+    }
+
+    /* Divider */
+    .jw-divider {
+      height: 1.5px;
+      background-color: #291C35;
+      margin-bottom: 36px;
+    }
+
+    /* Image grid */
+    .jw-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 30px;
+      row-gap: 36px;
+      direction: rtl;
+      margin-bottom: 40px;
+    }
+
+    .jw-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .jw-item-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: #4A3F57;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      outline: 2px solid #75648A;
+      outline-offset: 2px;
+    }
+
+    .jw-item-title {
+      font-family: 'Amiri', serif;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 1.5rem;
+      text-align: center;
+      direction: rtl;
+    }
+
+    /* Split divider with label */
+    .jw-split-divider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      direction: rtl;
+    }
+
+    .jw-split-divider .line {
+      flex: 1;
+      height: 1.5px;
+      background-color: #291C35;
+    }
+
+    .jw-split-divider .label {
+      font-family: 'Cairo', sans-serif;
+      color: #ffffff;
+      font-size: 1.7rem;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
   </style>
 </head>
 <body>
@@ -476,7 +659,7 @@
       <img src="logo-center.svg" alt="دُرَرُ الضَّادِ" />
     </div>
     <div class="header-left">
-      <img class="poem-verse" id="poemVerse" src="WaAnbiBidurrDhad.svg" alt="وَـ أنْبِئْ بِدُرِّـ الضّـٰادِ فٖي كُلِّ ضَيْهَبِ - ألا إنَّمَا ذِي هِيَـ خَيْرُ المَكَاتِبِ" role="button" aria-haspopup="dialog" tabindex="0" />
+      <img class="poem-verse" id="poemVerse" src="WaAnbiBidurrDhad.svg" alt="وَأنْبِئْ بِدُرِّ الضّـٰادِ فٖي كُلِّ ضَيْهَبِ ألا إنَّمَا ذِي هِيَ خَيْرُ المَكَاتِبِ" role="button" aria-haspopup="dialog" tabindex="0" />
     </div>
   </header>
 
@@ -490,6 +673,8 @@
       <li><a href="#"><img class="nav-img-contact" src="ContactUs.svg"        alt="راسلنا" /></a></li>
       <li><span class="nav-separator">•</span></li>
       <li><a href="#"><img class="nav-img-books"   src="OurBooks.svg"         alt="كتبنا" /></a></li>
+      <li><span class="nav-separator">•</span></li>
+      <li><a href="#section-jananwiki"><img class="nav-img-janan"   src="JananWiki.svg"        alt="الموسوعة الجنانية" /></a></li>
       <li><span class="nav-separator">•</span></li>
       <li><a href="#"><img class="nav-img-jawahir" src="JawahirulQulQul.svg"  alt="جواهر القلقل" /></a></li>
     </ul>
@@ -518,7 +703,7 @@
     <div class="main-content">
 
       <div class="library-logo-wrap">
-        <img src="DurarAlDhadLogo.png" alt="مكتبة دُرَرُ الضَّادِ" />
+        <img src="DurarAlDhadLogo.png" alt="مكتبة دُرَرُ الضَّــادِ" />
       </div>
 
       <div class="section-shanaha">
@@ -526,16 +711,16 @@
         <div class="books-col">
           <div class="books-row">
             <div class="book-item">
-              <img class="book-cover-img" src="LisanMukantirCover.png" alt="اللسان المكنتر" />
-              <img class="book-title-img book-title-img-1" src="LisanMukantir.svg" alt="اللسان المكنتر" />
+              <img class="book-cover-img" src="LisanMukantirCover.png" alt="اللّسَـان المُكنـتِر" />
+              <img class="book-title-img book-title-img-1" src="LisanMukantir.svg" alt="اللّسَـان المُكنـتِر" />
             </div>
             <div class="book-item">
-              <img class="book-cover-img" src="LisanExplainCover.png" alt="بيان المكنتر" />
-              <img class="book-title-img book-title-img-2" src="BayanMukantir.svg" alt="بيان المكنتر" />
+              <img class="book-cover-img" src="LisanExplainCover.png" alt="بيَـان المُكنـتِر" />
+              <img class="book-title-img book-title-img-2" src="BayanMukantir.svg" alt="بيَـان المُكنـتِر" />
             </div>
             <div class="book-item">
-              <img class="book-cover-img" src="EnglishLisanCover.png" alt="اللسان المكنتر مؤجلزًا" />
-              <img class="book-title-img book-title-img-3" src="EnglishMukantir.svg" alt="اللسان المكنتر مؤجلزًا" />
+              <img class="book-cover-img" src="EnglishLisanCover.png" alt="اللّسان المُكنتِر مؤجلَزًا" />
+              <img class="book-title-img book-title-img-3" src="EnglishMukantir.svg" alt="اللّسان المُكنتِر مؤجلَزًا" />
             </div>
           </div>
         </div>
@@ -557,6 +742,72 @@
         </div>
 
       </div>
+
+      <!-- ═══════════ JANANWIKI SEARCH SECTION ═══════════ -->
+      <section class="section-jananwiki" id="section-jananwiki">
+
+        <!-- Logo -->
+        <div class="jw-logo-wrap">
+          <img class="jw-logo-img" src="JananWikiLogo.png" alt="الموسوعة الجنانية | JananWiki" />
+        </div>
+
+        <!-- Search bar -->
+        <div class="jw-searchbar-wrap">
+          <div class="jw-searchbar">
+            <button class="jw-search-btn" type="button" aria-label="بحث">
+              <img class="jw-search-icon" src="Search.svg" alt="بحث" />
+            </button>
+            <button class="jw-lucky-btn" type="button" aria-label="أرني منها">
+              <img class="jw-lucky-icon" src="ImFeelingLucky.svg" alt="أرني منها" />
+            </button>
+            <div class="jw-btn-separator"></div>
+            <input class="jw-search-input" type="text" placeholder="ابحــــث في الموســـــوعة" />
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p class="jw-description">الموسوعة الجنانية في جمع أخبار عالم الجنان
+ومعارفه وآثاره والتفصيل فيها وفي علومه.</p>
+
+        <!-- Divider -->
+        <div class="jw-divider"></div>
+
+        <!-- Image grid -->
+        <div class="jw-grid">
+          <div class="jw-item">
+            <div class="jw-item-image" style="background-image: url('JananItem1.png');"></div>
+            <p class="jw-item-title">عنوان</p>
+          </div>
+          <div class="jw-item">
+            <div class="jw-item-image" style="background-image: url('JananItem2.png');"></div>
+            <p class="jw-item-title">عنوان</p>
+          </div>
+          <div class="jw-item">
+            <div class="jw-item-image" style="background-image: url('JananItem3.png');"></div>
+            <p class="jw-item-title">عنوان</p>
+          </div>
+          <div class="jw-item">
+            <div class="jw-item-image" style="background-image: url('JananItem4.png');"></div>
+            <p class="jw-item-title">عنوان</p>
+          </div>
+          <div class="jw-item">
+            <div class="jw-item-image" style="background-image: url('JananItem5.png');"></div>
+            <p class="jw-item-title">عنوان</p>
+          </div>
+          <div class="jw-item">
+            <div class="jw-item-image" style="background-image: url('JananItem6.png');"></div>
+            <p class="jw-item-title">عنوان</p>
+          </div>
+        </div>
+
+        <!-- Split divider with "المزيد..." -->
+        <div class="jw-split-divider">
+          <div class="line"></div>
+          <span class="label">المزيــد...</span>
+          <div class="line"></div>
+        </div>
+
+      </section>
 
     </div>
   </main>
