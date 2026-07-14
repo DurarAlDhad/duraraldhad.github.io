@@ -174,14 +174,15 @@
 .nav-links li a .nav-img-jawahir { height: 48px; }
 
     .nav-separator {
-      color: #c0392b;
-      font-size: 2rem;
-      line-height: 1;
-      padding: 0 8px;
-      user-select: none;
-      position: relative;
-      top: -3px;
-    }
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #c0392b;
+  margin: 0 8px;
+  flex-shrink: 0;
+  user-select: none;
+}
 
     .social-icons {
       display: flex;
@@ -669,13 +670,13 @@
   <nav>
     <ul class="nav-links">
       <li><a href="#"><img class="nav-img-about"   src="AboutDurarAlDhad.svg" alt="خبر درر الضاد" /></a></li>
-      <li><span class="nav-separator">•</span></li>
+      <li><span class="nav-separator"></span></li>
       <li><a href="#"><img class="nav-img-contact" src="ContactUs.svg"        alt="راسلنا" /></a></li>
-      <li><span class="nav-separator">•</span></li>
+      <li><span class="nav-separator"></span></li>
       <li><a href="#"><img class="nav-img-books"   src="OurBooks.svg"         alt="كتبنا" /></a></li>
-      <li><span class="nav-separator">•</span></li>
+      <li><span class="nav-separator"></span></li>
       <li><a href="#section-jananwiki"><img class="nav-img-janan"   src="JananWiki.svg"        alt="الموسوعة الجنانية" /></a></li>
-      <li><span class="nav-separator">•</span></li>
+      <li><span class="nav-separator"></span></li>
       <li><a href="#"><img class="nav-img-jawahir" src="JawahirulQulQul.svg"  alt="جواهر القلقل" /></a></li>
     </ul>
     <div class="social-icons">
