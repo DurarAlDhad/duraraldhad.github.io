@@ -590,13 +590,14 @@
 
     /* Image grid */
     .jw-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      column-gap: 30px;
-      row-gap: 36px;
-      direction: rtl;
-      margin-bottom: 40px;
-    }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 30px;
+  row-gap: 36px;
+  direction: rtl;
+  max-width: 930px;
+  margin: 0 auto 40px;
+}
 
     .jw-item {
       display: flex;
@@ -639,13 +640,17 @@
       background-color: #291C35;
     }
 
-    .jw-split-divider .label {
-      font-family: 'Cairo', sans-serif;
-      color: #ffffff;
-      font-size: 1.7rem;
-      white-space: nowrap;
-      cursor: pointer;
-    }
+ .jw-split-divider .label {
+  font-family: 'Cairo', sans-serif;
+  color: #ffffff;
+  font-size: 1.7rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.jw-split-divider .label:hover {
+  text-decoration: underline;
+}
 
   </style>
 </head>
@@ -777,34 +782,34 @@
         <div class="jw-grid">
           <div class="jw-item">
             <div class="jw-item-image" style="background-image: url('JananItem1.png');"></div>
-            <p class="jw-item-title">عنوان</p>
+            <p class="jw-item-title">عنـــــوان</p>
           </div>
           <div class="jw-item">
             <div class="jw-item-image" style="background-image: url('JananItem2.png');"></div>
-            <p class="jw-item-title">عنوان</p>
+            <p class="jw-item-title">عنـــــوان</p>
           </div>
           <div class="jw-item">
             <div class="jw-item-image" style="background-image: url('JananItem3.png');"></div>
-            <p class="jw-item-title">عنوان</p>
+            <p class="jw-item-title">عنـــــوان</p>
           </div>
           <div class="jw-item">
             <div class="jw-item-image" style="background-image: url('JananItem4.png');"></div>
-            <p class="jw-item-title">عنوان</p>
+            <p class="jw-item-title">عنـــــوان</p>
           </div>
           <div class="jw-item">
             <div class="jw-item-image" style="background-image: url('JananItem5.png');"></div>
-            <p class="jw-item-title">عنوان</p>
+            <p class="jw-item-title">عنـــــوان</p>
           </div>
           <div class="jw-item">
             <div class="jw-item-image" style="background-image: url('JananItem6.png');"></div>
-            <p class="jw-item-title">عنوان</p>
+            <p class="jw-item-title">عنـــــوان</p>
           </div>
         </div>
 
         <!-- Split divider with "المزيد..." -->
         <div class="jw-split-divider">
           <div class="line"></div>
-          <span class="label">المزيــد...</span>
+          <span class="label">المزيــــد...</span>
           <div class="line"></div>
         </div>
 
