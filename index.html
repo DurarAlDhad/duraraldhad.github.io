@@ -610,16 +610,23 @@
       width: 100%;
       aspect-ratio: 1 / 1;
       background-color: #4A3F57;
-      background-size: cover;
-      background-position: center;
       border-radius: 10px;
       outline: 2px solid #75648A;
       outline-offset: 2px;
+      overflow: hidden;
+    }
+
+    /* actual <img> inside, lazy-loaded — fills the square container */
+    .jw-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     /* ── Change this one value to scale ALL JananWiki titles ── */
     :root {
-      --jw-title-scale: 2rem;
+      --jw-title-scale: 1.5rem;
     }
 
     .jw-item-title {
@@ -634,7 +641,7 @@
     /* ── Special override: item forced to a fixed color ──
        Change --jw-special-color to whatever you like. ── */
     .jw-item-special .jw-item-title {
-      color: var(--jw-special-color, #9dc789);
+      color: var(--jw-special-color, #2E8B57);
     }
 
     /* Split divider with label */
@@ -937,7 +944,9 @@
 
       grid.innerHTML = picked.map(item => `
         <div class="jw-item${item.special ? ' jw-item-special' : ''}" data-id="${item.id}">
-          <div class="jw-item-image" style="background-image: url('${item.img}');"></div>
+          <div class="jw-item-image">
+            <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async" />
+          </div>
           <p class="jw-item-title">${item.title}</p>
         </div>
       `).join('');
