@@ -617,13 +617,24 @@
       outline-offset: 2px;
     }
 
+    /* ── Change this one value to scale ALL JananWiki titles ── */
+    :root {
+      --jw-title-scale: 2rem;
+    }
+
     .jw-item-title {
       font-family: 'Amiri', serif;
       font-weight: 700;
       color: #ffffff;
-      font-size: 1.5rem;
+      font-size: var(--jw-title-scale);
       text-align: center;
       direction: rtl;
+    }
+
+    /* ── Special override: item forced to a fixed color ──
+       Change --jw-special-color to whatever you like. ── */
+    .jw-item-special .jw-item-title {
+      color: var(--jw-special-color, #9dc789);
     }
 
     /* Split divider with label */
@@ -778,33 +789,8 @@
         <!-- Divider -->
         <div class="jw-divider"></div>
 
-        <!-- Image grid -->
-        <div class="jw-grid">
-          <div class="jw-item">
-            <div class="jw-item-image" style="background-image: url('JananItem1.png');"></div>
-            <p class="jw-item-title">عنـــــوان</p>
-          </div>
-          <div class="jw-item">
-            <div class="jw-item-image" style="background-image: url('JananItem2.png');"></div>
-            <p class="jw-item-title">عنـــــوان</p>
-          </div>
-          <div class="jw-item">
-            <div class="jw-item-image" style="background-image: url('JananItem3.png');"></div>
-            <p class="jw-item-title">عنـــــوان</p>
-          </div>
-          <div class="jw-item">
-            <div class="jw-item-image" style="background-image: url('JananItem4.png');"></div>
-            <p class="jw-item-title">عنـــــوان</p>
-          </div>
-          <div class="jw-item">
-            <div class="jw-item-image" style="background-image: url('JananItem5.png');"></div>
-            <p class="jw-item-title">عنـــــوان</p>
-          </div>
-          <div class="jw-item">
-            <div class="jw-item-image" style="background-image: url('JananItem6.png');"></div>
-            <p class="jw-item-title">عنـــــوان</p>
-          </div>
-        </div>
+        <!-- Image grid (populated dynamically by JS — see jananItems array below) -->
+        <div class="jw-grid" id="jwGrid"></div>
 
         <!-- Split divider with "المزيد..." -->
         <div class="jw-split-divider">
@@ -893,6 +879,71 @@
 
     window.addEventListener('load',   applyStaircase);
     window.addEventListener('resize', applyStaircase);
+
+    /* ════════════════════════════════════════════════════════════
+       JANANWIKI — image pool + randomized grid
+       ────────────────────────────────────────────────────────────
+       Each entry has:
+         id    → simple numeric count, just for your reference
+         img   → path to the image inside the JananWiki/ folder
+         title → placeholder title (e.g. "Jananite-1"). Edit this
+                 string to whatever the real Arabic/English title
+                 should be — no need to touch anything else.
+
+       To add a new item later: just copy a line, bump the id,
+       point "img" to the new file, and change "title".
+       The grid will automatically include it in the random pool.
+    ════════════════════════════════════════════════════════════ */
+    const jananItems = [
+      { id: 1,  img: "JananWiki/Kantarism.webp",     title: "بلاد الڪنترة"        },
+      { id: 2,  img: "JananWiki/Marble.webp",        title: "الدُعبُـــلة"          },
+      { id: 3,  img: "JananWiki/Mujawlin.webp",      title: "المُجـــولِن"          },
+      { id: 4,  img: "JananWiki/Mutyyarchi.webp",    title: "أبو بكر المُطيّرجيّ"    },
+      { id: 5,  img: "JananWiki/Questioners.webp",   title: "السّـــائِلون"         },
+      { id: 6,  img: "JananWiki/RasulImam.webp",     title: "رسُول الإمَـــام"      },
+      { id: 7,  img: "JananWiki/Redstone.webp",      title: "الحَمَـــرقَد"          },
+      { id: 8,  img: "JananWiki/Wurjan.webp",        title: "الوُرجَـــان"          },
+      { id: 9,  img: "JananWiki/Zibrid.webp",        title: "الزِبـــرِد"           },
+      { id: 10, img: "JananWiki/Zurqam.webp",        title: "الزُرقَـــام"          },
+      { id: 11, img: "JananWiki/Alkabus.webp",       title: "العَلڪَبُوس"            },
+      { id: 12, img: "JananWiki/Currency.webp",      title: "نُقُود الڪَناتر"        },
+      { id: 13, img: "JananWiki/Debal.webp",         title: "الدِّعبَـــال"          },
+      { id: 14, img: "JananWiki/Dhad.webp",          title: "الضّـــاد", special: true },
+      { id: 15, img: "JananWiki/Dindas.webp",        title: "الدّنــدَاس"             },
+      { id: 16, img: "JananWiki/Hummingbird.webp",   title: "السُبنُـــوس"          },
+      { id: 17, img: "JananWiki/IbnAbiHussien.webp", title: "ابنُ أبي حُسَـــين"     },
+      { id: 18, img: "JananWiki/ImamKantari.webp",   title: "الإمَـــامُ الڪنتريّ"   },
+      { id: 19, img: "JananWiki/JananSun.webp",      title: "الجَنـــان"           },
+      { id: 20, img: "JananWiki/Jaqut.webp",         title: "الجَـــاقوت"          },
+      { id: 21, img: "JananWiki/KantariDinar.webp",  title: "الدّينَـــار الكنتريّ"  },
+    ];
+
+    const JW_GRID_SIZE = 6; // how many cards to show at once
+
+    function shuffleArray(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function renderJananGrid() {
+      const grid = document.getElementById('jwGrid');
+      if (!grid) return;
+
+      const picked = shuffleArray(jananItems).slice(0, JW_GRID_SIZE);
+
+      grid.innerHTML = picked.map(item => `
+        <div class="jw-item${item.special ? ' jw-item-special' : ''}" data-id="${item.id}">
+          <div class="jw-item-image" style="background-image: url('${item.img}');"></div>
+          <p class="jw-item-title">${item.title}</p>
+        </div>
+      `).join('');
+    }
+
+    renderJananGrid();
   </script>
 
 </body>
