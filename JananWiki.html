@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" id="viewportMeta" content="width=1100" />
+  <script>
+    (function () {
+      var meta = document.getElementById('viewportMeta');
+      var scale = screen.width / 1100;
+      meta.setAttribute('content', 'width=1100, initial-scale=' + scale);
+    })();
+  </script>
+  <title>الموسوعة الجنانية | JananWiki</title>
+  <link rel="icon" type="image/png" href="duraraldhad-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+
+    @font-face {
+      font-family: 'AliMeshref';
+      src: url('ali-meshref.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'SakkalKitab';
+      src: url('SakkalKitab-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #3C3149;
+      font-family: 'AliMeshref', serif;
+      min-height: 100vh;
+      min-width: 1100px;
+      overflow-x: auto;
+    }
+
+    /* ════════════════ HEADER ════════════════ */
+    header {
+      background: linear-gradient(to right, #4E3A61 50%, #4C7142 50%);
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      padding: 0 32px;
+      direction: rtl;
+      position: relative;
+      z-index: 2;
+      height: 140px;
+    }
+
+    .header-right {
+      flex: 1;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .header-right img {
+      height: 90px;
+      width: auto;
+      filter: invert(1);
+    }
+
+    .header-center {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #4C7142 50%, #4E3A61 50%);
+      border-radius: 16px;
+      padding: 12px 20px;
+      margin: 0;
+      align-self: stretch;
+    }
+
+    .header-center img {
+      height: 110px;
+      width: auto;
+      filter: invert(1);
+    }
+
+    .header-left {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .poem-verse {
+      height: 120px;
+      width: auto;
+      max-width: 100%;
+      position: relative;
+      top: 0px;
+      cursor: pointer;
+      user-select: none;
+      display: block;
+    }
+
+    /* ════════════════ SEPARATORS ════════════════ */
+    .separator-top {
+      height: 7px;
+      background: linear-gradient(to right, #3F3150 40%, #345A2A 60%);
+    }
+
+    .separator-bottom {
+      height: 7px;
+      background-color: #1D341A;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ════════════════ NAV ════════════════ */
+    nav {
+      background-color: #2B4B22;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 32px;
+      direction: rtl;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      list-style: none;
+      direction: rtl;
+    }
+
+    .nav-links li {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    /* ── Shared base for all nav images ── */
+    .nav-links li a img {
+      height: 40px;
+      width: auto;
+      display: block;
+      border-bottom: 2px solid transparent;
+      transition: border-bottom-color 0.15s;
+      filter: invert(1);
+    }
+
+    .nav-links li a:hover img {
+      border-bottom-color: #000000;
+    }
+
+    /* ── Per-image size overrides — change each independently ── */
+    .nav-links li a .nav-img-about   { height: 46px; }
+    .nav-links li a .nav-img-contact { height: 45px; }
+    .nav-links li a .nav-img-books   { height: 38px; }
+    .nav-links li a .nav-img-janan   { height: 40px; }
+    .nav-links li a .nav-img-jawahir { height: 48px; }
+
+    .nav-separator {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #c0392b;
+      margin: 0 8px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      direction: ltr;
+    }
+
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.2s;
+    }
+
+    .social-icons a:hover { opacity: 0.75; }
+
+    .social-icons img {
+      width: 38px;
+      height: 38px;
+      filter: invert(1);
+    }
+
+    /* ════════════════ JANANWIKI TITLE BAR ════════════════ */
+    /* ── Change these 3 values to resize each item independently ── */
+    :root {
+      --jw-title-logo-height: 190px;   /* JananWiki.png (right)        */
+      --jw-title-heart-height: 220px;  /* JananSun.svg   (center)      */
+      --jw-title-poem-height: 170px;    /* JananunWaMaAdrak.svg (left)  */
+    }
+
+    .jw-title-bar {
+      background-color: #2F2538;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 32px;
+      direction: rtl;
+      position: relative;
+      z-index: 2;
+    }
+
+    .jw-title-right {
+      flex: 1;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    /* JananWiki.png — kept in its original colors, no invert */
+    .jw-title-right img {
+      height: var(--jw-title-logo-height);
+      width: auto;
+    }
+
+    .jw-title-center {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    /* JananSun.svg (the heart) — inverted to white */
+    .jw-title-center img {
+      height: var(--jw-title-heart-height);
+      width: auto;
+      filter: invert(1);
+    }
+
+    .jw-title-left {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    /* JananunWaMaAdrak.svg (the poem) — inverted to white */
+    .jw-title-left img {
+      height: var(--jw-title-poem-height);
+      width: auto;
+      filter: invert(1);
+    }
+
+    /* ════════════════ MAIN (blank for now — entry content goes here later) ════════════════ */
+    main {
+      position: relative;
+      min-height: calc(100vh - 220px);
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 1;
+      padding: 40px 48px;
+    }
+
+    /* ════════════════ MODAL (poem verse explanation) ════════════════ */
+    .modal-overlay {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.55);
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      position: relative;
+      background: #355536;
+      border: 5px solid #1E4123;
+      border-radius: 22px;
+      padding: 32px 28px 28px 28px;
+      max-width: 420px;
+      width: 90%;
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      direction: rtl;
+      transform: scale(0.88);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      flex: 1;
+      padding-left: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: #355536 #4AA64C;
+    }
+
+    .modal-body::-webkit-scrollbar { width: 10px; }
+    .modal-body::-webkit-scrollbar-track {
+      background: #4AA64C;
+      border-radius: 99px;
+    }
+    .modal-body::-webkit-scrollbar-thumb {
+      background: #355536;
+      border-radius: 99px;
+      border: 2px solid #203C21;
+    }
+
+    .modal-text {
+      font-family: 'SakkalKitab', serif;
+      color: #ffffff;
+      font-size: 1.55rem;
+      line-height: 1.65;
+      text-align: center;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+      direction: rtl;
+      white-space: pre-wrap;
+    }
+
+    .modal-divider {
+      border: none;
+      border-top: 3px solid #224A22;
+      margin: 14px 0;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -18px;
+      right: -18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #532269;
+      border: 3px solid #6F2D8C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-family: sans-serif;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .modal-close:hover { background: #6F2D8C; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ─── HEADER ─── -->
+  <header>
+  <div class="header-right">
+  <a href="index.html"><img src="logo-right.svg" alt="دُرَرُ الضَّادِ" /></a>
+</div>
+    <div class="header-center">
+      <img src="logo-center.svg" alt="دُرَرُ الضَّادِ" />
+    </div>
+    <div class="header-left">
+      <img class="poem-verse" id="poemVerse" src="WaAnbiBidurrDhad.svg" alt="وَأنْبِئْ بِدُرِّ الضّـٰادِ فٖي كُلِّ ضَيْهَبِ ألا إنَّمَا ذِي هِيَ خَيْرُ المَكَاتِبِ" role="button" aria-haspopup="dialog" tabindex="0" />
+    </div>
+  </header>
+
+  <div class="separator-top"></div>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html#"><img class="nav-img-about"   src="AboutDurarAlDhad.svg" alt="خَبَرُ دُرَرِ الضَّادِ" /></a></li>
+      <li><span class="nav-separator"></span></li>
+      <li><a href="index.html#"><img class="nav-img-contact" src="ContactUs.svg"        alt="رَاسِلنَا" /></a></li>
+      <li><span class="nav-separator"></span></li>
+      <li><a href="index.html#"><img class="nav-img-books"   src="OurBooks.svg"         alt="كُتُبُنَا" /></a></li>
+      <li><span class="nav-separator"></span></li>
+      <li><a href="JananWiki.html"><img class="nav-img-janan"   src="JananWiki.svg"        alt="المَوسُوعَةُ الجَنَانِيَّة" /></a></li>
+      <li><span class="nav-separator"></span></li>
+      <li><a href="index.html#"><img class="nav-img-jawahir" src="JawahirulQulQul.svg"  alt="جَوَاهِرُ القُلقُل" /></a></li>
+    </ul>
+    <div class="social-icons">
+      <a href="https://www.threads.com/@duraraldhad" target="_blank" rel="noopener" aria-label="Threads">
+        <img src="icon-threads.svg" alt="Threads" />
+      </a>
+      <a href="https://x.com/DurarAlDhad" target="_blank" rel="noopener" aria-label="X">
+        <img src="icon-x.svg" alt="X" />
+      </a>
+      <a href="https://instagram.com/DurarAlDhad" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="icon-instagram.svg" alt="Instagram" />
+      </a>
+      <a href="https://t.me/DurarAlDhad" target="_blank" rel="noopener" aria-label="Telegram">
+        <img src="icon-telegram.svg" alt="Telegram" />
+      </a>
+    </div>
+  </nav>
+
+  <div class="separator-bottom"></div>
+
+  <!-- ─── JANANWIKI TITLE BAR ─── -->
+  <div class="jw-title-bar">
+ <div class="jw-title-right">
+  <a href="JananWiki.html"><img src="JananWikiLogo.png" alt="الموسوعة الجنانية | JananWiki" /></a>
+</div>
+    <div class="jw-title-center">
+      <img src="JananWiki/JananSun.svg" alt="🫀" />
+    </div>
+    <div class="jw-title-left">
+      <img src="JananWiki/JananunWaMaAdrak.svg" alt="جَنَانٌ وَمَا أدْرَاكَهُ ذَا العَجَائِبِ ** كِيَانٌ عَجِيبُ شَمْسِهِ وَالمَجَانِبِ" />
+    </div>
+  </div>
+
+  <!-- ─── MAIN (blank — entry content will be built here) ─── -->
+  <main>
+    <div class="main-content" id="entry-content">
+      <!-- Entry content (title, images, article body) will be injected here later,
+           based on the ?entry= parameter in the URL. -->
+    </div>
+  </main>
+
+  <!-- ─── MODAL ─── -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="شرح البيت الشعري">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" id="modalClose" aria-label="إغلاق">✕</button>
+      <div class="modal-body">
+        <p class="modal-text">وانۡشُرۡ خبرَ مَكتَبةِ دُرر الضّادِ الجَلِيلةِ في كُلّ مَڪانٍ حَتّى الضّيَاهِب. وَالضَّيۡهَبُ: الجبَل</p>
+        <p class="modal-text">الشّدِيد الحرارةِ حَتّى يَكاد يشۡوي اللحۡمَ.</p>
+        <hr class="modal-divider" />
+        <p class="modal-text">واعۡلمُوا أنّما دُررُ الضّادِ هَذِهِ هِي أحۡسَن المَكۡتَبَاتِ.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const overlay  = document.getElementById('modalOverlay');
+    const poem     = document.getElementById('poemVerse');
+    const closeBtn = document.getElementById('modalClose');
+    const box      = document.getElementById('modalBox');
+
+    let savedScrollLeft = 0;
+
+    function openModal() {
+      savedScrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft || 0;
+      document.body.scrollLeft = 0;
+      document.documentElement.scrollLeft = 0;
+      overlay.classList.add('open');
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.scrollLeft = savedScrollLeft;
+      document.documentElement.scrollLeft = savedScrollLeft;
+    }
+
+    poem.addEventListener('click', openModal);
+    poem.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
+    });
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e) {
+      if (!box.contains(e.target)) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+
+</body>
+</html>
