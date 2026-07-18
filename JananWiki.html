@@ -40,7 +40,6 @@
     body {
       background-color: #3C3149;
       font-family: 'AliMeshref', serif;
-      min-height: 100vh;
       min-width: 1100px;
       overflow-x: auto;
     }
@@ -210,7 +209,7 @@
     /* ── Change these 3 values to resize each item independently ── */
     :root {
       --jw-title-logo-height: 190px;   /* JananWiki.png (right)        */
-      --jw-title-heart-height: 220px;  /* JananSun.svg   (center)      */
+      --jw-title-heart-height: 170px;  /* JananSun.svg   (center)      */
       --jw-title-poem-height: 170px;    /* JananunWaMaAdrak.svg (left)  */
     }
 
@@ -227,6 +226,7 @@
 
     .jw-title-right {
       flex: 1;
+      min-width: 0;
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -234,12 +234,15 @@
 
     /* JananWiki.png — kept in its original colors, no invert */
     .jw-title-right img {
-      height: var(--jw-title-logo-height);
+      height: auto;
       width: auto;
+      max-height: var(--jw-title-logo-height);
+      max-width: 100%;
     }
 
     .jw-title-center {
       flex: 0 0 auto;
+      min-width: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -248,13 +251,16 @@
 
     /* JananSun.svg (the heart) — inverted to white */
     .jw-title-center img {
-      height: var(--jw-title-heart-height);
+      height: auto;
       width: auto;
+      max-height: var(--jw-title-heart-height);
+      max-width: 100%;
       filter: invert(1);
     }
 
     .jw-title-left {
       flex: 1;
+      min-width: 0;
       display: flex;
       justify-content: flex-end;
       align-items: center;
@@ -262,15 +268,16 @@
 
     /* JananunWaMaAdrak.svg (the poem) — inverted to white */
     .jw-title-left img {
-      height: var(--jw-title-poem-height);
+      height: auto;
       width: auto;
+      max-height: var(--jw-title-poem-height);
+      max-width: 100%;
       filter: invert(1);
     }
 
     /* ════════════════ MAIN (blank for now — entry content goes here later) ════════════════ */
     main {
       position: relative;
-      min-height: calc(100vh - 220px);
     }
 
     .main-content {
@@ -401,13 +408,13 @@
   <!-- ─── NAV ─── -->
   <nav>
     <ul class="nav-links">
-      <li><a href="index.html#"><img class="nav-img-about"   src="AboutDurarAlDhad.svg" alt="خَبَرُ دُرَرِ الضَّادِ" /></a></li>
+      <li><a href="index.html#"><img class="nav-img-about"   src="AboutDurarAlDhad.svg" alt="خَبَرُ دُرَرِ الضَّادِ" /></a></li>
       <li><span class="nav-separator"></span></li>
       <li><a href="index.html#"><img class="nav-img-contact" src="ContactUs.svg"        alt="رَاسِلنَا" /></a></li>
       <li><span class="nav-separator"></span></li>
       <li><a href="index.html#"><img class="nav-img-books"   src="OurBooks.svg"         alt="كُتُبُنَا" /></a></li>
       <li><span class="nav-separator"></span></li>
-      <li><a href="JananWiki.html"><img class="nav-img-janan"   src="JananWiki.svg"        alt="المَوسُوعَةُ الجَنَانِيَّة" /></a></li>
+      <li><a href="JananWiki.html"><img class="nav-img-janan"   src="JananWiki.svg"        alt="المَوسُوعَةُ الجَنَانِيَّة" /></a></li>
       <li><span class="nav-separator"></span></li>
       <li><a href="index.html#"><img class="nav-img-jawahir" src="JawahirulQulQul.svg"  alt="جَوَاهِرُ القُلقُل" /></a></li>
     </ul>
