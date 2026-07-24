@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" id="viewportMeta" content="width=1100" />
+  <script>
+    (function () {
+      var meta = document.getElementById('viewportMeta');
+      var scale = screen.width / 1100;
+      meta.setAttribute('content', 'width=1100, initial-scale=' + scale);
+    })();
+  </script>
+  <title>الموسوعة الجنانية | Janan</title>
+  <link rel="icon" type="image/png" href="duraraldhad-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Amiri:wght@100;700&display=swap" rel="stylesheet">
+  <style>
+
+    @font-face {
+      font-family: 'AliMeshref';
+      src: url('ali-meshref.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'SakkalKitab';
+      src: url('SakkalKitab-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #3C3149;
+      font-family: 'AliMeshref', serif;
+      min-width: 1100px;
+      overflow-x: auto;
+    }
+
+    /* ── BASE LINK COLOR ── */
+    a {
+      color: #D1EECA;
+    }
+
+    /* ════════════════ HEADER ════════════════ */
+    header {
+      background: linear-gradient(to right, #4E3A61 50%, #4C7142 50%);
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      padding: 0 32px;
+      direction: rtl;
+      position: relative;
+      z-index: 2;
+      height: 140px;
+    }
+
+    .header-right {
+      flex: 1;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .header-right img {
+      height: 90px;
+      width: auto;
+      filter: invert(1);
+    }
+
+    .header-center {
+      flex: 0 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #4C7142 50%, #4E3A61 50%);
+      border-radius: 16px;
+      padding: 12px 20px;
+      margin: 0;
+      align-self: stretch;
+    }
+
+    .header-center img {
+      height: 110px;
+      width: auto;
+      filter: invert(1);
+    }
+
+    .header-left {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .poem-verse {
+      height: 120px;
+      width: auto;
+      max-width: 100%;
+      position: relative;
+      top: 0px;
+      cursor: pointer;
+      user-select: none;
+      display: block;
+    }
+
+    /* ════════════════ SEPARATORS ════════════════ */
+    .separator-top {
+      height: var(--jn-header-separator-height);
+      background: linear-gradient(to right, #3F3150 40%, #345A2A 60%);
+    }
+
+    .separator-bottom {
+      height: var(--jn-header-separator-height);
+      background-color: #1D341A;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ════════════════ NAV ════════════════ */
+    nav {
+      background-color: #2B4B22;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 32px;
+      direction: rtl;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      list-style: none;
+      direction: rtl;
+    }
+
+    .nav-links li {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    /* ── Shared base for all nav images ── */
+    .nav-links li a img {
+      height: 40px;
+      width: auto;
+      display: block;
+      border-bottom: 2px solid transparent;
+      transition: border-bottom-color 0.15s;
+      filter: invert(1);
+    }
+
+    .nav-links li a:hover img {
+      border-bottom-color: #000000;
+    }
+
+    /* ── Per-image size overrides — change each independently ── */
+    .nav-links li a .nav-img-about   { height: 46px; }
+    .nav-links li a .nav-img-contact { height: 45px; }
+    .nav-links li a .nav-img-books   { height: 38px; }
+    .nav-links li a .nav-img-janan   { height: 40px; }
+    .nav-links li a .nav-img-jawahir { height: 48px; }
+
+    .nav-separator {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #c0392b;
+      margin: 0 8px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      direction: ltr;
+    }
+
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 0.2s;
+    }
+
+    .social-icons a:hover { opacity: 0.75; }
+
+    .social-icons img {
+      width: 38px;
+      height: 38px;
+      filter: invert(1);
+    }
+
+    /* ════════════════ JANANWIKI TITLE BAR ════════════════ */
+    /* ── Change these values to resize each item independently ── */
+    :root {
+      --jw-title-logo-height: 190px;   /* JananWiki.png (right)        */
+      --jw-title-heart-height: 170px;  /* JananSun.svg   (center)      */
+      --jw-title-poem-height: 170px;    /* JananunWaMaAdrak.svg (left)  */
+
+      /* ── ARTICLE SLIDER — change these to tune the carousel ── */
+      --jn-slider-max-height: 600px;   /* tallest an image is allowed to render */
+      --jn-slider-gap: 340px;          /* horizontal spacing between card centers */
+      --jn-slider-side-scale: 0.8;     /* how much smaller the side cards appear */
+      --jn-slider-side-shade: 0.5;     /* 0 = no darkening, 1 = fully black */
+      --jn-slider-autoplay-ms: 4200;   /* time between automatic slides */
+      --jn-slider-pause-ms: 5000;      /* pause after the user interacts */
+      --jn-slider-eternal-reset-ms: 5000; /* how long the reader must leave it alone before it forgives itself and returns to infinite looping */
+
+      /* ── ARTICLE TITLE — change these to restyle the heading ── */
+      --jn-title-color: #ffffff;
+      --jn-title-dot-color: #ffffff;
+      --jn-title-line-color: #ffffff;
+      --jn-title-scale: 2.4rem;        /* ← change this ONE value to resize the whole title */
+      --jn-title-dot-size: 9px;        /* diameter of the two decorative circles */
+      --jn-title-edge-gap: 24px;       /* how far the lines stop short of the true screen edge */
+
+      /* ── SECTION TEXT SIZES — adjust font scale for each section ── */
+      --jn-article-text-size: 2.5rem;    /* Main article text size */
+      --jn-ref-title-size: 2rem;     /* "المراجع" title size */
+      --jn-ref-list-size: 1.6rem;     /* "(١) كتاب..." references size */
+      --jn-maybe-size: 2.6rem;         /* "لعله يعجبك" title size */
+
+      /* ── FOOTER LOGO SCALE ── */
+      --jn-footer-logo-height: 120px; /* ← Change this value to resize the bottom logo */
+
+      /* ── SEPARATOR LINE THICKNESS ── */
+      --jn-header-separator-height: 7px; /* Top & bottom header line thickness */
+      --jn-section-divider-height: 2px;  /* Content section divider line thickness */
+    }
+
+    .jw-title-bar {
+      background-color: #2F2538;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 32px;
+      direction: rtl;
+      position: relative;
+      z-index: 2;
+    }
+
+    .jw-title-right {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    /* JananWiki.png — kept in its original colors, no invert */
+    .jw-title-right img {
+      height: auto;
+      width: auto;
+      max-height: var(--jw-title-logo-height);
+      max-width: 100%;
+    }
+
+    .jw-title-center {
+      flex: 0 0 auto;
+      min-width: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    /* JananSun.svg (the heart) — inverted to white */
+    .jw-title-center img {
+      height: auto;
+      width: auto;
+      max-height: var(--jw-title-heart-height);
+      max-width: 100%;
+      filter: invert(1);
+    }
+
+    .jw-title-left {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    /* JananunWaMaAdrak.svg (the poem) — inverted to white */
+    .jw-title-left img {
+      height: auto;
+      width: auto;
+      max-height: var(--jw-title-poem-height);
+      max-width: 100%;
+      filter: invert(1);
+    }
+
+    /* ════════════════ MAIN ════════════════ */
+    main {
+      position: relative;
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 1;
+      padding: 40px 48px;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+        ARTICLE IMAGE SLIDER — card-stack carousel
+    ════════════════════════════════════════════════════════════ */
+
+    .jn-slider {
+      position: relative;
+      margin: 20px -48px 0 -48px;
+      height: calc(var(--jn-slider-max-height) + 60px);
+      overflow: hidden;
+      touch-action: pan-y;
+      user-select: none;
+    }
+
+    .jn-slider-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .jn-slide {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: var(--jn-slider-frame-width);
+      height: var(--jn-slider-max-height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.6s ease, opacity 0.6s ease, filter 0.6s ease;
+      will-change: transform, opacity, filter;
+    }
+
+    .jn-slide-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--jn-slider-frame-bg);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .jn-slide-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    /* ── Slider arrows ── */
+    .jn-slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.45);
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      color: #ffffff;
+      font-size: 1.6rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.25s ease, background 0.2s ease;
+    }
+
+    .jn-slider-arrow:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .jn-slider-arrow:disabled {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+
+    .jn-slider:hover .jn-slider-arrow,
+    .jn-slider.jn-touched .jn-slider-arrow {
+      opacity: 1;
+    }
+
+    .jn-slider-arrow-prev { right: 14px; }
+    .jn-slider-arrow-next { left: 14px; }
+
+    /* ════════════════════════════════════════════════════════════
+        ARTICLE TITLE — decorative divider
+    ════════════════════════════════════════════════════════════ */
+
+    .jn-title-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      direction: rtl;
+      margin-top: 34px;
+      margin-right: calc(-48px + var(--jn-title-edge-gap));
+      margin-left: calc(-48px + var(--jn-title-edge-gap));
+    }
+
+    .jn-title-line {
+      flex: 1;
+      height: 1.5px;
+      background-color: var(--jn-title-line-color);
+    }
+
+    .jn-title-dot {
+      width: var(--jn-title-dot-size);
+      height: var(--jn-title-dot-size);
+      border-radius: 50%;
+      background-color: var(--jn-title-dot-color);
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .jn-title {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 400;
+      color: var(--jn-title-color);
+      font-size: var(--jn-title-scale);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ════════════════ MODAL ════════════════ */
+    .modal-overlay {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.55);
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      position: relative;
+      background: #355536;
+      border: 5px solid #1E4123;
+      border-radius: 22px;
+      padding: 32px 28px 28px 28px;
+      max-width: 420px;
+      width: 90%;
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      direction: rtl;
+      transform: scale(0.88);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      flex: 1;
+      padding-left: 6px;
+      scrollbar-width: thin;
+      scrollbar-color: #355536 #4AA64C;
+    }
+
+    .modal-body::-webkit-scrollbar { width: 10px; }
+    .modal-body::-webkit-scrollbar-track {
+      background: #4AA64C;
+      border-radius: 99px;
+    }
+    .modal-body::-webkit-scrollbar-thumb {
+      background: #355536;
+      border-radius: 99px;
+      border: 2px solid #203C21;
+    }
+
+    .modal-text {
+      font-family: 'SakkalKitab', serif;
+      color: #ffffff;
+      font-size: 1.55rem;
+      line-height: 1.65;
+      text-align: center;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+      direction: rtl;
+      white-space: pre-wrap;
+    }
+
+    .modal-divider {
+      border: none;
+      border-top: 3px solid #224A22;
+      margin: 14px 0;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -18px;
+      right: -18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #532269;
+      border: 3px solid #6F2D8C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-family: sans-serif;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    .modal-close:hover { background: #6F2D8C; }
+
+    /* ════════════════ LOWER ARTICLE SECTIONS ════════════════ */
+    .jn-section-divider {
+      height: var(--jn-section-divider-height);
+      background: #382C44;
+      margin: 28px 0;
+    }
+
+    .jn-article-text {
+      font-family: 'SakkalKitab', serif;
+      font-size: var(--jn-article-text-size);
+      color: #fff;
+    }
+
+    .jn-ref-title {
+      font-family: 'Cairo', sans-serif;
+      color: #fff;
+      font-weight: 400;
+      font-size: var(--jn-ref-title-size);
+    }
+
+    .jn-ref-list {
+      font-family: 'SakkalKitab', serif;
+      font-size: var(--jn-ref-list-size);
+      color: #fff;
+    }
+
+    .jn-ref-list a {
+      color: #D1EECA;
+      text-decoration: none;
+    }
+
+    .jn-ref-english {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 400;
+      font-size: var(--jn-ref-list-size);
+      color: #ffffff;
+      margin-top: 8px;
+    }
+
+    .jn-ref-english-label {
+      color: #C1C5EE;
+    }
+
+    .jn-maybe {
+      font-family: 'Cairo', sans-serif;
+      color: #fff;
+      font-weight: 400;
+      text-align: center;
+      font-size: var(--jn-maybe-size);
+      margin-top: 40px;
+    }
+
+    .jn-logo {
+      text-align: center;
+    }
+
+    .jn-logo img {
+      height: var(--jn-footer-logo-height);
+      width: auto;
+    }
+</style>
+</head>
+<body>
+
+  <!-- ─── HEADER ─── -->
+  <header>
+    <div class="header-right">
+      <a href="index.html"><img src="logo-right.svg" alt="دُرَرُ الضَّادِ" /></a>
+    </div>
+    <div class="header-center">
+      <img src="logo-center.svg" alt="دُرَرُ الضَّادِ" />
+    </div>
+    <div class="header-left">
+      <img class="poem-verse" id="poemVerse" src="WaAnbiBidurrDhad.svg" alt="وَأنْبِئْ بِدُرِّ الضّـٰادِ فٖي كُلِّ ضَيْهَبِ ألا إنَّمَا ذِي هِيَ خَيْرُ المَكَاتِبِ" role="button" aria-haspopup="dialog" tabindex="0" />
+    </div>
+  </header>
+
+  <div class="separator-top"></div>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html#"><img class="nav-img-about"   src="AboutDurarAlDhad.svg" alt="خَبَرُ دُرَرِ الضَّادِ" /></a></li>
+      <li><span class="nav-separator"></span></li>
+      <li><a href="index.html#"><img class="nav-img-contact" src="ContactUs.svg"        alt="رَاسِلنَا" /></a></li>
+      <li><span class="nav-separator"></span></li>
+      <li><a href="index.html#"><img class="nav-img-books"   src="OurBooks.svg"         alt="كُتُبُنَا" /></a></li>
+      <li><span class="nav-separator"></span></li>
+      <li><a href="JananWiki.html"><img class="nav-img-janan"   src="JananWiki.svg"        alt="المَوسُوعَةُ الجَنَانِيَّة" /></a></li>
+      <li><span class="nav-separator"></span></li>
+      <li><a href="index.html#"><img class="nav-img-jawahir" src="JawahirulQulQul.svg"  alt="جَوَاهِرُ القُلقُل" /></a></li>
+    </ul>
+    <div class="social-icons">
+      <a href="https://www.threads.com/@duraraldhad" target="_blank" rel="noopener" aria-label="Threads">
+        <img src="icon-threads.svg" alt="Threads" />
+      </a>
+      <a href="https://x.com/DurarAlDhad" target="_blank" rel="noopener" aria-label="X">
+        <img src="icon-x.svg" alt="X" />
+      </a>
+      <a href="https://instagram.com/DurarAlDhad" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="icon-instagram.svg" alt="Instagram" />
+      </a>
+      <a href="https://t.me/DurarAlDhad" target="_blank" rel="noopener" aria-label="Telegram">
+        <img src="icon-telegram.svg" alt="Telegram" />
+      </a>
+    </div>
+  </nav>
+
+  <div class="separator-bottom"></div>
+
+  <!-- ─── JANANWIKI TITLE BAR ─── -->
+  <div class="jw-title-bar">
+    <div class="jw-title-right">
+      <a href="JananWiki.html"><img src="JananWikiLogo.png" alt="الموسوعة الجنانية | JananWiki" /></a>
+    </div>
+    <div class="jw-title-center">
+      <img src="JananWiki/JananSun.svg" alt="🫀" />
+    </div>
+    <div class="jw-title-left">
+      <img src="JananWiki/JananunWaMaAdrak.svg" alt="جَنَانٌ وَمَا أدْرَاكَهُ ذَا العَجَائِبِ ** كِيَانٌ عَجِيبُ شَمْسِهِ وَالمَجَانِبِ" />
+    </div>
+  </div>
+
+  <!-- ─── MAIN ─── -->
+  <main>
+    <div class="main-content" id="entry-content">
+
+      <!-- ═══════════ ARTICLE IMAGE SLIDER ═══════════ -->
+      <div class="jn-slider" id="jnSlider">
+        <button class="jn-slider-arrow jn-slider-arrow-prev" id="jnPrev" type="button" aria-label="الصورة السابقة">‹</button>
+        <div class="jn-slider-stage" id="jnStage"></div>
+        <button class="jn-slider-arrow jn-slider-arrow-next" id="jnNext" type="button" aria-label="الصورة التالية">›</button>
+      </div>
+
+      <!-- ═══════════ ARTICLE TITLE ═══════════ -->
+      <div class="jn-title-divider">
+        <div class="jn-title-line"></div>
+        <span class="jn-title-dot"></span>
+        <h1 class="jn-title" id="jnTitle">العنــــوان</h1>
+        <span class="jn-title-dot"></span>
+        <div class="jn-title-line"></div>
+      </div>
+
+      <div class="jn-section-divider"></div>
+      <div class="jn-article-text" id="jnArticleText">الكذا أو الهكذا: هو كذا من الكذا ويقال إنه كذا ومن كذا. قال عنه الإمام الكذيوي: كذا كذا كذا ڪذا كذا ڪذا ڪذا الكذا، فإنه كذا وكذا بل كذا بالكذا الكذا، وليس كذا وكذا وإنما الكذا هو كذا في كذا....</div>
+      <div class="jn-section-divider"></div>
+      <div class="jn-ref-title">المراجــــــــــــــــــع</div>
+      <div class="jn-ref-list" id="jnReferences"><a href="#">(١) كتاب كذا للإمام الكذاوي صفحة كذا وخمسون</a></div>
+      <div class="jn-ref-english"><span class="jn-ref-english-label">في الإنجليزية:</span> Katha</div>
+
+      <div class="jn-maybe">لعلـــــــــه يعـــــــــــــــــجبك</div>
+      <div class="jn-section-divider"></div>
+      <div class="jn-logo"><img src="JananWikiLogo.png"></div>
+
+    </div>
+  </main>
+
+  <!-- ─── MODAL ─── -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="شرح البيت الشعري">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" id="modalClose" aria-label="إغلاق">✕</button>
+      <div class="modal-body">
+        <p class="modal-text">وانۡشُرۡ خبرَ مَكتَبةِ دُرر الضّادِ الجَلِيلةِ في كُلّ مَڪانٍ حَتّى الضّيَاهِب. وَالضَّيۡهَبُ: الجبَل</p>
+        <p class="modal-text">الشّدِيد الحرارةِ حَتّى يَكاد يشۡوي اللحۡمَ.</p>
+        <hr class="modal-divider" />
+        <p class="modal-text">واعۡلمُوا أنّما دُررُ الضّادِ هَذِهِ هِي أحۡسَن المَكۡتَبَاتِ.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const overlay  = document.getElementById('modalOverlay');
+    const poem     = document.getElementById('poemVerse');
+    const closeBtn = document.getElementById('modalClose');
+    const box      = document.getElementById('modalBox');
+
+    let savedScrollLeft = 0;
+
+    function openModal() {
+      savedScrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft || 0;
+      document.body.scrollLeft = 0;
+      document.documentElement.scrollLeft = 0;
+      overlay.classList.add('open');
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.scrollLeft = savedScrollLeft;
+      document.documentElement.scrollLeft = savedScrollLeft;
+    }
+
+    poem.addEventListener('click', openModal);
+    poem.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
+    });
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e) {
+      if (!box.contains(e.target)) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+
+  <script>
+    (function () {
+      const jnImages = [
+        "JananWiki/Hummingbird/Hummingbird.webp",
+        "JananWiki/JananSun/JananSun.webp",
+        "JananWiki/Dhad/Dhad.webp",
+        "JananWiki/Questioners/Questioners.webp"
+      ];
+
+      const slider   = document.getElementById('jnSlider');
+      const stage    = document.getElementById('jnStage');
+      const prevBtn  = document.getElementById('jnPrev');
+      const nextBtn  = document.getElementById('jnNext');
+
+      const root = getComputedStyle(document.documentElement);
+      const GAP        = parseFloat(root.getPropertyValue('--jn-slider-gap'))        || 230;
+      const SIDE_SCALE = parseFloat(root.getPropertyValue('--jn-slider-side-scale')) || 0.8;
+      const SIDE_SHADE = parseFloat(root.getPropertyValue('--jn-slider-side-shade')) || 0.5;
+      const AUTOPLAY_MS = parseFloat(root.getPropertyValue('--jn-slider-autoplay-ms')) || 4200;
+      const PAUSE_MS     = parseFloat(root.getPropertyValue('--jn-slider-pause-ms'))    || 5000;
+      const ETERNAL_RESET_MS = parseFloat(root.getPropertyValue('--jn-slider-eternal-reset-ms')) || 5000;
+
+      let current = 0;
+      let manualMode = false;
+      let autoplayTimer = null;
+      let resumeTimer = null;
+      let eternalResetTimer = null;
+
+      function buildSlides() {
+        stage.innerHTML = jnImages.map((src) => `
+          <div class="jn-slide">
+            <div class="jn-slide-frame">
+              <img src="${src}" alt="" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function render() {
+        const slides = stage.querySelectorAll('.jn-slide');
+        const n = jnImages.length;
+
+        slides.forEach((slide, i) => {
+          let offset = i - current;
+
+          if (!manualMode) {
+            if (offset > n / 2) offset -= n;
+            if (offset < -n / 2) offset += n;
+          }
+
+          const dist = Math.abs(offset);
+          const dir = offset === 0 ? 0 : (offset > 0 ? 1 : -1);
+
+          if (dist === 0) {
+            slide.style.zIndex = '5';
+            slide.style.opacity = '1';
+            slide.style.filter = 'brightness(1)';
+            slide.style.transform = 'translate(-50%, -50%) translateX(0px) scale(1)';
+          } else if (dist === 1) {
+            slide.style.zIndex = '4';
+            slide.style.opacity = '1';
+            slide.style.filter = `brightness(${1 - SIDE_SHADE})`;
+            slide.style.transform =
+              `translate(-50%, -50%) translateX(${dir * GAP}px) scale(${SIDE_SCALE})`;
+          } else {
+            slide.style.zIndex = '1';
+            slide.style.opacity = '0';
+            slide.style.filter = 'brightness(0.4)';
+            slide.style.transform =
+              `translate(-50%, -50%) translateX(${dir * GAP * 1.6}px) scale(0.6)`;
+          }
+        });
+
+        if (manualMode) {
+          prevBtn.disabled = current === n - 1;
+          nextBtn.disabled = current === 0;
+        } else {
+          prevBtn.disabled = false;
+          nextBtn.disabled = false;
+        }
+      }
+
+      function goTo(index) {
+        const n = jnImages.length;
+        current = manualMode
+          ? Math.max(0, Math.min(n - 1, index))
+          : ((index % n) + n) % n;
+        render();
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      function stopAutoplay() {
+        if (autoplayTimer) clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayTimer = setInterval(() => {
+          const n = jnImages.length;
+          if (manualMode && current === n - 1) {
+            stopAutoplay();
+            return;
+          }
+          next();
+        }, AUTOPLAY_MS);
+      }
+
+      function onUserInteraction(action) {
+        manualMode = true;
+        stopAutoplay();
+        action();
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(startAutoplay, PAUSE_MS);
+
+        clearTimeout(eternalResetTimer);
+        eternalResetTimer = setTimeout(returnToEternal, ETERNAL_RESET_MS);
+      }
+
+      function returnToEternal() {
+        manualMode = false;
+        render();
+        startAutoplay();
+      }
+
+      prevBtn.addEventListener('click', () => onUserInteraction(next));
+      nextBtn.addEventListener('click', () => onUserInteraction(prev));
+
+      let dragging = false;
+      let dragStartX = 0;
+      let touchedTimeout = null;
+
+      function pointerX(e) {
+        return e.touches ? e.touches[0].clientX : e.clientX;
+      }
+
+      function showArrowsForTouch() {
+        slider.classList.add('jn-touched');
+        clearTimeout(touchedTimeout);
+        touchedTimeout = setTimeout(() => slider.classList.remove('jn-touched'), 2500);
+      }
+
+      function onDragStart(e) {
+        dragging = true;
+        dragStartX = pointerX(e);
+        showArrowsForTouch();
+      }
+
+      function onDragEnd(e) {
+        if (!dragging) return;
+        dragging = false;
+        const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+        const delta = endX - dragStartX;
+        const THRESHOLD = 40;
+
+        if (Math.abs(delta) > THRESHOLD) {
+          if (delta < 0) {
+            onUserInteraction(next);
+          } else {
+            onUserInteraction(prev);
+          }
+        }
+      }
+
+      slider.addEventListener('mousedown', onDragStart);
+      window.addEventListener('mouseup', onDragEnd);
+      slider.addEventListener('touchstart', onDragStart, { passive: true });
+      slider.addEventListener('touchend', onDragEnd);
+
+      buildSlides();
+      render();
+      startAutoplay();
+    })();
+  </script>
+
+</body>
+</html>
