@@ -243,6 +243,11 @@
       /* ── FOOTER LOGO SCALE ── */
       --jn-footer-logo-height: 120px; /* ← Change this value to resize the bottom logo */
 
+      /* ── "YOU MIGHT LIKE" CARD GRID ── */
+      --jn-card-title-scale: 1.5rem;   /* ← change this ONE value to resize every card's title text */
+      --jn-card-title-line-height: 0.8; /* ← change this to control the height of the title strip */
+      --jn-card-grid-max-width: 740px; /* ← overall width of the whole 2-column card grid */
+
       /* ── SEPARATOR LINE THICKNESS ── */
       --jn-header-separator-height: 7px; /* Top & bottom header line thickness */
       --jn-section-divider-height: 2px;  /* Content section divider line thickness */
@@ -411,6 +416,102 @@
 
     .jn-slider-arrow-prev { right: 14px; }
     .jn-slider-arrow-next { left: 14px; }
+
+    /* ════════════════════════════════════════════════════════════
+        IMAGE LIGHTBOX — plain fullscreen viewer for slider images
+    ════════════════════════════════════════════════════════════ */
+
+    .jn-lightbox-overlay {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .jn-lightbox-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .jn-lightbox-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+
+    .jn-lightbox-image-wrap {
+      position: relative;
+      display: flex;
+      max-width: 90vw;
+      max-height: 80vh;
+    }
+
+    .jn-lightbox-image-wrap img {
+      display: block;
+      max-width: 90vw;
+      max-height: 80vh;
+      width: auto;
+      height: auto;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .jn-lightbox-caption {
+      margin-top: 16px;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 400;
+      color: #ffffff;
+      font-size: 1.3rem;
+      text-align: center;
+    }
+
+    .jn-lightbox-download {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: #ffffff;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .jn-lightbox-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10001;
+      background: none;
+      border: none;
+      color: #ffffff;
+      opacity: 0.8;
+      font-size: 2.8rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 10px;
+      transition: opacity 0.15s ease;
+    }
+
+    .jn-lightbox-arrow:hover { opacity: 1; }
+
+    .jn-lightbox-arrow-prev { right: 24px; }
+    .jn-lightbox-arrow-next { left: 24px; }
 
     /* ════════════════════════════════════════════════════════════
         ARTICLE TITLE — decorative divider
@@ -602,6 +703,82 @@
       margin-top: 40px;
     }
 
+    /* ════════════════════════════════════════════════════════════
+        "YOU MIGHT LIKE" CARD GRID
+    ════════════════════════════════════════════════════════════ */
+
+    .jn-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin: 30px auto 0 auto;
+      max-width: var(--jn-card-grid-max-width);
+      direction: rtl;
+    }
+
+    .jn-card {
+      border: 3px solid #685477;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #3C3149;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      opacity: 0;
+      animation: jnCardFadeIn 0.5s ease forwards;
+    }
+
+    .jn-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    @keyframes jnCardFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .jn-card-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #2b2436;
+    }
+
+    .jn-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .jn-card-title {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 500;
+      color: #ffffff;
+      background: #524263;
+      text-align: center;
+      padding: 14px 10px;
+      font-size: var(--jn-card-title-scale);
+      line-height: var(--jn-card-title-line-height);
+      border-top: 3px solid #685477;
+    }
+
+    /* ── Special card: الضّاد ── */
+    .jn-card.jn-card-special {
+      border-color: #628157;
+    }
+
+    .jn-card.jn-card-special .jn-card-title {
+      background: #4A6444;
+      border-top-color: #628157;
+    }
+
+    .jn-card-sentinel {
+      height: 10px;
+    }
+
     .jn-logo {
       text-align: center;
     }
@@ -701,8 +878,13 @@
       <div class="jn-ref-english"><span class="jn-ref-english-label">في الإنجليزية:</span> Katha</div>
 
       <div class="jn-maybe">لعلـــــــــه يعـــــــــــــــــجبك</div>
+
       <div class="jn-section-divider"></div>
       <div class="jn-logo"><img src="JananWikiLogo.png"></div>
+
+      <!-- ═══════════ "YOU MIGHT LIKE" CARD GRID ═══════════ -->
+      <div class="jn-card-grid" id="jnCardGrid"></div>
+      <div class="jn-card-sentinel" id="jnCardSentinel"></div>
 
     </div>
   </main>
@@ -718,6 +900,19 @@
         <p class="modal-text">واعۡلمُوا أنّما دُررُ الضّادِ هَذِهِ هِي أحۡسَن المَكۡتَبَاتِ.</p>
       </div>
     </div>
+  </div>
+
+  <!-- ─── IMAGE LIGHTBOX ─── -->
+  <div class="jn-lightbox-overlay" id="jnLightboxOverlay">
+    <button class="jn-lightbox-arrow jn-lightbox-arrow-prev" id="jnLightboxPrev" type="button" aria-label="الصورة السابقة">‹</button>
+    <div class="jn-lightbox-content">
+      <div class="jn-lightbox-image-wrap">
+        <img id="jnLightboxImage" src="" alt="" />
+        <button class="jn-lightbox-download" id="jnLightboxDownload" type="button" aria-label="تحميل الصورة">⤓</button>
+      </div>
+      <div class="jn-lightbox-caption" id="jnLightboxCaption"></div>
+    </div>
+    <button class="jn-lightbox-arrow jn-lightbox-arrow-next" id="jnLightboxNext" type="button" aria-label="الصورة التالية">›</button>
   </div>
 
   <script>
@@ -757,10 +952,10 @@
   <script>
     (function () {
       const jnImages = [
-        "JananWiki/Hummingbird/Hummingbird.webp",
-        "JananWiki/JananSun/JananSun.webp",
-        "JananWiki/Dhad/Dhad.webp",
-        "JananWiki/Questioners/Questioners.webp"
+        { src: "JananWiki/Hummingbird/Hummingbird.webp", alt: "Katha1" },
+        { src: "JananWiki/JananSun/JananSun.webp",       alt: "Katha2" },
+        { src: "JananWiki/Dhad/Dhad.webp",               alt: "Katha3" },
+        { src: "JananWiki/Questioners/Questioners.webp", alt: "Katha4" }
       ];
 
       const slider   = document.getElementById('jnSlider');
@@ -783,13 +978,27 @@
       let eternalResetTimer = null;
 
       function buildSlides() {
-        stage.innerHTML = jnImages.map((src) => `
+        stage.innerHTML = jnImages.map((item) => `
           <div class="jn-slide">
             <div class="jn-slide-frame">
-              <img src="${src}" alt="" loading="lazy" decoding="async" />
+              <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async" />
             </div>
           </div>
         `).join('');
+
+        // Clicking any slide (centered or off to the side) opens that exact
+        // image in the plain lightbox viewer. NOTE: the listener is attached
+        // to .jn-slide-frame (not the <img> itself) because the img has
+        // `pointer-events: none` set in CSS — that's needed so the image
+        // never blocks the slider's drag/swipe gesture, but it also means
+        // the img can never receive click events directly. The frame div
+        // sits right behind it and gets the click just fine.
+        stage.querySelectorAll('.jn-slide-frame').forEach((frame, i) => {
+          frame.style.cursor = 'pointer';
+          frame.addEventListener('click', () => {
+            if (window.jnOpenLightbox) window.jnOpenLightbox(i);
+          });
+        });
       }
 
       function render() {
@@ -928,6 +1137,175 @@
       buildSlides();
       render();
       startAutoplay();
+
+      // Expose the image list so the lightbox script (defined separately)
+      // can navigate through the exact same set of images.
+      window.jnSliderImages = jnImages;
+    })();
+  </script>
+
+  <!-- ─── IMAGE LIGHTBOX: open/close/navigate/download ─── -->
+  <script>
+    (function () {
+      const overlay     = document.getElementById('jnLightboxOverlay');
+      const imageEl     = document.getElementById('jnLightboxImage');
+      const captionEl   = document.getElementById('jnLightboxCaption');
+      const prevBtn     = document.getElementById('jnLightboxPrev');
+      const nextBtn     = document.getElementById('jnLightboxNext');
+      const downloadBtn = document.getElementById('jnLightboxDownload');
+
+      let lightboxIndex = 0;
+
+      function images() {
+        return window.jnSliderImages || [];
+      }
+
+      function show(index) {
+        const list = images();
+        const n = list.length;
+        if (n === 0) return;
+        lightboxIndex = ((index % n) + n) % n;
+        const item = list[lightboxIndex];
+        imageEl.src = item.src;
+        imageEl.alt = item.alt;
+        captionEl.textContent = item.alt;
+      }
+
+      function open(index) {
+        show(index);
+        overlay.classList.add('open');
+      }
+
+      function close() {
+        overlay.classList.remove('open');
+      }
+
+      function next() { show(lightboxIndex + 1); }
+      function prev() { show(lightboxIndex - 1); }
+
+      function downloadCurrent() {
+        const item = images()[lightboxIndex];
+        if (!item) return;
+        const a = document.createElement('a');
+        a.href = item.src;
+        a.download = item.alt || 'image';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+      downloadBtn.addEventListener('click', downloadCurrent);
+
+      // Clicking the shadowed background (not the image, not the buttons) closes it
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) close();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (overlay.classList.contains('open') && e.key === 'Escape') close();
+      });
+
+      // Exposed so the slider's buildSlides() can call this on image click
+      window.jnOpenLightbox = open;
+    })();
+  </script>
+
+  <!-- ─── "YOU MIGHT LIKE" CARD GRID: data + randomize + lazy-load ─── -->
+  <script>
+    (function () {
+      const jananItems = [
+        { id: 1,  img: "JananWiki/Kantarism/Kantarism.webp",         title: "بلاد الكنتـــــــــرة"        },
+        { id: 2,  img: "JananWiki/Marble/Marble.webp",               title: "الدُعبُــــــــــلة"          },
+        { id: 3,  img: "JananWiki/Mujawlin/Mujawlin.webp",           title: "المُجــــــــــولِن"          },
+        { id: 4,  img: "JananWiki/Mutyyarchi/Mutyyarchi.webp",       title: "أبو بكـر المُطيّـــــرجيّ"    },
+        { id: 5,  img: "JananWiki/Questioners/Questioners.webp",     title: "السّـــــــــائِلون"         },
+        { id: 6,  img: "JananWiki/RasulImam/RasulImam.webp",         title: "رسُــــول الإمَـــــــــام"      },
+        { id: 7,  img: "JananWiki/Redstone/Redstone.webp",           title: "الحَمَـــــــــرقَد"          },
+        { id: 8,  img: "JananWiki/Wurjan/Wurjan.webp",               title: "الوُرجَـــــــــان"          },
+        { id: 9,  img: "JananWiki/Zibrid/Zibrid.webp",               title: "الزِبــــــــــرِد"           },
+        { id: 10, img: "JananWiki/Zurqam/Zurqam.webp",               title: "الزُرقَــــــــــام"          },
+        { id: 11, img: "JananWiki/Alkabus/Alkabus.webp",             title: "العَلكَـــــــــبُوس"            },
+        { id: 12, img: "JananWiki/Currency/Currency.webp",           title: "نُقُود الكنــــــــاتر"        },
+        { id: 13, img: "JananWiki/Debal/Debal.webp",                 title: "الدِّعبَــــــــــال"          },
+        { id: 14, img: "JananWiki/Dhad/Dhad.webp",                   title: "الضّـــــــــاد", special: true },
+        { id: 15, img: "JananWiki/Dindas/Dindas.webp",               title: "الدّنـــــــــدَاس"             },
+        { id: 16, img: "JananWiki/Hummingbird/Hummingbird.webp",     title: "السُبنُــــــــــــوس"          },
+        { id: 17, img: "JananWiki/IbnAbiHussein/IbnAbiHussein.webp", title: "ابنُ أبي حُسَـــــــــــين"     },
+        { id: 18, img: "JananWiki/ImamKantari/ImamKantari.webp",     title: "الإمَــــــــامُ الكنتــــريّ"   },
+        { id: 19, img: "JananWiki/JananSun/JananSun.webp",           title: "الجَنـــــــــــان"           },
+        { id: 20, img: "JananWiki/Jaqut/Jaqut.webp",                 title: "الجَــــــــــــاقوت"          },
+        { id: 21, img: "JananWiki/KantariDinar/KantariDinar.webp",   title: "الدّينَـــــــــار الكنتـــريّ"  },
+        { id: 22, img: "JananWiki/HuddaStar/HuddaStar.webp",         title: "نجـــــــــــم الهدّى"  },
+        { id: 23, img: "JananWiki/SayyidMuhammad/SayyidMuhammad.webp", title: "السيـــــد محـــــــــــمّد"  },
+      ];
+
+      // ── Fisher-Yates shuffle: gives a fresh random order every page load ──
+      function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      const shuffledItems = shuffle(jananItems);
+
+      const BATCH_SIZE = 4;
+      let loadedCount = 0;
+
+      const grid     = document.getElementById('jnCardGrid');
+      const sentinel = document.getElementById('jnCardSentinel');
+
+      function handleCardClick(item) {
+        // Placeholder for future wiring — this is where the JSON-driven
+        // navigation logic will go, e.g.:
+        // window.location.href = `Janan.html?id=${item.id}`;
+        console.log('Card clicked:', item.id, item.title);
+      }
+
+      function renderNextBatch() {
+        const nextItems = shuffledItems.slice(loadedCount, loadedCount + BATCH_SIZE);
+        if (nextItems.length === 0) return;
+
+        nextItems.forEach((item) => {
+          const card = document.createElement('div');
+          card.className = 'jn-card' + (item.special ? ' jn-card-special' : '');
+          card.dataset.id = item.id;
+          card.innerHTML = `
+            <div class="jn-card-image">
+              <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async" />
+            </div>
+            <div class="jn-card-title">${item.title}</div>
+          `;
+          card.addEventListener('click', () => handleCardClick(item));
+          grid.appendChild(card);
+        });
+
+        loadedCount += nextItems.length;
+
+        // Once everything is loaded, stop observing — nothing left to fetch
+        if (loadedCount >= shuffledItems.length) {
+          observer.disconnect();
+          sentinel.style.display = 'none';
+        }
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            renderNextBatch();
+          }
+        });
+      }, { rootMargin: '200px' });
+
+      // Initial batch of 4 loads immediately, not waiting on scroll
+      renderNextBatch();
+
+      // Then subsequent batches load as the sentinel comes into view
+      observer.observe(sentinel);
     })();
   </script>
 
