@@ -604,6 +604,7 @@
       flex-direction: column;
       align-items: center;
       gap: 14px;
+      cursor: pointer;
     }
 
     .jw-item-image {
@@ -614,6 +615,11 @@
       outline: 2px solid #75648A;
       outline-offset: 2px;
       overflow: hidden;
+      transition: outline-color 0.2s ease;
+    }
+
+    .jw-item:hover .jw-item-image {
+      outline-color: #D1EECA;
     }
 
     /* actual <img> inside, lazy-loaded — fills the square container */
@@ -693,13 +699,13 @@
   <!-- ─── NAV ─── -->
   <nav>
     <ul class="nav-links">
-      <li><a href="index.html#"><img class="nav-img-about"   src="AboutDurarAlDhad.svg" alt="خَبَرُ دُرَرِ الضَّادِ" /></a></li>
+      <li><a href="index.html#"><img class="nav-img-about"   src="AboutDurarAlDhad.svg" alt="خَبَرُ دُرَرِ الضَّادِ" /></a></li>
       <li><span class="nav-separator"></span></li>
       <li><a href="index.html#"><img class="nav-img-contact" src="ContactUs.svg"        alt="رَاسِلنَا" /></a></li>
       <li><span class="nav-separator"></span></li>
       <li><a href="index.html#"><img class="nav-img-books"   src="OurBooks.svg"         alt="كُتُبُنَا" /></a></li>
       <li><span class="nav-separator"></span></li>
-      <li><a href="JananWiki.html"><img class="nav-img-janan"   src="JananWiki.svg"        alt="المَوسُوعَةُ الجَنَانِيَّة" /></a></li>
+      <li><a href="JananWiki.html"><img class="nav-img-janan"   src="JananWiki.svg"        alt="المَوسُوعَةُ الجَنَانِيَّة" /></a></li>
       <li><span class="nav-separator"></span></li>
       <li><a href="index.html#"><img class="nav-img-jawahir" src="JawahirulQulQul.svg"  alt="جَوَاهِرُ القُلقُل" /></a></li>
     </ul>
@@ -893,39 +899,43 @@
        ────────────────────────────────────────────────────────────
        Each entry has:
          id    → simple numeric count, just for your reference
+         entry → the slug used in JananWiki/manifest.json and in
+                 Janan.html?entry=<slug> — this is what makes the
+                 card clickable and take you to the right article.
          img   → path to the image inside the JananWiki/ folder
          title → placeholder title (e.g. "Jananite-1"). Edit this
                  string to whatever the real Arabic/English title
                  should be — no need to touch anything else.
 
        To add a new item later: just copy a line, bump the id,
-       point "img" to the new file, and change "title".
-       The grid will automatically include it in the random pool.
+       set "entry" to match its manifest key, point "img" to the
+       new file, and change "title". The grid will automatically
+       include it in the random pool.
     ════════════════════════════════════════════════════════════ */
     const jananItems = [
-      { id: 1,  img: "JananWiki/Kantarism/Kantarism.webp",     title: "بلاد الڪنترة"        },
-      { id: 2,  img: "JananWiki/Marble/Marble.webp",        title: "الدُعبُـــلة"          },
-      { id: 3,  img: "JananWiki/Mujawlin/Mujawlin.webp",      title: "المُجـــولِن"          },
-      { id: 4,  img: "JananWiki/Mutyyarchi/Mutyyarchi.webp",    title: "أبو بكر المُطيّرجيّ"    },
-      { id: 5,  img: "JananWiki/Questioners/Questioners.webp",   title: "السّـــائِلون"         },
-      { id: 6,  img: "JananWiki/RasulImam/RasulImam.webp",     title: "رسُول الإمَـــام"      },
-      { id: 7,  img: "JananWiki/Redstone/Redstone.webp",      title: "الحَمَـــرقَد"          },
-      { id: 8,  img: "JananWiki/Wurjan/Wurjan.webp",        title: "الوُرجَـــان"          },
-      { id: 9,  img: "JananWiki/Zibrid/Zibrid.webp",        title: "الزِبـــرِد"           },
-      { id: 10, img: "JananWiki/Zurqam/Zurqam.webp",        title: "الزُرقَـــام"          },
-      { id: 11, img: "JananWiki/Alkabus/Alkabus.webp",       title: "العَلڪَبُوس"            },
-      { id: 12, img: "JananWiki/Currency/Currency.webp",      title: "نُقُود الڪَناتر"        },
-      { id: 13, img: "JananWiki/Debal/Debal.webp",         title: "الدِّعبَـــال"          },
-      { id: 14, img: "JananWiki/Dhad/Dhad.webp",          title: "الضّـــاد", special: true },
-      { id: 15, img: "JananWiki/Dindas/Dindas.webp",        title: "الدّنــدَاس"             },
-      { id: 16, img: "JananWiki/Hummingbird/Hummingbird.webp",   title: "السُبنُـــوس"          },
-      { id: 17, img: "JananWiki/IbnAbiHussein/IbnAbiHussein.webp", title: "ابنُ أبي حُسَـــين"     },
-      { id: 18, img: "JananWiki/ImamKantari/ImamKantari.webp",   title: "الإمَـــامُ الڪنتريّ"   },
-      { id: 19, img: "JananWiki/JananSun/JananSun.webp",      title: "الجَنـــان"           },
-      { id: 20, img: "JananWiki/Jaqut/Jaqut.webp",         title: "الجَـــاقوت"          },
-      { id: 21, img: "JananWiki/KantariDinar/KantariDinar.webp",  title: "الدّينَـــار الكنتريّ"  },
-      { id: 22, img: "JananWiki/HuddaStar/HuddaStar.webp",  title: "نجــــــم الهدّى"  },
-      { id: 23, img: "JananWiki/SayyidMuhammad/SayyidMuhammad.webp",  title: "السيـــد محـــمّد"  },
+      { id: 1,  entry: "kantarism",      img: "JananWiki/Kantarism/Kantarism.webp",     title: "بلاد الڪنترة"        },
+      { id: 2,  entry: "marble",         img: "JananWiki/Marble/Marble.webp",        title: "الدُعبُـــلة"          },
+      { id: 3,  entry: "mujawlin",       img: "JananWiki/Mujawlin/Mujawlin.webp",      title: "المُجـــولِن"          },
+      { id: 4,  entry: "mutyyarchi",     img: "JananWiki/Mutyyarchi/Mutyyarchi.webp",    title: "أبو بكر المُطيّرجيّ"    },
+      { id: 5,  entry: "questioners",    img: "JananWiki/Questioners/Questioners.webp",   title: "السّـــائِلون"         },
+      { id: 6,  entry: "rasulimam",      img: "JananWiki/RasulImam/RasulImam.webp",     title: "رسُول الإمَـــام"      },
+      { id: 7,  entry: "redstone",       img: "JananWiki/Redstone/Redstone.webp",      title: "الحَمَـــرقَد"          },
+      { id: 8,  entry: "wurjan",         img: "JananWiki/Wurjan/Wurjan.webp",        title: "الوُرجَـــان"          },
+      { id: 9,  entry: "zibrid",         img: "JananWiki/Zibrid/Zibrid.webp",        title: "الزِبـــرِد"           },
+      { id: 10, entry: "zurqam",         img: "JananWiki/Zurqam/Zurqam.webp",        title: "الزُرقَـــام"          },
+      { id: 11, entry: "alkabus",        img: "JananWiki/Alkabus/Alkabus.webp",       title: "العَلڪَبُوس"            },
+      { id: 12, entry: "currency",       img: "JananWiki/Currency/Currency.webp",      title: "نُقُود الڪَناتر"        },
+      { id: 13, entry: "debal",          img: "JananWiki/Debal/Debal.webp",         title: "الدِّعبَـــال"          },
+      { id: 14, entry: "dhad",           img: "JananWiki/Dhad/Dhad.webp",          title: "الضّـــاد", special: true },
+      { id: 15, entry: "dindas",         img: "JananWiki/Dindas/Dindas.webp",        title: "الدّنــدَاس"             },
+      { id: 16, entry: "subnus",         img: "JananWiki/Hummingbird/Hummingbird.webp",   title: "السُبنُـــوس"          },
+      { id: 17, entry: "ibnabihussein",  img: "JananWiki/IbnAbiHussein/IbnAbiHussein.webp", title: "ابنُ أبي حُسَـــين"     },
+      { id: 18, entry: "imamkantari",    img: "JananWiki/ImamKantari/ImamKantari.webp",   title: "الإمَـــامُ الڪنتريّ"   },
+      { id: 19, entry: "janansun",       img: "JananWiki/JananSun/JananSun.webp",      title: "الجَنـــان"           },
+      { id: 20, entry: "jaqut",          img: "JananWiki/Jaqut/Jaqut.webp",         title: "الجَـــاقوت"          },
+      { id: 21, entry: "kantaridinar",   img: "JananWiki/KantariDinar/KantariDinar.webp",  title: "الدّينَـــار الكنتريّ"  },
+      { id: 22, entry: "huddastar",      img: "JananWiki/HuddaStar/HuddaStar.webp",  title: "نجــــــم الهدّى"  },
+      { id: 23, entry: "sayyidmuhammad", img: "JananWiki/SayyidMuhammad/SayyidMuhammad.webp",  title: "السيـــد محـــمّد"  },
     ];
 
     const JW_GRID_SIZE = 6; // how many cards to show at once
@@ -939,6 +949,10 @@
       return a;
     }
 
+    function handleJananItemClick(item) {
+      window.location.href = 'Janan.html?entry=' + encodeURIComponent(item.entry);
+    }
+
     function renderJananGrid() {
       const grid = document.getElementById('jwGrid');
       if (!grid) return;
@@ -946,13 +960,17 @@
       const picked = shuffleArray(jananItems).slice(0, JW_GRID_SIZE);
 
       grid.innerHTML = picked.map(item => `
-        <div class="jw-item${item.special ? ' jw-item-special' : ''}" data-id="${item.id}">
+        <div class="jw-item${item.special ? ' jw-item-special' : ''}" data-id="${item.id}" data-entry="${item.entry}">
           <div class="jw-item-image">
             <img src="${item.img}" alt="${item.title}" loading="lazy" decoding="async" />
           </div>
           <p class="jw-item-title">${item.title}</p>
         </div>
       `).join('');
+
+      grid.querySelectorAll('.jw-item').forEach((el, i) => {
+        el.addEventListener('click', () => handleJananItemClick(picked[i]));
+      });
     }
 
     renderJananGrid();
