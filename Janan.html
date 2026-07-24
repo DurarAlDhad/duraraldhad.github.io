@@ -250,7 +250,7 @@
 
       /* ── SEPARATOR LINE THICKNESS ── */
       --jn-header-separator-height: 7px; /* Top & bottom header line thickness */
-      --jn-section-divider-height: 2px;  /* Content section divider line thickness */
+      --jn-section-divider-height: 4px;  /* Content section divider line thickness */
     }
 
     .jw-title-bar {
@@ -682,6 +682,10 @@
       text-decoration: none;
     }
 
+    .jn-ref-item {
+      margin-top: 6px;
+    }
+
     .jn-ref-english {
       font-family: 'Cairo', sans-serif;
       font-weight: 400;
@@ -875,7 +879,7 @@
       <div class="jn-section-divider"></div>
       <div class="jn-ref-title">المراجــــــــــــــــــع</div>
       <div class="jn-ref-list" id="jnReferences"><a href="#">(١) كتاب كذا للإمام الكذاوي صفحة كذا وخمسون</a></div>
-      <div class="jn-ref-english"><span class="jn-ref-english-label">في الإنجليزية:</span> Katha</div>
+      <div class="jn-ref-english"><span class="jn-ref-english-label">في الإنجليزية:</span> <span id="jnEnglishWord">Katha</span></div>
 
       <div class="jn-maybe">لعلـــــــــه يعـــــــــــــــــجبك</div>
 
@@ -951,12 +955,7 @@
 
   <script>
     (function () {
-      const jnImages = [
-        { src: "JananWiki/Hummingbird/Hummingbird.webp", alt: "Katha1" },
-        { src: "JananWiki/JananSun/JananSun.webp",       alt: "Katha2" },
-        { src: "JananWiki/Dhad/Dhad.webp",               alt: "Katha3" },
-        { src: "JananWiki/Questioners/Questioners.webp", alt: "Katha4" }
-      ];
+      let jnImages = [];
 
       const slider   = document.getElementById('jnSlider');
       const stage    = document.getElementById('jnStage');
@@ -1134,13 +1133,18 @@
       slider.addEventListener('touchstart', onDragStart, { passive: true });
       slider.addEventListener('touchend', onDragEnd);
 
-      buildSlides();
-      render();
-      startAutoplay();
-
-      // Expose the image list so the lightbox script (defined separately)
-      // can navigate through the exact same set of images.
-      window.jnSliderImages = jnImages;
+      // Called once the entry's JSON data has been fetched, with its
+      // "images" array (any length — no longer fixed at 4).
+      window.jnInitSlider = function (images) {
+        jnImages = Array.isArray(images) ? images : [];
+        current = 0;
+        manualMode = false;
+        buildSlides();
+        render();
+        startAutoplay();
+        // Keep the lightbox script in sync with whatever images are loaded.
+        window.jnSliderImages = jnImages;
+      };
     })();
   </script>
 
@@ -1216,29 +1220,29 @@
   <script>
     (function () {
       const jananItems = [
-        { id: 1,  img: "JananWiki/Kantarism/Kantarism.webp",         title: "بلاد الكنتـــــــــرة"        },
-        { id: 2,  img: "JananWiki/Marble/Marble.webp",               title: "الدُعبُــــــــــلة"          },
-        { id: 3,  img: "JananWiki/Mujawlin/Mujawlin.webp",           title: "المُجــــــــــولِن"          },
-        { id: 4,  img: "JananWiki/Mutyyarchi/Mutyyarchi.webp",       title: "أبو بكـر المُطيّـــــرجيّ"    },
-        { id: 5,  img: "JananWiki/Questioners/Questioners.webp",     title: "السّـــــــــائِلون"         },
-        { id: 6,  img: "JananWiki/RasulImam/RasulImam.webp",         title: "رسُــــول الإمَـــــــــام"      },
-        { id: 7,  img: "JananWiki/Redstone/Redstone.webp",           title: "الحَمَـــــــــرقَد"          },
-        { id: 8,  img: "JananWiki/Wurjan/Wurjan.webp",               title: "الوُرجَـــــــــان"          },
-        { id: 9,  img: "JananWiki/Zibrid/Zibrid.webp",               title: "الزِبــــــــــرِد"           },
-        { id: 10, img: "JananWiki/Zurqam/Zurqam.webp",               title: "الزُرقَــــــــــام"          },
-        { id: 11, img: "JananWiki/Alkabus/Alkabus.webp",             title: "العَلكَـــــــــبُوس"            },
-        { id: 12, img: "JananWiki/Currency/Currency.webp",           title: "نُقُود الكنــــــــاتر"        },
-        { id: 13, img: "JananWiki/Debal/Debal.webp",                 title: "الدِّعبَــــــــــال"          },
-        { id: 14, img: "JananWiki/Dhad/Dhad.webp",                   title: "الضّـــــــــاد", special: true },
-        { id: 15, img: "JananWiki/Dindas/Dindas.webp",               title: "الدّنـــــــــدَاس"             },
-        { id: 16, img: "JananWiki/Hummingbird/Hummingbird.webp",     title: "السُبنُــــــــــــوس"          },
-        { id: 17, img: "JananWiki/IbnAbiHussein/IbnAbiHussein.webp", title: "ابنُ أبي حُسَـــــــــــين"     },
-        { id: 18, img: "JananWiki/ImamKantari/ImamKantari.webp",     title: "الإمَــــــــامُ الكنتــــريّ"   },
-        { id: 19, img: "JananWiki/JananSun/JananSun.webp",           title: "الجَنـــــــــــان"           },
-        { id: 20, img: "JananWiki/Jaqut/Jaqut.webp",                 title: "الجَــــــــــــاقوت"          },
-        { id: 21, img: "JananWiki/KantariDinar/KantariDinar.webp",   title: "الدّينَـــــــــار الكنتـــريّ"  },
-        { id: 22, img: "JananWiki/HuddaStar/HuddaStar.webp",         title: "نجـــــــــــم الهدّى"  },
-        { id: 23, img: "JananWiki/SayyidMuhammad/SayyidMuhammad.webp", title: "السيـــــد محـــــــــــمّد"  },
+        { id: 1,  entry: "kantarism",      img: "JananWiki/Kantarism/Kantarism.webp",         title: "بلاد الكنتـــــــــرة"        },
+        { id: 2,  entry: "marble",         img: "JananWiki/Marble/Marble.webp",               title: "الدُعبُــــــــــلة"          },
+        { id: 3,  entry: "mujawlin",       img: "JananWiki/Mujawlin/Mujawlin.webp",           title: "المُجــــــــــولِن"          },
+        { id: 4,  entry: "mutyyarchi",     img: "JananWiki/Mutyyarchi/Mutyyarchi.webp",       title: "أبو بكـر المُطيّـــــرجيّ"    },
+        { id: 5,  entry: "questioners",    img: "JananWiki/Questioners/Questioners.webp",     title: "السّـــــــــائِلون"         },
+        { id: 6,  entry: "rasulimam",      img: "JananWiki/RasulImam/RasulImam.webp",         title: "رسُــــول الإمَـــــــــام"      },
+        { id: 7,  entry: "redstone",       img: "JananWiki/Redstone/Redstone.webp",           title: "الحَمَـــــــــرقَد"          },
+        { id: 8,  entry: "wurjan",         img: "JananWiki/Wurjan/Wurjan.webp",               title: "الوُرجَـــــــــان"          },
+        { id: 9,  entry: "zibrid",         img: "JananWiki/Zibrid/Zibrid.webp",               title: "الزِبــــــــــرِد"           },
+        { id: 10, entry: "zurqam",         img: "JananWiki/Zurqam/Zurqam.webp",               title: "الزُرقَــــــــــام"          },
+        { id: 11, entry: "alkabus",        img: "JananWiki/Alkabus/Alkabus.webp",             title: "العَلكَـــــــــبُوس"            },
+        { id: 12, entry: "currency",       img: "JananWiki/Currency/Currency.webp",           title: "نُقُود الكنــــــــاتر"        },
+        { id: 13, entry: "debal",          img: "JananWiki/Debal/Debal.webp",                 title: "الدِّعبَــــــــــال"          },
+        { id: 14, entry: "dhad",           img: "JananWiki/Dhad/Dhad.webp",                   title: "الضّـــــــــاد", special: true },
+        { id: 15, entry: "dindas",         img: "JananWiki/Dindas/Dindas.webp",               title: "الدّنـــــــــدَاس"             },
+        { id: 16, entry: "subnus",         img: "JananWiki/Hummingbird/Hummingbird.webp",     title: "السُبنُــــــــــــوس"          },
+        { id: 17, entry: "ibnabihussein",  img: "JananWiki/IbnAbiHussein/IbnAbiHussein.webp", title: "ابنُ أبي حُسَـــــــــــين"     },
+        { id: 18, entry: "imamkantari",    img: "JananWiki/ImamKantari/ImamKantari.webp",     title: "الإمَــــــــامُ الكنتــريّ"   },
+        { id: 19, entry: "janansun",       img: "JananWiki/JananSun/JananSun.webp",           title: "الجَنـــــــــــان"           },
+        { id: 20, entry: "jaqut",          img: "JananWiki/Jaqut/Jaqut.webp",                 title: "الجَــــــــــــاقوت"          },
+        { id: 21, entry: "kantaridinar",   img: "JananWiki/KantariDinar/KantariDinar.webp",   title: "الدّينَـــــــــار الكنتـــريّ"  },
+        { id: 22, entry: "huddastar",      img: "JananWiki/HuddaStar/HuddaStar.webp",         title: "نجـــــــــــم الهدّى"  },
+        { id: 23, entry: "sayyidmuhammad", img: "JananWiki/SayyidMuhammad/SayyidMuhammad.webp", title: "السيـــــد محـــــــــــمّد"  },
       ];
 
       // ── Fisher-Yates shuffle: gives a fresh random order every page load ──
@@ -1260,10 +1264,7 @@
       const sentinel = document.getElementById('jnCardSentinel');
 
       function handleCardClick(item) {
-        // Placeholder for future wiring — this is where the JSON-driven
-        // navigation logic will go, e.g.:
-        // window.location.href = `Janan.html?id=${item.id}`;
-        console.log('Card clicked:', item.id, item.title);
+        window.location.href = 'Janan.html?entry=' + encodeURIComponent(item.entry);
       }
 
       function renderNextBatch() {
@@ -1306,6 +1307,69 @@
 
       // Then subsequent batches load as the sentinel comes into view
       observer.observe(sentinel);
+    })();
+  </script>
+
+  <!-- ─── ENTRY LOADER: reads ?entry= from the URL, fetches the manifest
+       and the entry's own JSON file, and fills in the reusable article
+       texts (title, article body, references, English word, slider
+       images). The "you might like" card grid stays static/hardcoded,
+       untouched by this loader. ─── -->
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const entrySlug = params.get('entry');
+
+      const jnTitleEl     = document.getElementById('jnTitle');
+      const jnArticleEl   = document.getElementById('jnArticleText');
+      const jnRefEl       = document.getElementById('jnReferences');
+      const jnEnglishEl   = document.getElementById('jnEnglishWord');
+
+      function showError(message) {
+        jnTitleEl.textContent = message;
+        jnArticleEl.textContent = '';
+        jnRefEl.innerHTML = '';
+        if (jnEnglishEl) jnEnglishEl.textContent = '';
+        if (window.jnInitSlider) window.jnInitSlider([]);
+      }
+
+      fetch('JananWiki/manifest.json')
+        .then((res) => res.json())
+        .then((manifest) => {
+          if (!entrySlug || !manifest[entrySlug]) {
+            showError('نعــــــــــــــــــــــــــــــــــال');
+            return;
+          }
+
+          return fetch(manifest[entrySlug].json)
+            .then((res) => res.json())
+            .then((entry) => {
+              jnTitleEl.textContent = entry.title || '';
+              jnArticleEl.textContent = entry.articleText || '';
+
+              // References: numbering is written by hand inside each
+              // reference's own "text" field, so we just render them
+              // in order, one per line, linking any that have a "url".
+              jnRefEl.innerHTML = (entry.references || [])
+                .map((ref) => {
+                  const safeText = ref.text || '';
+                  return ref.url
+                    ? `<div class="jn-ref-item"><a href="${ref.url}" target="_blank" rel="noopener">${safeText}</a></div>`
+                    : `<div class="jn-ref-item">${safeText}</div>`;
+                })
+                .join('');
+
+              if (jnEnglishEl) jnEnglishEl.textContent = entry.englishWord || '';
+
+              if (window.jnInitSlider) window.jnInitSlider(entry.images || []);
+
+              document.title = (entry.title ? entry.title + ' | ' : '') + 'الموسوعة الجنانية';
+            });
+        })
+        .catch((err) => {
+          console.error('JananWiki entry load error:', err);
+          showError('نعـــــــــال مقــــــــطّع');
+        });
     })();
   </script>
 
