@@ -1,0 +1,13 @@
+{
+  "title": "الدنــــــداس",
+  "articleText": "Katha Katha Blah Blah Katha Katha Blah Blah",
+  "references": [
+    { "text": "(١) كتاب كذا للإمام الكذاوي صفحة كذا وخمسون", "url": "#" },
+    { "text": "(٢) كتاب النعال صفحة قندرة وسبعين", "url": "" }
+  ],
+  "englishWord": "Dindas bird",
+  "images": [
+    { "src": "JananWiki/Dindas/Dindas.webp", "alt": "Dindas 1" },
+    { "src": "JananWiki/Dindas/Dindas2.webp", "alt": "Dindas 2" }
+  ]
+}

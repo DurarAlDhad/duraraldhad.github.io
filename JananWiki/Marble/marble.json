@@ -1,0 +1,13 @@
+{
+  "title": "الدعبــــــــلة",
+  "articleText": "Katha Katha Blah Blah Katha Katha Blah Blah",
+  "references": [
+    { "text": "(١) كتاب كذا للإمام الكذاوي صفحة كذا وخمسون", "url": "#" },
+    { "text": "(٢) كتاب النعال صفحة قندرة وسبعين", "url": "" }
+  ],
+  "englishWord": "Marble ball",
+  "images": [
+    { "src": "JananWiki/Marble/Marble.webp", "alt": "Marble 1" },
+    { "src": "JananWiki/Marble/Marble2.webp", "alt": "Marble 2" }
+  ]
+}

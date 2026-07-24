@@ -1,0 +1,13 @@
+{
+  "title": "الزبــــــــرد",
+  "articleText": "Katha Katha Blah Blah Katha Katha Blah Blah",
+  "references": [
+    { "text": "(١) كتاب كذا للإمام الكذاوي صفحة كذا وخمسون", "url": "#" },
+    { "text": "(٢) كتاب النعال صفحة قندرة وسبعين", "url": "" }
+  ],
+  "englishWord": "Zibrid coin",
+  "images": [
+    { "src": "JananWiki/Zibrid/Zibrid.webp", "alt": "Zibrid 1" },
+    { "src": "JananWiki/Zibrid/Zibrid2.webp", "alt": "Zibrid 2" }
+  ]
+}

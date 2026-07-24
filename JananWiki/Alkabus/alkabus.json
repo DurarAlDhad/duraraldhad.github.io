@@ -1,0 +1,13 @@
+{
+  "title": "العلكــــــبوس",
+  "articleText": "Katha Katha Blah Blah Katha Katha Blah Blah",
+  "references": [
+    { "text": "(١) كتاب كذا للإمام الكذاوي صفحة كذا وخمسون", "url": "#" },
+    { "text": "(٢) كتاب النعال صفحة قندرة وسبعين", "url": "" }
+  ],
+  "englishWord": "Alkabus, Alkabus bug",
+  "images": [
+    { "src": "JananWiki/Alkabus/Alkabus.webp", "alt": "Alkabus 1" },
+    { "src": "JananWiki/Alkabus/Alkabus2.webp", "alt": "Alkabus 2" }
+  ]
+}

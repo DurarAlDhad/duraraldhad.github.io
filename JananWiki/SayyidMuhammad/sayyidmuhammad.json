@@ -1,0 +1,13 @@
+{
+  "title": "السيــد محــــــــمد",
+  "articleText": "Katha Katha Blah Blah Katha Katha Blah Blah",
+  "references": [
+    { "text": "(١) كتاب كذا للإمام الكذاوي صفحة كذا وخمسون", "url": "#" },
+    { "text": "(٢) كتاب النعال صفحة قندرة وسبعين", "url": "" }
+  ],
+  "englishWord": "Sayyid Muhammad, Master Muhammad",
+  "images": [
+    { "src": "JananWiki/SayyidMuhammad/SayyidMuhammad.webp", "alt": "Sayyid Muhammad 1" },
+    { "src": "JananWiki/SayyidMuhammad/SayyidMuhammad2.webp", "alt": "Sayyid Muhammad 2" }
+  ]
+}
