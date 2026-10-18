@@ -1,2 +1,2 @@
-# duraraldhad.github.io
-Personal Publisher House by Imam Kantari (Contry XE), for the bountful book Lisan Muaktnir.
+# Migthy Library of Dhad
+Say not but Imam Kantari Qad Qala Qawlan Maqulan.
