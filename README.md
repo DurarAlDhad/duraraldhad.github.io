@@ -1,2 +1,2 @@
 # Migthy Library of Dhad
-Say not but Imam Kantari Qad Qala Qawlan Maqulan.
+Qad Qala Qawlan Maqulan La Yaqulu Bihi Illa Mani sta'sadoo alaa Luuothin bihi.
